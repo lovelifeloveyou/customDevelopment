@@ -1,4 +1,5 @@
-let server = 'https://vsryunesstest.dalongyun.com'
+// let server = 'https://vsryunesstest.dalongyun.com'
+let server = 'https://vsryunesspre.dalongyun.com'
 
 
 const config = {

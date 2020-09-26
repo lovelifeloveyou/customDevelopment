@@ -263,6 +263,7 @@
           @clk_cus_close_sidebar="clk_cus_close_sidebar"
           @showDragBall="showDragBall"
           @showNavBar="emitShowNavBar"
+          @updateElement="updateElement"
         >
         </cloudComputerComponent>
 
@@ -1607,6 +1608,7 @@ export default {
         // 首次进入适配
         this.isVertical = false;
         $(".dialog-start").hide();
+        console.log('根节点 html font-size大小', document.getElementsByTagName('html')[0].style.fontSize)
       } else {
         this.isHorizontalScreen = false;
         //this.tracelog("竖屏");
@@ -1624,6 +1626,7 @@ export default {
         };
         // 首次进入适配
         this.isVertical = true;
+        console.log('根节点 html font-size大小', document.getElementsByTagName('html')[0].style.fontSize)
       }
     },
 

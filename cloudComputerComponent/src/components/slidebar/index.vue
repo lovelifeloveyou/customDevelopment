@@ -1,6 +1,5 @@
 <template>
   <div class="slide" v-show="isSidwbar">
-  <!-- <div class="slide" v-show="showMenu"> -->
     <div class="bars_wrap" v-show="slidebarShow">
       <div id="silder" class="content">
         <div class="contentBox">
@@ -175,8 +174,7 @@ export default {
       },
       timer: "",
       helpFist: true,
-      officalFist: true,
-      showMenu: true
+      officalFist: true
     };
   },
   components: {
@@ -256,7 +254,6 @@ export default {
     showText() {
       // 打开文字键盘
       this.isHelp = false;
-      this.showMenu = false
       this.$emit("showKey");
     },
     clickBar(index) {
