@@ -4,7 +4,7 @@
     <!-- 菜单栏组件 -->
     <slidebar-item
       :isSidwbar="isSidwbar"
-      :screen="screen"
+      :screen="screenInfomation"
       :showFullScreenSwitch="showFullScreenSwitch"
       :firstLoad="firstLoad"
       @showKey="showKey"
@@ -47,7 +47,7 @@
 
     <!-- 自定义键盘组件 -->
     <customize-item
-      :screen="screen"
+      :screen="screenInfomation"
       :universal="universal"
       :Showcustomize="Showcustomize"
       :customize_editBtn_data="customize_editBtn_data"
@@ -65,7 +65,7 @@
       :key="index"
       :keymsg="item"
       :title="index"
-      :screen="screen"
+      :screen="screenInfomation"
       :isHorizontalScreen="isHorizontalScreen"
       :dragBoxShowSidebar="dragBoxShowSidebar"
       :secondMenu="secondMenu"
@@ -85,7 +85,7 @@
     <!-- 官方虚拟键盘组件 -->
     <officialKeyboard
       :officialKeyboardFlag="officialKeyboardFlag"
-      :screen="screen"
+      :screen="screenInfomation"
       @exitOfficialKeyboard="exitKey"
       @transferData="transferData"
       @returnData="returnData"
@@ -142,7 +142,17 @@ export default {
       keyboard_index: null,
       officialKeyboardFlag: "",
       mouseSpeed: 1,
-      isNetshow: false
+      isNetshow: false,
+      screenInfomation: {
+        videosWidth: 0,
+        videosHeight: 0,
+        totalWidth: 0,
+        totalHeight: 0,
+        rate: 1,
+        top: 0,
+        left: 0
+      },
+      isHorizontalScreen: false
     }
   },
   components: {
@@ -156,7 +166,6 @@ export default {
   props: [
     // 自定义菜单相关
     // 'isSidwbar', // 本地调试暂时隐藏
-    'screen',
     'showFullScreenSwitch',
     'firstLoad',
     // 网络监测相关
@@ -168,7 +177,6 @@ export default {
     'colorB',
     // 创建自定义键盘相关
     'universal',
-    'isHorizontalScreen',
     // 操作自定义键盘相关
     'dragBoxShowSidebar'
   ],
@@ -191,7 +199,7 @@ export default {
     ]),
     secondMenu() {
       return this.isShowMyborad || this.keyShow;
-    },
+    }
   },
   watch: {
     itemList() {
@@ -204,7 +212,7 @@ export default {
       );
       localStorage.setItem("rollerInfo", JSON.stringify(rollerInfo));
       localStorage.setItem("directionInfo", JSON.stringify(directionInfo));
-    },
+    }
   },
   provide() {
     return {
@@ -469,123 +477,232 @@ export default {
     // updateElement (element, status) {
     //   this.$emit('updateElement', element, status)
     // }
-  },
-  // 自定义键盘对应的按键信息
-  btnSelf(item, index) {
-    this.setCopyItemList(
-      Object.assign(...this.copyItemList, { myselfKeyboardIndex: index })
-    );
-    this.keyboard_index = index;
-    this.sub_index = undefined;
-    this.saveCustomKeyboard.item = tools.deepClone(item);
-    this.saveCustomKeyboard.index = index;
-    this.setItemList([]);
-    this.setEditKeyboard(true);
-    this.setClickEditKeyboard(false);
-    this.setCreateClick(false);
-    this.setLevelShow(true);
-    this.isSidwbar = false;
-    this.$emit('changeSideBarShow', false)
-    this.show_customize_div = true;
-    this.customize_editBtn_data = item;
-    if (this.showNavBar) {
-      this.setShowNavBar(false);
-    }
-    this.keyShow = false;
-    this.officialKeyboardFlag = "";
-    let keyInfo = "";
-    if (
-      Number(item.width) === this.screen.videosWidth &&
-      Number(item.height) === this.screen.videosHeight
-    ) {
-      keyInfo = item.key_info;
-    } else {
-      keyInfo =
-        Object.prototype.toString.call(item.key_info) === "[object String]"
-          ? JSON.parse(item.key_info)
-          : item.key_info;
-      keyInfo = keyInfo.map((ele, index) => {
-        return {
-          ...ele,
-          id: ele.id ? ele.id : index,
-          keyWidth:
-            (Number(ele.keyWidth) / Number(item.width)) *
-            this.screen.videosWidth,
-          keyHeight:
-            (Number(ele.keyWidth) / Number(item.width)) *
-            this.screen.videosWidth,
-          keyLeft:
-            (Number(ele.keyLeft) / Number(item.width)) *
-            this.screen.videosWidth,
-          keyTop:
-            (Number(ele.keyTop) / Number(item.height)) *
-            this.screen.videosHeight,
-        };
-      });
-    }
-    setTimeout(() => {
-      this.setItemList(
-        Object.prototype.toString.call(keyInfo) === "[object String]"
-          ? JSON.parse(keyInfo)
-          : keyInfo
+    // 自定义键盘对应的按键信息
+    btnSelf(item, index) {
+      this.setCopyItemList(
+        Object.assign(...this.copyItemList, { myselfKeyboardIndex: index })
       );
-    });
-    // 打开自定义键盘,关闭文字键盘
-    this.panel = false;
-    this.allKey = false;
-    this.setHideShowCourse(true);
-    this.setCurrentTutorial(false);
-    this.setAddNewCustomizeBtn(false);
-    let eventInfo = {
-      keyboard_type: "0",
-      keyboard_type_name: item.key_name,
-      keyboard_type_position: "3",
-    };
-    this.$record("virturl_keyboard_list_selection", eventInfo);
-  },
-  keySort(item, index) {
-    console.log("官方键盘", item, index);
-    this.quitOfficialKeyboard = false;
-    this.saveOfficialKeyboard.item = item;
-    this.saveOfficialKeyboard.index = index;
-    this.officialKeyboardFlag = item.key_id;
-    // this.officialKeyboardFlag = 'FIFAKeys';
-    // this.keyLists.forEach(function (item) {
-    //   item.isShow = false;
-    // });
-    // if (this.keyLists.find((ele) => ele.key === item.key)) {
-    //   this.keyLists.find((ele) => ele.key === item.key).isShow = true;
-    // }
-    // 重叠
-    this.show_customize_div = false;
-    // 问题34
-    this.sub_index = index;
-    this.keyboard_index = null;
-    this.setCopyItemList(
-      Object.assign({ myselfKeyboardIndex: null }, { myselfKeyboardArr: [] })
-    );
-    this.isBtn = 2;
-    this.keyShow = true;
-    this.isSidwbar = false;
-    this.$emit('changeSideBarShow', false)
-    this.isSub = false;
-    // forEach
+      this.keyboard_index = index;
+      this.sub_index = undefined;
+      this.saveCustomKeyboard.item = tools.deepClone(item);
+      this.saveCustomKeyboard.index = index;
+      this.setItemList([]);
+      this.setEditKeyboard(true);
+      this.setClickEditKeyboard(false);
+      this.setCreateClick(false);
+      this.setLevelShow(true);
+      this.isSidwbar = false;
+      this.$emit('changeSideBarShow', false)
+      this.show_customize_div = true;
+      this.customize_editBtn_data = item;
+      if (this.showNavBar) {
+        this.setShowNavBar(false);
+      }
+      this.keyShow = false;
+      this.officialKeyboardFlag = "";
+      let keyInfo = "";
+      if (
+        Number(item.width) === this.screen.videosWidth &&
+        Number(item.height) === this.screen.videosHeight
+      ) {
+        keyInfo = item.key_info;
+      } else {
+        keyInfo =
+          Object.prototype.toString.call(item.key_info) === "[object String]"
+            ? JSON.parse(item.key_info)
+            : item.key_info;
+        keyInfo = keyInfo.map((ele, index) => {
+          return {
+            ...ele,
+            id: ele.id ? ele.id : index,
+            keyWidth:
+              (Number(ele.keyWidth) / Number(item.width)) *
+              this.screen.videosWidth,
+            keyHeight:
+              (Number(ele.keyWidth) / Number(item.width)) *
+              this.screen.videosWidth,
+            keyLeft:
+              (Number(ele.keyLeft) / Number(item.width)) *
+              this.screen.videosWidth,
+            keyTop:
+              (Number(ele.keyTop) / Number(item.height)) *
+              this.screen.videosHeight,
+          };
+        });
+      }
+      setTimeout(() => {
+        this.setItemList(
+          Object.prototype.toString.call(keyInfo) === "[object String]"
+            ? JSON.parse(keyInfo)
+            : keyInfo
+        );
+      });
+      // 打开自定义键盘,关闭文字键盘
+      this.panel = false;
+      this.allKey = false;
+      this.setHideShowCourse(true);
+      this.setCurrentTutorial(false);
+      this.setAddNewCustomizeBtn(false);
+      let eventInfo = {
+        keyboard_type: "0",
+        keyboard_type_name: item.key_name,
+        keyboard_type_position: "3",
+      };
+      this.$record("virturl_keyboard_list_selection", eventInfo);
+    },
+    keySort(item, index) {
+      console.log("官方键盘", item, index);
+      this.quitOfficialKeyboard = false;
+      this.saveOfficialKeyboard.item = item;
+      this.saveOfficialKeyboard.index = index;
+      this.officialKeyboardFlag = item.key_id;
+      // this.officialKeyboardFlag = 'FIFAKeys';
+      // this.keyLists.forEach(function (item) {
+      //   item.isShow = false;
+      // });
+      // if (this.keyLists.find((ele) => ele.key === item.key)) {
+      //   this.keyLists.find((ele) => ele.key === item.key).isShow = true;
+      // }
+      // 重叠
+      this.show_customize_div = false;
+      // 问题34
+      this.sub_index = index;
+      this.keyboard_index = null;
+      this.setCopyItemList(
+        Object.assign({ myselfKeyboardIndex: null }, { myselfKeyboardArr: [] })
+      );
+      this.isBtn = 2;
+      this.keyShow = true;
+      this.isSidwbar = false;
+      this.$emit('changeSideBarShow', false)
+      this.isSub = false;
+      // forEach
 
-    // 问题 22
-    // if (this.panel || this.allKey) {
-    this.panel = false;
-    this.allKey = false;
-    // }
-    this.setItemList([]);
-    this.setShowNavBar(false);
-    this.exitCustomEdit = true;
-    let eventInfo = {
-      keyboard_type: "-1",
-      keyboard_type_position: "1",
-      keyboard_type_name: item.key,
-    };
-    this.$record("virturl_keyboard_list_selection", eventInfo);
+      // 问题 22
+      // if (this.panel || this.allKey) {
+      this.panel = false;
+      this.allKey = false;
+      // }
+      this.setItemList([]);
+      this.setShowNavBar(false);
+      this.exitCustomEdit = true;
+      let eventInfo = {
+        keyboard_type: "-1",
+        keyboard_type_position: "1",
+        keyboard_type_name: item.key,
+      };
+      this.$record("virturl_keyboard_list_selection", eventInfo);
+    },
+    renderResize() {
+      // 判断横竖屏
+      let width = document.documentElement.clientWidth;
+      let height = document.documentElement.clientHeight;
+      this.rotate()
+      if (width > height) {
+        this.isHorizontalScreen = true;
+      } else {
+        this.isHorizontalScreen = false;
+      }
+    },
+    adaptScreenInfomation(x, y) {
+      let a = x;
+      let b = y;
+      let c = 0;
+      b -= 10;
+      if ((b * 16) / 9 > a) {
+        this.adaptScreenInfomation(a, b);
+      } else {
+        a = (b * 16) / 9;
+        if (this.fullScreenShow) {
+          this.screen.videosWidth = a;
+          this.screen.videosHeight = b;
+        } else {
+          this.screen.videosWidth = a;
+          this.screen.videosHeight = b;
+        }
+      }
+    },
+    rotate() {
+      this.screenInfomation.totalWidth =
+        window.screen.availWidth > window.screen.availHeight
+          ? window.screen.availWidth
+          : window.screen.availHeight;
+      this.screenInfomation.totalHeight =
+        window.screen.availWidth < window.screen.availHeight
+          ? window.screen.availWidth
+          : window.screen.availHeight;
+
+      // 首先判断屏幕是否本身就是16:9的比例，若是则默认全屏显示，且不显示全屏显示，若不是该比例则显示
+      if (
+        Number(
+          (this.screenInfomation.totalWidth / this.screenInfomation.totalHeight).toFixed(1)
+        ) === 1.8
+      ) {
+        this.screenInfomation.rate =
+          (this.screenInfomation.totalHeight * 16) / (9 * this.screenInfomation.totalWidth);
+        this.screenInfomation.top = 0;
+        this.screenInfomation.left =
+          ((1 - this.screenInfomation.rate) / 2) * this.screenInfomation.totalWidth;
+        this.screenInfomation.videosWidth = this.screenInfomation.rate * this.screenInfomation.totalWidth;
+        this.screenInfomation.videosHeight = this.screenInfomation.totalHeight;
+      } else {
+        if (this.fullScreenShow) {
+          if ((this.screenInfomation.totalHeight * 16) / 9 <= this.screenInfomation.totalWidth) {
+            this.screenInfomation.rate =
+              (this.screenInfomation.totalHeight * 16) / (9 * this.screenInfomation.totalWidth);
+            this.screenInfomation.top = 0;
+            this.screenInfomation.left =
+              ((1 - this.screenInfomation.rate) / 2) * this.screenInfomation.totalWidth - 42;
+            this.screenInfomation.videosWidth =
+              this.screenInfomation.rate * this.screenInfomation.totalWidth + 84;
+            this.screenInfomation.videosHeight = this.screenInfomation.totalHeight;
+            this.screenInfomation.changeRatioHeight = (this.screenInfomation.videosWidth / 16) * 9;
+          } else {
+            if ((this.screenInfomation.totalWidth * 9) / 16 <= this.screenInfomation.totalHeight) {
+              this.screenInfomation.videosWidth = this.screenInfomation.totalWidth;
+              this.screenInfomation.videosHeight =
+                (this.screenInfomation.totalWidth * 9) / 16 + 200;
+            } else {
+              this.adaptScreenInfomation(this.screenInfomation.totalWidth, this.screenInfomation.totalHeight);
+            }
+            this.screenInfomation.top =
+              (this.screenInfomation.totalHeight - this.screenInfomation.videosHeight) / 2;
+            this.screenInfomation.left =
+              (this.screenInfomation.totalWidth - this.screenInfomation.videosWidth) / 2;
+          }
+        } else {
+          if ((this.screenInfomation.totalHeight * 16) / 9 <= this.screenInfomation.totalWidth) {
+            this.screenInfomation.rate =
+              (this.screenInfomation.totalHeight * 16) / (9 * this.screenInfomation.totalWidth);
+            this.screenInfomation.top = 0;
+            this.screenInfomation.left =
+              ((1 - this.screenInfomation.rate) / 2) * this.screenInfomation.totalWidth;
+            this.screenInfomation.videosWidth = this.screenInfomation.rate * this.screenInfomation.totalWidth;
+            this.screenInfomation.videosHeight = this.screenInfomation.totalHeight;
+          } else {
+            if ((this.screenInfomation.totalWidth * 9) / 16 <= this.screenInfomation.totalHeight) {
+              this.screenInfomation.videosWidth = this.screenInfomation.totalWidth;
+              this.screenInfomation.videosHeight = (this.screenInfomation.totalWidth * 9) / 16;
+            } else {
+              this.adaptScreenInfomation(this.screenInfomation.totalWidth, this.screenInfomation.totalHeight);
+            }
+            this.screenInfomation.top =
+              (this.screenInfomation.totalHeight - this.screenInfomation.videosHeight) / 2;
+            this.screenInfomation.left =
+              (this.screenInfomation.totalWidth - this.screenInfomation.videosWidth) / 2;
+          }
+        }
+      }
+      localStorage.setItem("screenInfomation", JSON.stringify(this.screenInfomation));
+    }
   },
+  created () {
+    this.renderResize()
+  },
+  mounted () {
+    // 监听屏幕事件
+    window.addEventListener("resize", this.renderResize, false);
+  }
 }
 </script>
 

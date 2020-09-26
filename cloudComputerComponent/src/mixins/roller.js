@@ -5,7 +5,6 @@ export default {
   data () {
     return {
       btn: 2,
-      isVertical: true,
       width: 666.65,
       keyNum: 0,
       // 半径

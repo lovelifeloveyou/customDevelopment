@@ -251,7 +251,7 @@ export default {
     // this.keyboards=this.keyLists;
     this.getOfficeKeyboardList();
     // this.getCustomizeKeyboardLists()
-    let screen = JSON.parse(localStorage.getItem("screen"));
+    let screen = JSON.parse(localStorage.getItem("screenInfomation"));
     this.full.width = screen.videosWidth + "px";
     this.full.height = screen.videosHeight + "px";
     this.scale.width = screen.videosWidth + 1 + "px";
@@ -467,7 +467,9 @@ export default {
         this.keyInfoHeight = JSON.parse(this.keyboards[index].height);
       } else {
         let sendData = { key_id: item.key_id };
+        console.log('sendData', sendData)
         let res = await this.getkeyInfo(sendData);
+        console.log('res', res)
         this.keyInfo = res;
         console.log("键盘数据111", this.keyInfo);
       }

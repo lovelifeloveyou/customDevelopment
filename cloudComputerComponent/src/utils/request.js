@@ -61,18 +61,18 @@ axios.interceptors.response.use(response => {
 export default {
   get: (url, params) => {
     console.log('23',url,params)
-    if (params !== undefined) {
-      for (var key in params) {
-        if (params[key] !== undefined){
-          if (Object.prototype.toString.call(params[key]) === "[object Date]") {
-            params[key] = params[key].toISOString()
-          }
-        } else {
-          params[key] = ''
-        }
-      }
-    }
-    params = tools.paramsToUrl(params)
+    // if (params !== undefined) {
+    //   for (var key in params) {
+    //     if (params[key] !== undefined){
+    //       if (Object.prototype.toString.call(params[key]) === "[object Date]") {
+    //         params[key] = params[key].toISOString()
+    //       }
+    //     } else {
+    //       params[key] = ''
+    //     }
+    //   }
+    // }
+    // params = tools.paramsToUrl(params)
     url += params
     return axios({
       url: url,
