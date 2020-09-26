@@ -104,7 +104,7 @@ import customize from '@c/customize/index'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'cloudComputerComponent',
+  name: 'customDevelopment',
   data () {
     return {
 

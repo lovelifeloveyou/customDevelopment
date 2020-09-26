@@ -1,15 +1,15 @@
 {
-  "name": "cloud-computer-component",
-  "version": "0.1.9",
+  "name": "custom-development",
+  "version": "0.1.0",
   "private": false,
-  "main": "dist/cloud-computer-component.umd.min.js",
+  "main": "dist/custom-development.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve --mode dev",
     "build-test": "vue-cli-service build --mode test",
     "build-pre": "vue-cli-service build --mode pre",
     "build": "vue-cli-service build --mode production",
-    "build-dev-package": "vue-cli-service build --mode dev --target lib --name cloud-computer-component ./src/index.js",
-    "build-package": "vue-cli-service build --target lib --name cloud-computer-component ./src/index.js",
+    "build-dev-package": "vue-cli-service build --mode dev --target lib --name custom-development ./src/index.js",
+    "build-package": "vue-cli-service build --target lib --name custom-development ./src/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
