@@ -492,24 +492,7 @@ export default {
       rate = this.keyInfoHeight / 217;
       // console.log('比例',rate)
       return px / rate + "px";
-    },
-    delKeyboard() {
-      console.log(this.choosedKeyId, "choosedKeyId");
-      this.$dialog.confirm({
-        title: "提示",
-        message: "是否确认要删除该键位",
-        confirmButtonText: "是",
-        confirmButtonColor: "#3DA0FE",
-        cancelButtonText: "否",
-        cancelButtonColor: "#3DA0FE",
-      })
-        .then(() => {
-          // on confirm
-        })
-        .catch(() => {
-          // on cancel
-        });
-    },
+    }
   },
 };
 </script>

@@ -45,6 +45,7 @@ const state = {
 	saveOfficialKeyboardFlag: '',
 	fullScreenShow: true,
 	officialKeyInfo:[],
+	popupNav: ''
 }
 
 // 计算后返回
@@ -75,7 +76,8 @@ const getters = {
 	mouseMode: state => state.mouseMode,
 	saveOfficialKeyboardFlag: state => state.saveOfficialKeyboardFlag,
 	fullScreenShow: state => state.fullScreenShow,
-	officialKeyInfo:state=>state.officialKeyInfo
+	officialKeyInfo:state=>state.officialKeyInfo,
+	popupNav: state => state.popupNav
 }
 
 // 调用api，异步请求
@@ -258,8 +260,11 @@ const mutations = {
 	setFullScreenShow (state, data) {
 		state.fullScreenShow = data
 	},
-	setKeyInfo(state,data){
-		state.officialKeyInfo=data
+	setKeyInfo (state,data) {
+		state.officialKeyInfo = data
+	},
+	setPopupNav (state, data) {
+		state.popupNav = data
 	}
 }
 

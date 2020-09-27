@@ -127,7 +127,6 @@ export default {
       showDrag: false,
       needShowNavBar: false,
       needIconShow: false,
-      popupNav: "",
       exitCustomEdit: false,
       saveOfficialKeyboard: {
         item: "",
@@ -197,6 +196,7 @@ export default {
       "mouseMode",
       "saveOfficialKeyboardFlag",
       "fullScreenShow",
+      "popupNav"
     ]),
     secondMenu() {
       return this.isShowMyborad || this.keyShow;
@@ -248,6 +248,7 @@ export default {
       "setMouseMode",
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
+      "setPopupNav"
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {
@@ -283,7 +284,7 @@ export default {
       this.panel = true;
       if (this.editKeyboard && !this.clickEditKeyboard) return;
       if (this.needShowNavBar || this.needIconShow) {
-        this.popupNav = "hide";
+        this.setPopupNav("hide");
       }
       // let eventInfo = {
       //   keyboard_type: "-2",

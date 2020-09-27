@@ -479,6 +479,7 @@ export default {
       "mouseMode",
       "saveOfficialKeyboardFlag",
       "fullScreenShow",
+      "popupNav"
     ]),
     secondMenu() {
       return this.isShowMyborad || this.keyShow;
@@ -929,7 +930,6 @@ export default {
       firstClick: true,
       needShowNavBar: false,
       needIconShow: false,
-      popupNav: "",
       exitCustomEdit: false,
       saveOfficialKeyboard: {
         item: "",
@@ -1267,6 +1267,7 @@ export default {
       "setMouseMode",
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
+      "setPopupNav"
     ]),
     changemousespeed(speed) {
       this.mouseSpeed = speed;
@@ -2383,7 +2384,7 @@ export default {
       this.panel = true;
       if (this.editKeyboard && !this.clickEditKeyboard) return;
       if (this.needShowNavBar || this.needIconShow) {
-        this.popupNav = "hide";
+        this.setPopupNav("hide");
       }
       let eventInfo = {
         keyboard_type: "-2",
@@ -3412,13 +3413,13 @@ export default {
         }
         if (this.editKeyboard && !this.clickEditKeyboard) return;
         if (this.needShowNavBar) {
-          this.popupNav = "all";
+          this.setPopupNav("all");
         }
         if (this.needIconShow) {
-          this.popupNav = "iconShow";
+          this.setPopupNav("iconShow");
         }
         if (!this.needShowNavBar && !this.needShowNavBar) {
-          this.popupNav = "hide";
+          this.setPopupNav("hide");
         }
       } else if (which.key === "@") {
         this.keySignDown(which);
@@ -3791,13 +3792,13 @@ export default {
           }
           if (this.editKeyboard && !this.clickEditKeyboard) return;
           if (this.needShowNavBar) {
-            this.popupNav = "all";
+            this.setPopupNav("all");
           }
           if (this.needIconShow) {
-            this.popupNav = "iconShow";
+            this.setPopupNav("iconShow");
           }
           if (!this.needShowNavBar && !this.needShowNavBar) {
-            this.popupNav = "hide";
+            this.setPopupNav("hide");
           }
           return;
         }
