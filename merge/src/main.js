@@ -20,6 +20,7 @@ import loading from './components/loading'
 import Direction from './components/direction'
 import common from './directives/common'
 import cloudComputerComponent from 'cloud-computer-component'
+import customDevelopment from 'custom-development'
 import {
   Tab,
   Tabs,
@@ -48,6 +49,7 @@ Vue.use(VueHammer)
 Vue.use(gesture)
 Vue.use(VueCookies)
 Vue.use(cloudComputerComponent)
+Vue.use(customDevelopment)
 
 // let vConsole = new Vconsole()
 // Vue.use(vConsole)
