@@ -719,7 +719,7 @@ export default {
 	color: #00ffd8;
 	background-color: #161f19;
 	border: 1.7px solid #0e4a55;
-	z-index: 99999;
+	z-index: 1000;
 	font-size: 26.7px;
 }
 .editBtn {
