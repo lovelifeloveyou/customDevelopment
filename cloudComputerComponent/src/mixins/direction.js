@@ -52,7 +52,7 @@ export default {
   watch: {
     rollerInfoData: {
       handler () {
-        if (Object.keys(this.rollerInfoData).length) {
+        if (this.rollerInfoData && Object.keys(this.rollerInfoData).length) {
           this.directionrollerInfo = this.rollerInfoData
           this.cartView()
         }
