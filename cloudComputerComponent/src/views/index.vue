@@ -100,6 +100,7 @@ import textKeyboard from '@c/textKeyboard/index'
 import officialKeyboard from '@c/officialKeyboard/index'
 import dragBox from '@c/customize/drag/dragBox'
 import customize from '@c/customize/index'
+import tools from "@/utils/tools"
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
@@ -480,7 +481,7 @@ export default {
     // 自定义键盘对应的按键信息
     btnSelf(item, index) {
       this.setCopyItemList(
-        Object.assign(...this.copyItemList, { myselfKeyboardIndex: index })
+        Object.assign(this.copyItemList, { myselfKeyboardIndex: index })
       );
       this.keyboard_index = index;
       this.sub_index = undefined;
@@ -502,8 +503,8 @@ export default {
       this.officialKeyboardFlag = "";
       let keyInfo = "";
       if (
-        Number(item.width) === this.screen.videosWidth &&
-        Number(item.height) === this.screen.videosHeight
+        Number(item.width) === this.screenInfomation.videosWidth &&
+        Number(item.height) === this.screenInfomation.videosHeight
       ) {
         keyInfo = item.key_info;
       } else {
@@ -517,16 +518,16 @@ export default {
             id: ele.id ? ele.id : index,
             keyWidth:
               (Number(ele.keyWidth) / Number(item.width)) *
-              this.screen.videosWidth,
+              this.screenInfomation.videosWidth,
             keyHeight:
               (Number(ele.keyWidth) / Number(item.width)) *
-              this.screen.videosWidth,
+              this.screenInfomation.videosWidth,
             keyLeft:
               (Number(ele.keyLeft) / Number(item.width)) *
-              this.screen.videosWidth,
+              this.screenInfomation.videosWidth,
             keyTop:
               (Number(ele.keyTop) / Number(item.height)) *
-              this.screen.videosHeight,
+              this.screenInfomation.videosHeight,
           };
         });
       }
@@ -613,11 +614,11 @@ export default {
       } else {
         a = (b * 16) / 9;
         if (this.fullScreenShow) {
-          this.screen.videosWidth = a;
-          this.screen.videosHeight = b;
+          this.screenInfomation.videosWidth = a;
+          this.screenInfomation.videosHeight = b;
         } else {
-          this.screen.videosWidth = a;
-          this.screen.videosHeight = b;
+          this.screenInfomation.videosWidth = a;
+          this.screenInfomation.videosHeight = b;
         }
       }
     },
