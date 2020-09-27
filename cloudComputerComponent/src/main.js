@@ -8,6 +8,7 @@ import 'vant/lib/index.css'
 import httpClient from './utils/request'
 import config from './config/index'
 import loading from './components/loading'
+import { VueHammer } from './directives/hammerTouch/touchvue.js'
 
 import {
   Slider,
@@ -26,6 +27,8 @@ import {
 } from 'vant'
 
 Vue.use(Slider).use(Tab).use(Tabs).use(Overlay).use(Button).use(Col).use(Row).use(NavBar).use(Dialog).use(Toast).use(Field).use(List).use(Icon)
+
+Vue.use(VueHammer)
 
 Vue.config.productionTip = false
 Vue.prototype.$httpClient = httpClient
