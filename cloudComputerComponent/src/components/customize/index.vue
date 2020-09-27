@@ -475,10 +475,10 @@ export default {
             this.$toast(res.msg);
             this.getCustomizeKeyboardLists();
           }, 1000);
-          let eventInfo = {
-          keyboard_del_position: "1",
-          };
-          this.$record("virturl_keyboard_list_del",eventInfo)
+          // let eventInfo = {
+          // keyboard_del_position: "1",
+          // };
+          // this.$record("virturl_keyboard_list_del",eventInfo)
         })
         .catch(error => {
           this.$loading.close();

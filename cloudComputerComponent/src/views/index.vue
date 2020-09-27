@@ -284,12 +284,12 @@ export default {
       if (this.needShowNavBar || this.needIconShow) {
         this.popupNav = "hide";
       }
-      let eventInfo = {
-        keyboard_type: "-2",
-        keyboard_type_name: "文字键盘",
-        keyboard_type_position: "1",
-      };
-      this.$record("virturl_keyboard_list_selection", eventInfo);
+      // let eventInfo = {
+      //   keyboard_type: "-2",
+      //   keyboard_type_name: "文字键盘",
+      //   keyboard_type_position: "1",
+      // };
+      // this.$record("virturl_keyboard_list_selection", eventInfo);
     },
     // showKey () {
     //   this.$emit('showKey')
@@ -331,10 +331,10 @@ export default {
       this.setCurrentTutorial(false);
       this.sub_index = undefined;
       this.keyboard_index = null;
-      let eventInfo = {
-        virturl_keyboard_event_position: "1",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
+      // let eventInfo = {
+      //   virturl_keyboard_event_position: "1",
+      // };
+      // this.$record("virturl_keyboard_event", eventInfo);
     },
     // createClick () {
     //   this.$emit('createClick')
@@ -376,10 +376,10 @@ export default {
       this.$emit('changeSideBarShow', false)
       this.setShowNavBar(true);
       this.setLevelShow(false);
-      let eventInfo = {
-        virturl_keyboard_event_position: "2",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
+      // let eventInfo = {
+      //   virturl_keyboard_event_position: "2",
+      // };
+      // this.$record("virturl_keyboard_event", eventInfo);
     },
     // cus_editFn () {
     //   this.$emit('cusEditFn')
@@ -396,10 +396,10 @@ export default {
         saveFlag: false,
         itemList: "",
       });
-      let eventInfo = {
-        virturl_keyboard_event_position: "5",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
+      // let eventInfo = {
+      //   virturl_keyboard_event_position: "5",
+      // };
+      // this.$record("virturl_keyboard_event", eventInfo);
     },
     // cus_exitFn () {
     //   this.$emit('cusExitFn')
@@ -414,10 +414,10 @@ export default {
       this.controlCode = 0;
       this.mouseClickFlag = 0;
       this.sub_index = undefined;
-      let eventInfo = {
-        virturl_keyboard_event_position: "5",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
+      // let eventInfo = {
+      //   virturl_keyboard_event_position: "5",
+      // };
+      // this.$record("virturl_keyboard_event", eventInfo);
     },
     // exitOfficialKeyboard () {
     //   this.$emit('exitOfficialKeyboard')
@@ -543,15 +543,14 @@ export default {
       this.setHideShowCourse(true);
       this.setCurrentTutorial(false);
       this.setAddNewCustomizeBtn(false);
-      let eventInfo = {
-        keyboard_type: "0",
-        keyboard_type_name: item.key_name,
-        keyboard_type_position: "3",
-      };
-      this.$record("virturl_keyboard_list_selection", eventInfo);
+      // let eventInfo = {
+      //   keyboard_type: "0",
+      //   keyboard_type_name: item.key_name,
+      //   keyboard_type_position: "3",
+      // };
+      // this.$record("virturl_keyboard_list_selection", eventInfo);
     },
     keySort(item, index) {
-      console.log("官方键盘", item, index);
       this.quitOfficialKeyboard = false;
       this.saveOfficialKeyboard.item = item;
       this.saveOfficialKeyboard.index = index;
@@ -586,12 +585,12 @@ export default {
       this.setItemList([]);
       this.setShowNavBar(false);
       this.exitCustomEdit = true;
-      let eventInfo = {
-        keyboard_type: "-1",
-        keyboard_type_position: "1",
-        keyboard_type_name: item.key,
-      };
-      this.$record("virturl_keyboard_list_selection", eventInfo);
+      // let eventInfo = {
+      //   keyboard_type: "-1",
+      //   keyboard_type_position: "1",
+      //   keyboard_type_name: item.key,
+      // };
+      // this.$record("virturl_keyboard_list_selection", eventInfo);
     },
     renderResize() {
       // 判断横竖屏
