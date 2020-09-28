@@ -120,6 +120,7 @@
       v-if="keyboardListShow"
       @goBack="goBack"
       @createClick="createClick"
+      @sendDataBuriedPoint="sendDataBuriedPoint"
     />
   </div>
 </template>
@@ -234,6 +235,9 @@ export default {
     this.getUseInfo();
   },
   methods: {
+    sendDataBuriedPoint (name, data) {
+      this.$emit('sendDataBuriedPoint', name, data)
+    },
     getTop(e) {
       var offset = e.offsetTop;
       if (e.offsetParent != null) offset += getTop(e.offsetParent);

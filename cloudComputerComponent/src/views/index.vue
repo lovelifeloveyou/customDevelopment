@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-show="false" class="floatBall" @touchstart="showMenu">悬浮球</button>
+    <button v-show="true" class="floatBall" @touchstart="showMenu">悬浮球</button>
     <!-- 菜单栏组件 -->
     <slidebar-item
       :isSidwbar="isSidwbar"
@@ -16,6 +16,7 @@
       @changeNet="changeNet"
       @showSidebar="showSidebar"
       @showFullScreen="showFullScreen"
+      @sendDataBuriedPoint="sendDataBuriedPoint"
     >
     </slidebar-item>
 
@@ -63,6 +64,7 @@
       @Showcustomize_son="Showcustomize_son"
       @clk_cus_close_sidebar="clk_cus_close_sidebar"
       @showNavBar="emitShowNavBar"
+      @sendDataBuriedPoint="sendDataBuriedPoint"
     >
     </customize-item>
     <dragBox-item
@@ -112,7 +114,7 @@ export default {
   name: 'customDevelopment',
   data () {
     return {
-      // isSidwbar: false, // 本地开发调试
+      isSidwbar: false, // 本地开发调试
       customize_editBtn_data: {},
       show_customize_div: false,
       Showcustomize: 1,
@@ -336,7 +338,7 @@ export default {
   },
   props: [
     // 自定义菜单相关
-    'isSidwbar', // 本地调试暂时隐藏
+    // 'isSidwbar', // 本地调试暂时隐藏
     'showFullScreenSwitch',
     'firstLoad',
     // 网络监测相关
@@ -425,12 +427,15 @@ export default {
     showMenu () {
       this.isSidwbar = !this.isSidwbar
     },
+    sendDataBuriedPoint (name, data) {
+      this.$emit('sendDataBuriedPoint', name, data)
+    },
     showKey() {
       console.log("显示文字键盘");
       this.isBtn = 2;
       this.allKey = this.SpeKey || this.signKey ? false : true;
       // 改变菜单是否显示
-      // this.isSidwbar = false;
+      this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.isSub = false;
       // 问题34
@@ -457,12 +462,12 @@ export default {
       if (this.needShowNavBar || this.needIconShow) {
         this.setPopupNav("hide");
       }
-      // let eventInfo = {
-      //   keyboard_type: "-2",
-      //   keyboard_type_name: "文字键盘",
-      //   keyboard_type_position: "1",
-      // };
-      // this.$record("virturl_keyboard_list_selection", eventInfo);
+      let eventInfo = {
+        keyboard_type: "-2",
+        keyboard_type_name: "文字键盘",
+        keyboard_type_position: "1",
+      };
+      this.$emit('sendDataBuriedPoint', 'virturl_keyboard_list_selection', eventInfo)
     },
     // showKey () {
     //   this.$emit('showKey')
@@ -492,7 +497,7 @@ export default {
       this.allKey = false;
       this.signKey = false;
       this.SpeKey = false;
-      // this.isSidwbar = false;
+      this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.Showcustomize = 0;
       this.show_customize_div = false;
@@ -504,10 +509,10 @@ export default {
       this.setCurrentTutorial(false);
       this.sub_index = undefined;
       this.keyboard_index = null;
-      // let eventInfo = {
-      //   virturl_keyboard_event_position: "1",
-      // };
-      // this.$record("virturl_keyboard_event", eventInfo);
+      let eventInfo = {
+        virturl_keyboard_event_position: "1",
+      };
+      this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
     // createClick () {
     //   this.$emit('createClick')
@@ -520,7 +525,7 @@ export default {
     //   this.$emit('closeNetWork', data)
     // },
     showSidebar () {
-      // this.isSidwbar = !this.showSidebar // 本地开发调试
+      this.isSidwbar = !this.showSidebar // 本地开发调试
       this.$emit('showSidebar')
     },
     showFullScreen (data) {
@@ -604,14 +609,14 @@ export default {
         JSON.parse(JSON.stringify(this.itemList))
       );
       this.show_customize_div = false;
-      // this.isSidwbar = false;
+      this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.setShowNavBar(true);
       this.setLevelShow(false);
-      // let eventInfo = {
-      //   virturl_keyboard_event_position: "2",
-      // };
-      // this.$record("virturl_keyboard_event", eventInfo);
+      let eventInfo = {
+        virturl_keyboard_event_position: "2",
+      };
+      this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
     // cus_editFn () {
     //   this.$emit('cusEditFn')
@@ -628,10 +633,10 @@ export default {
         saveFlag: false,
         itemList: "",
       });
-      // let eventInfo = {
-      //   virturl_keyboard_event_position: "5",
-      // };
-      // this.$record("virturl_keyboard_event", eventInfo);
+      let eventInfo = {
+        virturl_keyboard_event_position: "5",
+      };
+      this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
     // cus_exitFn () {
     //   this.$emit('cusExitFn')
@@ -646,10 +651,10 @@ export default {
       this.controlCode = 0;
       this.mouseClickFlag = 0;
       this.sub_index = undefined;
-      // let eventInfo = {
-      //   virturl_keyboard_event_position: "5",
-      // };
-      // this.$record("virturl_keyboard_event", eventInfo);
+      let eventInfo = {
+        virturl_keyboard_event_position: "5",
+      };
+      this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
     // exitOfficialKeyboard () {
     //   this.$emit('exitOfficialKeyboard')
@@ -723,7 +728,7 @@ export default {
       this.setClickEditKeyboard(false);
       this.setCreateClick(false);
       this.setLevelShow(true);
-      // this.isSidwbar = false;
+      this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.show_customize_div = true;
       this.customize_editBtn_data = item;
@@ -775,12 +780,12 @@ export default {
       this.setHideShowCourse(true);
       this.setCurrentTutorial(false);
       this.setAddNewCustomizeBtn(false);
-      // let eventInfo = {
-      //   keyboard_type: "0",
-      //   keyboard_type_name: item.key_name,
-      //   keyboard_type_position: "3",
-      // };
-      // this.$record("virturl_keyboard_list_selection", eventInfo);
+      let eventInfo = {
+        keyboard_type: "0",
+        keyboard_type_name: item.key_name,
+        keyboard_type_position: "3",
+      };
+      this.$emit('sendDataBuriedPoint', 'virturl_keyboard_list_selection', eventInfo)
     },
     keySort(item, index) {
       this.quitOfficialKeyboard = false;
@@ -804,7 +809,7 @@ export default {
       );
       this.isBtn = 2;
       this.keyShow = true;
-      // this.isSidwbar = false;
+      this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.isSub = false;
       // forEach
@@ -817,12 +822,12 @@ export default {
       this.setItemList([]);
       this.setShowNavBar(false);
       this.exitCustomEdit = true;
-      // let eventInfo = {
-      //   keyboard_type: "-1",
-      //   keyboard_type_position: "1",
-      //   keyboard_type_name: item.key,
-      // };
-      // this.$record("virturl_keyboard_list_selection", eventInfo);
+      let eventInfo = {
+        keyboard_type: "-1",
+        keyboard_type_position: "1",
+        keyboard_type_name: item.key,
+      };
+      this.$emit('sendDataBuriedPoint', 'virturl_keyboard_list_selection', eventInfo)
     },
     renderResize() {
       // 判断横竖屏

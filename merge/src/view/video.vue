@@ -292,6 +292,7 @@
           @transferData="transferData"
           @returnData="returnData"
           @clk_cus_close_sidebar="clk_cus_close_sidebar"
+          @sendDataBuriedPoint="sendDataBuriedPoint"
         >
         </customDevelopment>
 
@@ -1297,6 +1298,9 @@ export default {
       "setFullScreenShow",
       "setPopupNav"
     ]),
+    sendDataBuriedPoint (name, data) {
+      this.$record(name, data)
+    },
     changeSideBarShow (status) {
       this.isSidwbar = status
     },
