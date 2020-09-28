@@ -9,11 +9,12 @@ const config = {
   apiServer: server + '/v1/rtc',
   directTest: false,
   // 测试线打包
-  WSS_URL: 'wss://vsrwsstest.dalongyun.com',
+  // WSS_URL: 'wss://vsrwsstest.dalongyun.com',
   // pcRechargeEntry: 'https://waptest.dalongyun.com/indexs.php?mod=recharge&sl=6&loginSign=',
   // mobileRechargeEntry: 'http://waptest.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
   // zswkRechargeEntry:'http://waptest.ucbgames.com/recharge',
   // 预发布线打包
+  WSS_URL: 'wss://vsrwsspre.dalongyun.com',
   pcRechargeEntry: 'https://wappre.dalongyun.com/indexs.php?mod=recharge&sl=6&loginSign=',
   mobileRechargeEntry: 'https://wappre.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
   zswkRechargeEntry:'https://wappre.zhangshangtech.com/recharge',

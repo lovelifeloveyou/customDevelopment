@@ -9,9 +9,9 @@ import qs from "qs";
 var _axios = axios.create({
     // baseURL:  process.env.VUE_APP_BASE_ESS_API,
     //测试线线
-    baseURL:  'https://gwesstest.dalongyun.com',
+    // baseURL:  'https://gwesstest.dalongyun.com',
     //预发布线
-    // baseURL:  'https://gwesspre.dalongyun.com',
+    baseURL:  'https://gwesspre.dalongyun.com',
     //正式线 
     // baseURL:  'https://gwess.dalongyun.com',
     timeout: 30000,
