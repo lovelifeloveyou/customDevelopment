@@ -212,7 +212,7 @@
         ></net-item> -->
 
         <!-- 通过组件的形式引入各端的自定义样式 -->
-        <cloudComputerComponent
+        <!-- <cloudComputerComponent
           :isSidwbar="isSidwbar"
           :screen="screen"
           :showFullScreenSwitch="showFullScreenSwitch"
@@ -265,7 +265,35 @@
           @showNavBar="emitShowNavBar"
           @updateElement="updateElement"
         >
-        </cloudComputerComponent>
+        </cloudComputerComponent> -->
+
+        <customDevelopment
+          :isSidwbar="isSidwbar"
+          :showFullScreenSwitch="showFullScreenSwitch"
+          :firstLoad="firstLoad"
+          :roundTripTime="roundTripTime"
+          :byteRateSpeed="byteRateSpeed"
+          :packetRate="packetRate"
+          :colorA="colorA"
+          :colorB="colorB"
+          :universal="universal"
+          :dragBoxShowSidebar="isSidwbar"
+          @changeSideBarShow="changeSideBarShow"
+          @away="away"
+          @reset="reset"
+          @goRechargeUrl="goRechargeUrl"
+          @changemousespeed="changemousespeed"
+          @showSidebar="showSidebar"
+          @showFullScreen="showFullScreen"
+          @whickKeyTextKeyboard="whichKey"
+          @KeyEndTextKeyboard="KeyEnd"
+          @keySignDownTextKeyboard="keySignDown"
+          @keySpecailUp="keySpecailUp"
+          @transferData="transferData"
+          @returnData="returnData"
+          @clk_cus_close_sidebar="clk_cus_close_sidebar"
+        >
+        </customDevelopment>
 
         <div class="dialog-start" v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : true">
           <div class="pannel">
@@ -1269,6 +1297,9 @@ export default {
       "setFullScreenShow",
       "setPopupNav"
     ]),
+    changeSideBarShow (status) {
+      this.isSidwbar = status
+    },
     changemousespeed(speed) {
       this.mouseSpeed = speed;
     },

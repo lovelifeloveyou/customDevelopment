@@ -2,7 +2,7 @@ import axios from 'axios'
 import config from '../config/index'
 import tools from './tools'
 
-config.accessToken.set('pc:0ed0c019f0596c4dad21575b2232e66367892f0a')
+config.accessToken.set('pc:690b5af235ab75d0dc095dcc0dd1a31591f548dd')
 // 保存最近一次请求的信息 401时重新发起
 // const oldRequest = {}
 // const tip = tipTmp
