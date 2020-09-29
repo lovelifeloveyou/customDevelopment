@@ -7,6 +7,10 @@ export default {
   confirmUseServer (params) {
     return httpclient.post(`/confirmUseServer`, params)
   },
+  // 获取键盘按键信息
+  getKeyboardInfo(params){
+    return httpclient.get(`/keyboard_info`, tools.paramsToUrl(params))
+  },
   // 测速
   testSpeed (params) {
     return httpclient.post(`/testSpeed`, params)

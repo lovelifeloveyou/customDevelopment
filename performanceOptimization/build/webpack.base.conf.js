@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+var webpack = require('webpack')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -71,6 +72,21 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    // new webpack.DllReferencePlugin({
+    //   // name参数和dllplugin里面name一致，可以不传
+    //   name: 'vendor',
+    //   // dllplugin 打包输出的manifest.json
+    //   manifest: require('../vendor.manifest.json'),
+    //   // 和dllplugin里面的context一致
+    //   context: path.join(__dirname, '..')
+    // })
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery"
+    })
+  ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

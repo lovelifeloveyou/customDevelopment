@@ -1,6 +1,6 @@
 import systemService from '../../api/system'
-import keyboard from '../../components/silder/keyboard/keyboard'
 import tools from '../../utils/tools'
+
 const state = {
 	isBtn: 1,   //   1.屏幕按键， 2.按钮按键
 	keyArray: [],
@@ -45,6 +45,12 @@ const state = {
 	saveOfficialKeyboardFlag: '',
 	fullScreenShow: true,
 	officialKeyInfo:[],
+	popupNav: '',
+	beforeCustomKeyboard: {
+		item: [],
+		index: ''
+	},
+	judgeTouchStart: false
 }
 
 // 计算后返回
@@ -75,7 +81,10 @@ const getters = {
 	mouseMode: state => state.mouseMode,
 	saveOfficialKeyboardFlag: state => state.saveOfficialKeyboardFlag,
 	fullScreenShow: state => state.fullScreenShow,
-	officialKeyInfo:state=>state.officialKeyInfo
+	officialKeyInfo:state=>state.officialKeyInfo,
+	popupNav: state => state.popupNav,
+	beforeCustomKeyboard: state => state.beforeCustomKeyboard,
+	judgeTouchStart: state => state.judgeTouchStart
 }
 
 // 调用api，异步请求
@@ -90,7 +99,7 @@ const actions = {
 		})
 	},
 	getkeyInfo ({ commit }, products) {
-		return keyboard.getKeyboardInfo(products).then(data => {
+		return systemService.getKeyboardInfo(products).then(data => {
 			if(!data.data) return
 			let keyInfo = JSON.parse(data.data.key_info)
 			let width=data.data.width;
@@ -260,6 +269,15 @@ const mutations = {
 	},
 	setKeyInfo(state,data){
 		state.officialKeyInfo=data
+	},
+	setPopupNav (state, data) {
+		state.popupNav = data
+	},
+	setBeforeCustomKeyboard (state, data) {
+		state.beforeCustomKeyboard = data
+	},
+	setJudgeTouchStart (state, data) {
+		state.judgeTouchStart = data
 	}
 }
 

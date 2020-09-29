@@ -1,18 +1,20 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import store from '../store'
 import video from '@/view/video'
 import config from '../config'
 import axios from 'axios'
-// import url from 'postcss-url'
-Vue.use(Router)
+
+if (process.env.NODE_ENV === 'development') {
+  Vue.use(VueRouter)
+}
 
 let url = window.location.href;
 let router;
 console.log(config)
 console.log('路径',url)
 if(config.directTest) {
-  router = new Router({
+  router = new VueRouter({
     // base: '/video/',
     // mode: 'history',
     routes: [
@@ -52,7 +54,7 @@ if(config.directTest) {
   }
   let urlData = url.split('?')[0];
   // window.location.href = urlData;
-  router = new Router({
+  router = new VueRouter({
     mode: 'history',
     routes:[{
       path: '/video',

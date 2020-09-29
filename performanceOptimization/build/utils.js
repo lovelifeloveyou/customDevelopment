@@ -28,13 +28,6 @@ exports.cssLoaders = function (options) {
       sourceMap: options.sourceMap
     }
   }
-  // const px2remLoader = {
-  //   loader: 'px2rem-loader',
-  //   options: {
-  //     remUnit: 35 /* 此处50为可调整的值 */
-  //   }
-  // }
-  //[cssLoader,px2remLoader]
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {

@@ -148,7 +148,6 @@ export default {
       quitOfficialKeyboard: false,
       keyboard_index: null,
       officialKeyboardFlag: "",
-      mouseSpeed: 1,
       isNetshow: false,
       screenInfomation: {
         videosWidth: 0,
@@ -369,7 +368,10 @@ export default {
       "mouseMode",
       "saveOfficialKeyboardFlag",
       "fullScreenShow",
-      "popupNav"
+      "popupNav",
+      "beforeCustomKeyboard",
+      "setBeforeCustomKeyboard",
+      "judgeTouchStart"
     ]),
     secondMenu() {
       return this.isShowMyborad || this.keyShow;
@@ -386,6 +388,54 @@ export default {
       );
       localStorage.setItem("rollerInfo", JSON.stringify(rollerInfo));
       localStorage.setItem("directionInfo", JSON.stringify(directionInfo));
+    },
+    beforeCustomKeyboard () {
+      if (this.beforeCustomKeyboard.item.length) {
+        const { item, index } = this.beforeCustomKeyboard
+        this.btnSelf(item, index)
+        this.setBeforeCustomKeyboard({
+          item: [],
+          index: ''
+        })
+      }
+    },
+    judgeTouchStart () {
+      if (this.judgeTouchStart) {
+        if (!this.isSidwbar && this.panel) {
+          this.panel = false;
+          this.allKey = false;
+          this.signKey = false;
+          this.SpeKey = false;
+          this.keyShow =
+            this.showNavBar || this.editKeyboard || this.quitOfficialKeyboard
+              ? false
+              : true;
+          this.officialKeyboardFlag = this.saveOfficialKeyboardFlag;
+          if (this.editKeyboard) {
+            this.show_customize_div = true;
+          }
+          this.setItemList(this.copyItemList.myselfKeyboardArr);
+          this.keyboard_index = this.copyItemList.myselfKeyboardIndex;
+          if (this.editKeyboard && this.clickEditKeyboard) {
+            this.show_customize_div = false;
+          }
+          if (this.editKeyboard && !this.clickEditKeyboard) return;
+          if (this.needShowNavBar) {
+            this.setPopupNav("all")
+          }
+          if (this.needIconShow) {
+            this.setPopupNav("iconShow")
+          }
+          if (!this.needShowNavBar && !this.needShowNavBar) {
+            this.setPopupNav("hide")
+          }
+          return;
+        }
+        if (this.isSidwbar) {
+          this.$emit('changeSideBarShow', false)
+        }
+        this.setJudgeTouchStart(false)
+      }
     }
   },
   provide() {
@@ -421,7 +471,8 @@ export default {
       "setMouseMode",
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
-      "setPopupNav"
+      "setPopupNav",
+      "setJudgeTouchStart"
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {
@@ -469,11 +520,8 @@ export default {
       };
       this.$emit('sendDataBuriedPoint', 'virturl_keyboard_list_selection', eventInfo)
     },
-    // showKey () {
-    //   this.$emit('showKey')
-    // },
     away () {
-      this.$emit('away')
+      this.$emit('away', this.keyShow, this.saveOfficialKeyboard, this.show_customize_div, this.saveCustomKeyboard)
     },
     reset () {
       this.$emit('reset')
@@ -514,16 +562,9 @@ export default {
       };
       this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
-    // createClick () {
-    //   this.$emit('createClick')
-    // },
     changeNet (data) {
       this.isNetshow = data
-      // this.$emit('changeNet', data)
     },
-    // closeNetWork (data) {
-    //   this.$emit('closeNetWork', data)
-    // },
     showSidebar () {
       this.isSidwbar = !this.showSidebar // 本地开发调试
       this.$emit('showSidebar')
@@ -618,9 +659,6 @@ export default {
       };
       this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
-    // cus_editFn () {
-    //   this.$emit('cusEditFn')
-    // },
     cus_exitFn() {
       this.keyboard_index = null;
       this.show_customize_div = false;
@@ -638,9 +676,6 @@ export default {
       };
       this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
-    // cus_exitFn () {
-    //   this.$emit('cusExitFn')
-    // },
     exitKey() {
       this.officialKeyboardFlag = "";
       this.quitOfficialKeyboard = true;
@@ -656,9 +691,6 @@ export default {
       };
       this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
     },
-    // exitOfficialKeyboard () {
-    //   this.$emit('exitOfficialKeyboard')
-    // },
     transferData (item, customizBtn, index) {
       this.$emit('transferData', item, customizBtn, index)
     },
@@ -673,17 +705,11 @@ export default {
       this.needShowNavBar = false;
       this.needIconShow = false;
     },
-    // initCustomizeShow (data) {
-    //   this.$emit('initCustomizeShow', data)
-    // },
     Showcustomize_son(data, opacity) {
       this.Showcustomize = opacity;
       this.show_customize_div = true;
       this.btnSelf(data);
     },
-    // Showcustomize_son (data, opacity) {
-    //   this.$emit('Showcustomize_son', data, opacity)
-    // },
     clk_cus_close_sidebar (data) {
       this.$emit('clk_cus_close_sidebar', data)
     },
@@ -691,9 +717,6 @@ export default {
       this.needShowNavBar = navShow;
       this.needIconShow = iconShow;
     },
-    // emitShowNavBar (navShow, iconShow) {
-    //   this.$emit('showNavBar', navShow, iconShow)
-    // },
     updateElement(element, status) {
       let newItemList = this.itemList.map((ele) => {
         if (ele.id === element.id) {
@@ -711,9 +734,6 @@ export default {
       });
       this.setItemList(newItemList);
     },
-    // updateElement (element, status) {
-    //   this.$emit('updateElement', element, status)
-    // }
     // 自定义键盘对应的按键信息
     btnSelf(item, index) {
       this.setCopyItemList(

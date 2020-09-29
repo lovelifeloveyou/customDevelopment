@@ -1,8 +1,5 @@
 import axios from 'axios'
 import config from '../config'
-import url from 'postcss-url'
-import tools from './tools'
-import store from '../store/index'
 
 config.accessToken.set('pc:690b5af235ab75d0dc095dcc0dd1a31591f548dd')
 // 保存最近一次请求的信息 401时重新发起
@@ -20,17 +17,9 @@ const serverWhiteList = [
 axios.defaults.timeout = 15000
 
 axios.defaults.headers.common["Token"] = config.accessToken.get();          
-// let token =JSON.parse( localStorage.getItem('vuex'))
-// axios.defaults.headers.common["Token"] = token.bbs.token;
 
 // http请求拦截器
 axios.interceptors.request.use(request => {
-  // if (store.getters.initMsg.flag === 10) {
-  //   axios.defaults.headers.common["Token"] = config.accessToken.get()
-  // } else {
-  //   let token =JSON.parse(localStorage.getItem('vuex'))
-  //   axios.defaults.headers.common["Token"] = token.bbs.token
-  // }
   if (!request.url.startsWith('http')) {
     if (request.url.lastIndexOf('&') === request.url.length-1) {
       request.url = request.url.substring(0, request.url.lastIndexOf('&'))
@@ -68,19 +57,6 @@ axios.interceptors.response.use(response => {
 
 export default {
   get: (url, params) => {
-    console.log('23',url,params)
-    if (params !== undefined) {
-      for (var key in params) {
-        if (params[key] !== undefined){
-          if (Object.prototype.toString.call(params[key]) === "[object Date]") {
-            params[key] = params[key].toISOString()
-          }
-        } else {
-          params[key] = ''
-        }
-      }
-    }
-    params = tools.paramsToUrl(params)
     url += params
     return axios({
       url: url,

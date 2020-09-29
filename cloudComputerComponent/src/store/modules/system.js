@@ -44,7 +44,12 @@ const state = {
 	saveOfficialKeyboardFlag: '',
 	fullScreenShow: true,
 	officialKeyInfo:[],
-	popupNav: ''
+	popupNav: '',
+	beforeCustomKeyboard: {
+		item: [],
+		index: ''
+	},
+	judgeTouchStart: false
 }
 
 // 计算后返回
@@ -76,7 +81,9 @@ const getters = {
 	saveOfficialKeyboardFlag: state => state.saveOfficialKeyboardFlag,
 	fullScreenShow: state => state.fullScreenShow,
 	officialKeyInfo: state=>state.officialKeyInfo,
-	popupNav: state => state.popupNav
+	popupNav: state => state.popupNav,
+	beforeCustomKeyboard: state => state.beforeCustomKeyboard,
+	judgeTouchStart: state => state.judgeTouchStart
 }
 
 // 调用api，异步请求
@@ -264,6 +271,12 @@ const mutations = {
 	},
 	setPopupNav (state, data) {
 		state.popupNav = data
+	},
+	setBeforeCustomKeyboard (state, data) {
+		state.beforeCustomKeyboard = data
+	},
+	setJudgeTouchStart (state, data) {
+		state.judgeTouchStart = data
 	}
 }
 

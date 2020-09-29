@@ -69,19 +69,11 @@ export default {
     // }
     this.detectOrient()
     
-    // // 防止页面后退
+    // 防止页面后退
     history.pushState(null, null, location.href)
     window.onpopstate = function (event) {
       history.go(1)
     }
-
-    this.detectOrient();
-
-    // // 防止页面后退
-    history.pushState(null, null, location.href);
-    window.onpopstate = function(event) {
-      history.go(1);
-    };
   }
 };
 </script>
@@ -98,9 +90,6 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden !important;
-  /* overflow-y: hidden;
-  width: 100%;
-  height: 100%; */
   background-color: black;
   -webkit-user-select: none; /*webkit浏览器*/
   -khtml-user-select: none; /*早起浏览器*/
@@ -119,7 +108,6 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  /* margin-left: 2.5%; */
 }
 .toast {
   transform: rotate(-90deg);

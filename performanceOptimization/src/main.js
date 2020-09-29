@@ -1,23 +1,18 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import 'lib-flexible'
 import httpClient from './utils/request'
-import Vconsole from 'vconsole'
+// import Vconsole from 'vconsole'
 import FastClick from 'fastclick'
 import VueCookies from 'vue-cookies'
-// import Scroll from './components/scroll'
 import $ from 'jquery'
-import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
 import gesture from './directives/gesture/index'
 import { VueHammer } from './directives/hammerTouch/touchvue.js'
 import './directives/waves.js'
 import store from './store/index'
 import config from './config'
 import helpers from './directives/helpers.js'
-import loading from './components/loading'
-import Direction from './components/direction'
-import common from './directives/common'
 import {
   Tab,
   Tabs,
@@ -33,25 +28,20 @@ import {
   Icon
 } from 'vant';
 
-Vue.use(Tab).use(Tabs).use(Overlay).use(Button).use(Col).use(Row).use(NavBar).use(Dialog).use(Toast).use(Field).use(List).use(Icon);
-Vue.use(helpers)
-Vue.use(Tab).use(Tabs);
-Vue.prototype.common = common;
-
 Vue.config.productionTip = false
-Vue.use(Direction)
-// Vue.use(Scroll)
+
+// let vConsole = new Vconsole()
+// Vue.use(vConsole)
+Vue.use(Tab).use(Tabs).use(Overlay).use(Button).use(Col).use(Row).use(NavBar).use(Dialog).use(Toast).use(Field).use(List).use(Icon);
 Vue.use(helpers)
 Vue.use(VueHammer)
 Vue.use(gesture)
 Vue.use(VueCookies)
 
-// let vConsole = new Vconsole()
-// Vue.use(vConsole)
 Vue.prototype.$httpClient = httpClient
 Vue.prototype.$config = config
 Vue.prototype.$toast = Toast
-Vue.prototype.$loading = loading
+Vue.prototype.$ = $
 
 FastClick.prototype.focus = function (targetElement) {
   let length
@@ -73,8 +63,7 @@ new Vue({
   store,
   router,
   components: {
-    App,
-    "Direction": Direction,
+    App
   },
   template: '<App/>'
 })

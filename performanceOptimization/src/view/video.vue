@@ -52,7 +52,6 @@
             height: screen.videosHeight + 'px',
           }"
         />
-        <!-- <img src="#" ref="mouse" id="mouseImg" /> -->
         <img
           src="../assets/img/mouse.png"
           ref="mouse"
@@ -60,76 +59,6 @@
           :style="{ left: mouseLeft + 'px', top: mouseTop + 'px' }"
           v-if="mouseMode === false"
         />
-
-        <!-- 官方虚拟键盘组件 -->
-        <officialKeyboard
-          :officialKeyboardFlag="officialKeyboardFlag"
-          :screen="screen"
-          @exitOfficialKeyboard="exitKey"
-          @transferData="transferData"
-          @returnData="returnData"
-        ></officialKeyboard>
-
-        <div id="keys" v-show="panel">
-          <div id="allKey" v-show="allKey">
-            <div class="letter">
-              <button
-                :class="activeClass == index ? 'actived' : ''"
-                v-for="(item, index) in allKeys"
-                :key="index"
-                @touchstart.stop.prevent="whichKey(item, index)"
-                @touchend.stop.prevent="KeyEnd(item)"
-              >
-                <span v-if="item.key === '中/英'">
-                  <span :style="{ color: colorA }">中</span>/
-                  <span :style="{ color: colorB }">英</span>
-                </span>
-                <span v-else>{{ item.key }}</span>
-              </button>
-            </div>
-            <div class="number">
-              <button
-                :class="activeClass == index + 100 ? 'actived' : ''"
-                v-for="(item, index) in numKey"
-                :key="index"
-                @touchstart.stop.prevent="whichKey(item, index + 100)"
-                @touchend.stop.prevent="KeyEnd(item)"
-              >
-                <span>{{ item.key }}</span>
-              </button>
-            </div>
-          </div>
-          <div id="sign" v-show="signKey">
-            <button
-              :class="activeClass == index + 200 ? 'actived' : ''"
-              v-for="(item, index) in signKeys"
-              :key="index"
-              @touchstart.stop.prevent="keySignDown(item, index + 200)"
-              @touchend.stop.prevent="keySpecailUp(item)"
-            >
-              <span v-if="item.key === '中/英'">
-                <span :style="{ color: colorA }">中</span>/
-                <span :style="{ color: colorB }">英</span>
-              </span>
-              <span v-else>{{ item.key }}</span>
-            </button>
-          </div>
-          <div id="speCtrl" v-show="SpeKey">
-            <button
-              :class="activeClass == index + 300 ? 'actived' : ''"
-              v-for="(item, index) in speCtrls"
-              :key="index"
-              @touchstart.stop.prevent="whichKey(item, index + 300)"
-              @touchend.stop.prevent="KeyEnd(item)"
-            >
-              <span v-if="item.key === '中/英'">
-                <span :style="{ color: colorA }">中</span>/
-                <span :style="{ color: colorB }">英</span>
-              </span>
-              <span v-else>{{ item.key }}</span>
-            </button>
-          </div>
-        </div>
 
         <div id="icon">
           <div
@@ -183,32 +112,6 @@
             <div v-if="firstLoad && btnFist" class="icon arrow_rbox"></div>
           </div>
         </div>
-        <silder-item
-          :loadData="loadData"
-          :screen="screen"
-          :isSidwbar="isSidwbar"
-          :roundTripTime="roundTripTime"
-          :byteRateSpeed="byteRateSpeed"
-          :showFullScreenSwitch="showFullScreenSwitch"
-          :firstLoad="firstLoad"
-          @showKey="showKey"
-          @away="away"
-          @reset="reset"
-          @goRechargeUrl="goRechargeUrl"
-          @changemousespeed="changemousespeed"
-          @createClick="createClick"
-          @changeNet="changeNet"
-          @showSidebar="showSidebar"
-          @showFullScreen="showFullScreen"
-          v-show="isSidwbar"
-        ></silder-item>
-        <net-item
-          :roundTripTime="roundTripTime"
-          :byteRateSpeed="byteRateSpeed"
-          :packetRate="packetRate"
-          @changeNet="changeNet"
-          v-show="isNetshow"
-        ></net-item>
 
         <div class="dialog-start" v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : true">
           <div class="pannel">
@@ -297,41 +200,6 @@
             </div>
           </div>
         </van-overlay>
-        <!-- // ---------------------------------------------------引导图截至此 // addd -->
-        <customize-item
-          @initCustomizeShow="initCustomizeShow"
-          :screen="screen"
-          :universal="universal"
-          @Showcustomize_son="Showcustomize_son"
-          :Showcustomize="Showcustomize"
-          :customize_editBtn_data="customize_editBtn_data"
-          @clk_cus_close_sidebar="clk_cus_close_sidebar"
-          @showDragBall="showDragBall"
-          :isHorizontalScreen="isHorizontalScreen"
-          @showNavBar="emitShowNavBar"
-          :popupNav="popupNav"
-          :exitCustomEdit="exitCustomEdit"
-        ></customize-item>
-        <dragBox-item
-          v-for="(item, index) in itemList"
-          :key="index"
-          :keymsg="item"
-          :title="index"
-          :screen="screen"
-          :isHorizontalScreen="isHorizontalScreen"
-          :showSidebar="isSidwbar"
-          :secondMenu="secondMenu"
-          @transferData="transferData"
-          @returnData="returnData"
-          @updateElement="updateElement"
-        ></dragBox-item>
-
-        <div v-show="show_customize_div">
-          <div style="display:flex;">
-            <div class="exitBtn_cus editBtn" ref="exitBtn_cus" @click="cus_editFn">编辑</div>
-            <div class="exitBtn_cus" ref="exitBtn_cus" @touchstart="cus_exitFn">退出</div>
-          </div>
-        </div>
 
         <div class="wrap" v-if="freeIsEnd">
           <div class="popup_container">
@@ -346,12 +214,6 @@
             <div class="mark"></div>
           </div>
         </div>
-        <Wave
-          :showWaves="showWaves"
-          :waveLeft="waveLeft"
-          :waveTop="waveTop"
-          @waveFinish="waveFinish"
-        />
       </div>
       <div id="loadImg" :style="dataImg">
         <img
@@ -372,39 +234,20 @@
 </template>
 
 <script>
-import { Dialog } from "vant";
-// import Direction from "../components/direction";
-// import Roller from "../components/roller";
 import Connect from "../components/connect";
-import $ from "jquery";
 import tools from "@/utils/tools";
 import connectApi from "@/api/system.js";
 import util from "../common/libs/util.crypto";
 import websocket from "../common/libs/websocket.js";
 import "../common/ufo/index";
 import html2canvas from "html2canvas";
-import customize from "@/components/customize/index";
-import silder from "@/components/silder/index";
-import network from "@/components/network/index";
-import dragbox from "@/components/customize/drag/dragBox";
-import officialKeyboard from "@/components/officialKeyboard/index";
-import Wave from "@/components/waves";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "videoScreen",
   components: {
-    "dragBox-item": dragbox,
-    // Direction,
-    // Roller,
-    [Dialog.Component.name]: Dialog.Component,
-    "customize-item": customize,
     "connect-item": Connect,
-    "silder-item": silder,
-    "net-item": network,
-    html2canvas,
-    Wave,
-    officialKeyboard,
+    html2canvas
   },
   computed: {
     ...mapGetters([
@@ -421,11 +264,8 @@ export default {
       "editKeyboard",
       "mouseMode",
       "saveOfficialKeyboardFlag",
-      "fullScreenShow",
+      "fullScreenShow"
     ]),
-    secondMenu() {
-      return this.isShowMyborad || this.keyShow;
-    },
     highNetworkLatency() {
       return this.roundTripTime > 100 ? true : false;
     },
@@ -433,24 +273,11 @@ export default {
       return { color: this.roundTripTime > 100 ? "red" : "white" };
     },
   },
-  provide() {
-    return {
-      created: this.createClick,
-      editFn: this.cus_editFn,
-      btnSelf: this.btnSelf,
-      showKey: this.showKey,
-      keySort: this.keySort,
-      exitKey: this.exitKey,
-    };
-  },
   data() {
     return {
       syncDataList: [], // 同步数据 查询差异化 the last time
       editData: "", // edit 编辑数据
-      customize_editBtn_data: {},
       isBoo: -1,
-      show_customize_div: false,
-      Showcustomize: 1,
       // 连接流程
       loadingRate: 0,
       directSessionKeyHead: "11566D692A774BCA08F8", // 直联sessionKey
@@ -546,12 +373,6 @@ export default {
       isMode: false, //  鼠标模式的耳机菜单
       isRight: false, // true右键，false非右键
       isPress: false, // 是否长按
-      keyShow: true, // 游戏键盘
-      panel: false, //  输入键盘面板
-      allKey: false, //  输入键盘字母数字
-      signKey: false, //  输入键盘字符符号
-      SpeKey: false, //  输入键盘控制键
-      iscaps: false, // 是否为大写
       remoteStream: "",
       localStream: "",
       peerConn: null,
@@ -650,176 +471,7 @@ export default {
       //  键鼠数据定时发送定时器id
       KeyMouseIntervalId: null,
       isLockBtn: [], // 锁定按钮的抬起与放下，true按下，false抬起
-      activeClass: -1,
       lockActive: [],
-      index: "",
-      allKeys: [
-        { key: "Tab", keyCode: 9 },
-        { key: "q", keyCode: 81 },
-        { key: "w", keyCode: 87 },
-        { key: "e", keyCode: 69 },
-        { key: "r", keyCode: 82 },
-        { key: "t", keyCode: 84 },
-        { key: "y", keyCode: 89 },
-        { key: "u", keyCode: 85 },
-        { key: "i", keyCode: 73 },
-        { key: "o", keyCode: 79 },
-        { key: "p", keyCode: 80 },
-        { key: "中/英", keyCode: 16 },
-        { key: "a", keyCode: 65 },
-        { key: "s", keyCode: 83 },
-        { key: "d", keyCode: 68 },
-        { key: "f", keyCode: 70 },
-        { key: "g", keyCode: 71 },
-        { key: "h", keyCode: 72 },
-        { key: "j", keyCode: 74 },
-        { key: "k", keyCode: 75 },
-        { key: "l", keyCode: 76 },
-        { key: "Back", keyCode: 8 },
-        { key: "小写", keyCode: 20 },
-        { key: "符", keyCode: 700 },
-        { key: "z", keyCode: 90 },
-        { key: "x", keyCode: 88 },
-        { key: "c", keyCode: 67 },
-        { key: "v", keyCode: 86 },
-        { key: "b", keyCode: 66 },
-        { key: "n", keyCode: 78 },
-        { key: "m", keyCode: 77 },
-        { key: "确定", keyCode: 13 },
-        { key: "隐藏", keyCode: 800 },
-        { key: "空格", keyCode: 32 },
-        { key: "控制码", keyCode: 900 },
-      ],
-
-      CapsallKeys: [
-        { key: "Tab", keyCode: 9 },
-        { key: "Q", keyCode: 81 },
-        { key: "W", keyCode: 87 },
-        { key: "E", keyCode: 69 },
-        { key: "R", keyCode: 82 },
-        { key: "T", keyCode: 84 },
-        { key: "Y", keyCode: 89 },
-        { key: "U", keyCode: 85 },
-        { key: "I", keyCode: 73 },
-        { key: "O", keyCode: 79 },
-        { key: "P", keyCode: 80 },
-        { key: "中/英", keyCode: 16 },
-        { key: "A", keyCode: 65 },
-        { key: "S", keyCode: 83 },
-        { key: "D", keyCode: 68 },
-        { key: "F", keyCode: 70 },
-        { key: "G", keyCode: 71 },
-        { key: "H", keyCode: 72 },
-        { key: "J", keyCode: 74 },
-        { key: "K", keyCode: 75 },
-        { key: "L", keyCode: 76 },
-        { key: "Back", keyCode: 8 },
-        { key: "大写", keyCode: 20 },
-        { key: "符", keyCode: 700 },
-        { key: "Z", keyCode: 90 },
-        { key: "X", keyCode: 88 },
-        { key: "C", keyCode: 67 },
-        { key: "V", keyCode: 86 },
-        { key: "B", keyCode: 66 },
-        { key: "N", keyCode: 78 },
-        { key: "M", keyCode: 77 },
-        { key: "确定", keyCode: 13 },
-        { key: "隐藏", keyCode: 800 },
-        { key: "空格", keyCode: 32 },
-        { key: "控制码", keyCode: 900 },
-      ],
-
-      numKey: [
-        { key: "7", keyCode: 55 },
-        { key: "8", keyCode: 56 },
-        { key: "9", keyCode: 57 },
-        { key: "4", keyCode: 52 },
-        { key: "5", keyCode: 53 },
-        { key: "6", keyCode: 54 },
-        { key: "1", keyCode: 49 },
-        { key: "2", keyCode: 50 },
-        { key: "3", keyCode: 51 },
-        { key: "0", keyCode: 48 },
-        { key: "@", keyCode: 50, len: 2 },
-        { key: ".", keyCode: 190 },
-      ],
-
-      signKeys: [
-        { key: "`", keyCode: 192, len: 1 },
-        { key: "~", keyCode: 192, len: 2 },
-        { key: "!", keyCode: 49, len: 2 },
-        // {key: '@', keyCode: 50, len: 2},
-        { key: "#", keyCode: 51, len: 2 },
-        { key: "?", keyCode: 191, len: 2 },
-        { key: "%", keyCode: 53, len: 2 },
-        { key: "^", keyCode: 54, len: 2 },
-        { key: "中/英", keyCode: 16, len: 0 },
-        { key: "&", keyCode: 55, len: 2 },
-        { key: "*", keyCode: 56, len: 2 },
-        { key: "(", keyCode: 57, len: 2 },
-        { key: ")", keyCode: 48, len: 2 },
-        { key: "-", keyCode: 189, len: 1 },
-        { key: "=", keyCode: 187, len: 1 },
-        { key: "_", keyCode: 189, len: 2 },
-        { key: "+", keyCode: 187, len: 2 },
-        { key: "[", keyCode: 219, len: 1 },
-        { key: "]", keyCode: 221, len: 1 },
-        { key: "{", keyCode: 219, len: 2 },
-        { key: "}", keyCode: 221, len: 2 },
-        { key: "\\", keyCode: 220, len: 1 },
-        { key: "|", keyCode: 220, len: 2 },
-        { key: ";", keyCode: 186, len: 1 },
-        { key: ":", keyCode: 186, len: 2 },
-        { key: "'", keyCode: 222, len: 1 },
-        { key: '"', keyCode: 222, len: 2 },
-        { key: ",", keyCode: 188, len: 1 },
-        // {key: '.', keyCode: 190, len: 1},
-        { key: "<", keyCode: 188, len: 2 },
-        { key: ">", keyCode: 190, len: 2 },
-        { key: "/", keyCode: 191, len: 1 },
-        { key: "$", keyCode: 52, len: 2 },
-        { key: "返回", keyCode: 1000, len: 0 },
-      ],
-
-      speCtrls: [
-        { key: "左", keyCode: 37 },
-        { key: "上", keyCode: 38 },
-        { key: "下", keyCode: 40 },
-        { key: "右", keyCode: 39 },
-        { key: "ESC", keyCode: 27 },
-        { key: "CTRL(L)", keyCode: 17 },
-        { key: "CTRL(R)", keyCode: 17 },
-        { key: "SHIFT(L)", keyCode: 16 },
-        { key: "SHIFT(R)", keyCode: 16 },
-        { key: "中/英", keyCode: 16 },
-        { key: "ALT(L)", keyCode: 18 },
-        { key: "ALT(R)", keyCode: 18 },
-        { key: "TAB", keyCode: 9 },
-        { key: "WIN", keyCode: 1001 },
-        { key: "HOME", keyCode: 36 },
-        { key: "END", keyCode: 35 },
-        { key: "PRTSC", keyCode: 900000 },
-        { key: "SCRLK", keyCode: 145 },
-        { key: "PAUSE", keyCode: 19 },
-        { key: "INS", keyCode: 45 },
-        { key: "DEL", keyCode: 46 },
-        { key: "PGUP", keyCode: 33 },
-        { key: "PGDN", keyCode: 34 },
-        { key: "F1", keyCode: 112 },
-        { key: "F2", keyCode: 113 },
-        { key: "F3", keyCode: 114 },
-        { key: "F4", keyCode: 115 },
-        { key: "F5", keyCode: 116 },
-        { key: "F6", keyCode: 117 },
-        { key: "F7", keyCode: 118 },
-        { key: "F8", keyCode: 119 },
-        { key: "F9", keyCode: 120 },
-        { key: "F10", keyCode: 121 },
-        { key: "F11", keyCode: 122 },
-        { key: "F12", keyCode: 123 },
-        { key: "返回", keyCode: 1000 },
-      ],
-
       // -----------test----------------// 强制横屏test
       data: "",
       pageTop: "",
@@ -859,33 +511,11 @@ export default {
       imgTouch: require("../assets/img/guide/10月优化_触控.png"),
       imgMouse: require("../assets/img/guide/10月优化_鼠标.png"),
       // ---------------------------------------------------引导图截至此
-      isShowMyborad: false, // 是否显示我的键盘二级菜单
-      customizeBtn: {
-        customDirection: false,
-        customRoller: false,
-      },
-      cus_exit: false,
       loading: false,
       finished: false,
       isClkMyKeyboard: false,
-      showDrag: false,
       isHorizontalScreen: false,
       count: 1,
-      firstClick: true,
-      needShowNavBar: false,
-      needIconShow: false,
-      popupNav: "",
-      exitCustomEdit: false,
-      saveOfficialKeyboard: {
-        item: "",
-        index: "",
-        flag: "official",
-      },
-      saveCustomKeyboard: {
-        item: "",
-        index: "",
-        flag: "custom",
-      },
       current: {
         left: 0,
         top: 0,
@@ -932,7 +562,6 @@ export default {
       mouseTop: 0,
       firstMoveMouse: true,
       tapFlag: false,
-      quitOfficialKeyboard: false,
       connectIsShow: false,
       connectTime: null,
       isVisablty: 0,
@@ -942,9 +571,7 @@ export default {
       waveTop: 0,
       showModeSelect: false,
       showFullScreenSelect: false,
-      keyboard_index: null,
       touchAnimationTime: null,
-      officialKeyboardFlag: "",
       imgShow: false,
       universal: {},
       gameName: "",
@@ -955,7 +582,6 @@ export default {
       colorB: "green",
       lockBtnInputStatusCount: 0,
       mouseSpeed: 1,
-      isNetshow: false,
       showFullScreenSwitch: true,
       firstLoad: false,
       btnFist: false,
@@ -1047,17 +673,6 @@ export default {
         this.delayReminder = false;
       }
     },
-    itemList() {
-      let itemListInfo = JSON.parse(JSON.stringify(this.itemList));
-      let rollerInfo = itemListInfo.find((ele) =>
-        [101, 102].includes(ele.rockerType)
-      );
-      let directionInfo = itemListInfo.find((ele) =>
-        [103, 104].includes(ele.rockerType)
-      );
-      localStorage.setItem("rollerInfo", JSON.stringify(rollerInfo));
-      localStorage.setItem("directionInfo", JSON.stringify(directionInfo));
-    },
     mouseMode() {
       this.sum_index = this.mouseMode ? 1 : this.mouseMode === false ? 2 : 0;
     },
@@ -1106,10 +721,6 @@ export default {
         },
         { passive: false }
       );
-    }
-    if (this.firstClick) {
-      this.firstClick = false;
-      this.getCustomizeKeyboardLists();
     }
     // 监听屏幕事件 // 强制横屏test
     window.addEventListener("resize", this.renderResize, false);
@@ -1217,12 +828,11 @@ export default {
       "setMouseMode",
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
+      "setBeforeCustomKeyboard",
+      "setJudgeTouchStart"
     ]),
     changemousespeed(speed) {
       this.mouseSpeed = speed;
-    },
-    changeNet(status) {
-      this.isNetshow = status;
     },
     adaptScreen(x, y) {
       let a = x;
@@ -1240,7 +850,6 @@ export default {
           this.screen.videosWidth = a;
           this.screen.videosHeight = b;
         }
-        localStorage.setItem("vwidth", this.screen.videosWidth);
       }
     },
     cutPicture() {
@@ -1254,15 +863,15 @@ export default {
     },
     // 用户暂时离开
     setAction() {
-      if (this.keyShow) {
+      if (a) {
         localStorage.setItem(
           "saveUserBehavior",
-          JSON.stringify(this.saveOfficialKeyboard)
+          JSON.stringify(b)
         );
-      } else if (this.show_customize_div) {
+      } else if (c) {
         localStorage.setItem(
           "saveUserBehavior",
-          JSON.stringify(this.saveCustomKeyboard)
+          JSON.stringify(d)
         );
       } else {
         localStorage.setItem("saveUserBehavior", null);
@@ -1299,19 +908,14 @@ export default {
         let sendData = { key_id: saveFlag.item.key_id };
         await this.getkeyInfo(sendData);
       }
-      if (saveFlag && saveFlag.item) {
-        saveFlag.flag === "official"
-          ? this.keySort(saveFlag.item, saveFlag.index)
-          : this.btnSelf(saveFlag.item, saveFlag.index);
+      if (saveFlag && saveFlag.flag === "custom") {
+        // this.btnSelf(saveFlag.item, saveFlag.index);
+        this.setBeforeCustomKeyboard({
+          item: saveFlag.item,
+          index: saveFlag.index
+        })
       }
       localStorage.setItem("saveUserBehavior", null);
-    },
-    removeEvent() {
-      // if ([5].includes(this.initMsg.flag)) {?
-      // document.body.removeEventListener("touchmove", this.$bodyScroll, {
-      //   passive: false
-      // });
-      // }
     },
     transferData(item, customizBtn, index) {
       if (
@@ -1333,7 +937,6 @@ export default {
       }
     },
     returnData(item, customizBtn, index) {
-      console.log("000000");
       if (
         ["左键", "中键", "右键", "开火", "移动射击"].includes(
           item.keyRealName || item.key || item.keyName
@@ -1352,109 +955,12 @@ export default {
           : this.KeyEnd(item);
       }
     },
-    emitShowNavBar(navShow, iconShow) {
-      this.needShowNavBar = navShow;
-      this.needIconShow = iconShow;
-    },
-    async getCustomizeKeyboardLists() {
-      let params = {
-        event: "keyboard",
-        method: "myKeyboard",
-        page: this.count,
-      };
-      let data = await this.getCustomizeBtnLists(params);
-
-      if (data.success && data.data.length === 8) {
-        ++this.count;
-        this.getCustomizeKeyboardLists();
-      } else {
-        this.count = 1;
-        return;
-      }
-    },
-    overscroll(el) {
-      // console.log(el);
-      el.addEventListener("touchstart", function () {
-        var top = el.scrollTop,
-          totalScroll = el.scrollHeight,
-          currentScroll = top + el.offsetHeight;
-        if (top === 0) {
-          el.scrollTop = 1;
-        } else if (currentScroll === totalScroll) {
-          el.scrollTop = top - 1;
-        }
-      });
-      el.addEventListener("touchmove", function (evt) {
-        if (el.offsetHeight < el.scrollHeight) evt._isScroller = true;
-      });
-    },
-
-    showDragBall(data) {
-      this.showDrag = data;
-    },
     clk_cus_close_sidebar(data) {
-      // addd
-      // console.log("点击了");
-
       if (this.isSidwbar) this.isSidwbar = false;
     },
     onLoad() {
       this.finished = false;
       this.loading = false;
-    },
-    Showcustomize_son(data, opacity) {
-      this.Showcustomize = opacity;
-      this.show_customize_div = true;
-      this.btnSelf(data);
-    },
-    updateElement(element, status) {
-      let newItemList = this.itemList.map((ele) => {
-        if (ele.id === element.id) {
-          if (status === "edit") {
-            return (ele = element);
-          } else if (status === "remove") {
-            return {
-              ...ele,
-              isDelete: true,
-            };
-          }
-        } else {
-          return ele;
-        }
-      });
-      this.setItemList(newItemList);
-    },
-    cus_editFn() {
-      this.setClickEditKeyboard(true);
-      this.setJustSave(false);
-      this.setRememberHasSaveKeyboard(
-        JSON.parse(JSON.stringify(this.itemList))
-      );
-      this.show_customize_div = false;
-      this.isSidwbar = false;
-      this.setShowNavBar(true);
-      this.setLevelShow(false);
-      let eventInfo = {
-        virturl_keyboard_event_position: "2",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
-    },
-    cus_exitFn() {
-      this.keyboard_index = null;
-      this.show_customize_div = false;
-      this.setEditKeyboard(false);
-      this.setClickEditKeyboard(false);
-      this.setItemList([]);
-      this.setJustSave(false);
-      this.setShowNavBar(false);
-      this.setSaveAfterEdit({
-        saveFlag: false,
-        itemList: "",
-      });
-      let eventInfo = {
-        virturl_keyboard_event_position: "5",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
     },
     // 消息推送
     toRecharge() {
@@ -1537,7 +1043,6 @@ export default {
         this.show = true;
         return;
       } else {
-        //this.tracelog("this.mouseMode: " + this.mouseMode);
         if (mode == "true") {
           this.setMouseMode(true);
         } else if (mode == "false") {
@@ -1662,122 +1167,6 @@ export default {
       }
     },
 
-    // 我的键盘
-    myKeyboard() {
-      this.sup_index = 5;
-      this.isShowMyborad = true;
-      this.showModeSelect = false;
-      this.showFullScreenSelect = false;
-      let eventInfo = {
-        virturl_keyboard_event_position: "7",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
-      // this.customizeBtnLists = [];
-    },
-    // 创建我的键盘
-    createClick() {
-      this.setEditKeyboard(false);
-      this.setClickEditKeyboard(false);
-      this.setSaveAfterEdit({
-        saveFlag: false,
-        itemList: "",
-      });
-      this.setCreateClick(true);
-      this.panel = false;
-      this.allKey = false;
-      this.signKey = false;
-      this.SpeKey = false;
-      this.isSidwbar = false;
-      this.Showcustomize = 0;
-      this.show_customize_div = false;
-      this.setShowNavBar(true);
-      this.setItemList([]);
-      this.keyShow = false;
-      this.officialKeyboardFlag = "";
-      this.setHideShowCourse(true);
-      this.setCurrentTutorial(false);
-      this.sub_index = undefined;
-      this.keyboard_index = null;
-      let eventInfo = {
-        virturl_keyboard_event_position: "1",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
-    },
-
-    // 自定义键盘对应的按键信息
-    btnSelf(item, index) {
-      console.log("使用键盘", item);
-      this.setCopyItemList(
-        Object.assign(...this.copyItemList, { myselfKeyboardIndex: index })
-      );
-      this.keyboard_index = index;
-      this.sub_index = undefined;
-      this.saveCustomKeyboard.item = tools.deepClone(item);
-      this.saveCustomKeyboard.index = index;
-      this.setItemList([]);
-      this.setEditKeyboard(true);
-      this.setClickEditKeyboard(false);
-      this.setCreateClick(false);
-      this.setLevelShow(true);
-      this.isSidwbar = false;
-      this.show_customize_div = true;
-      this.customize_editBtn_data = item;
-      if (this.showNavBar) {
-        this.setShowNavBar(false);
-      }
-      this.keyShow = false;
-      this.officialKeyboardFlag = "";
-      let keyInfo = "";
-      if (
-        Number(item.width) === this.screen.videosWidth &&
-        Number(item.height) === this.screen.videosHeight
-      ) {
-        keyInfo = item.key_info;
-      } else {
-        keyInfo =
-          Object.prototype.toString.call(item.key_info) === "[object String]"
-            ? JSON.parse(item.key_info)
-            : item.key_info;
-        keyInfo = keyInfo.map((ele, index) => {
-          return {
-            ...ele,
-            id: ele.id ? ele.id : index,
-            keyWidth:
-              (Number(ele.keyWidth) / Number(item.width)) *
-              this.screen.videosWidth,
-            keyHeight:
-              (Number(ele.keyWidth) / Number(item.width)) *
-              this.screen.videosWidth,
-            keyLeft:
-              (Number(ele.keyLeft) / Number(item.width)) *
-              this.screen.videosWidth,
-            keyTop:
-              (Number(ele.keyTop) / Number(item.height)) *
-              this.screen.videosHeight,
-          };
-        });
-      }
-      setTimeout(() => {
-        this.setItemList(
-          Object.prototype.toString.call(keyInfo) === "[object String]"
-            ? JSON.parse(keyInfo)
-            : keyInfo
-        );
-      });
-      // 打开自定义键盘,关闭文字键盘
-      this.panel = false;
-      this.allKey = false;
-      this.setHideShowCourse(true);
-      this.setCurrentTutorial(false);
-      this.setAddNewCustomizeBtn(false);
-      let eventInfo = {
-        keyboard_type: "0",
-        keyboard_type_name: item.key_name,
-        keyboard_type_position: "3",
-      };
-      this.$record("virturl_keyboard_list_selection", eventInfo);
-    },
-
     // 将文本字符串转为对象
     textToObj1(keyInfo) {
       var a = `${keyInfo}`;
@@ -1826,14 +1215,6 @@ export default {
       var d = eval(a);
       // console.log(d);
       return d;
-    },
-    // 退出编辑后初始化
-    initCustomizeShow(data) {
-      this.cus_exit = false;
-      this.Showcustomize = 1; // addd
-      this.show_customize_div = !!data; // addd
-      this.needShowNavBar = false;
-      this.needIconShow = false;
     },
     customizeDown(item, index) {
       let customizBtn;
@@ -2279,14 +1660,6 @@ export default {
         window.localStorage.setItem("mode", false);
       }
     },
-
-    gesture() {
-      this.show = true;
-      this.active = 1;
-      this.isSidwbar = false;
-      this.sum_index = 3;
-    },
-
     showSidebar() {
       this.btnFist = false;
       if (this.showNavBar) {
@@ -2301,128 +1674,7 @@ export default {
       this.isSidwbar = !this.isSidwbar;
       this.lastTime = new Date().getTime();
       this.longTimeNoOperation = false;
-      // if ([5].includes(this.initMsg.flag)) {
-      // document.body.addEventListener("touchmove", this.$bodyScroll, {
-      //   passive: false
-      // });
-      // }
     },
-
-    showKey() {
-      console.log("显示文字键盘");
-      this.isBtn = 2;
-      this.allKey = this.SpeKey || this.signKey ? false : true;
-      this.isSidwbar = false;
-      this.isSub = false;
-      // 问题34
-      // this.sub_index = this.keyLists.length;
-      this.keyboard_index = null;
-      // 重叠
-      this.show_customize_div = false;
-      if (this.keyShow) {
-        this.keyShow = false;
-      }
-      this.setSaveOfficialKeyboardFlag(this.officialKeyboardFlag);
-      this.officialKeyboardFlag = "";
-      if (this.panel) return;
-      let copyItemListIndex = this.copyItemList.myselfKeyboardIndex;
-      this.setCopyItemList(
-        Object.assign(
-          { myselfKeyboardIndex: copyItemListIndex },
-          { myselfKeyboardArr: this.itemList }
-        )
-      );
-      this.setItemList([]);
-      this.panel = true;
-      if (this.editKeyboard && !this.clickEditKeyboard) return;
-      if (this.needShowNavBar || this.needIconShow) {
-        this.popupNav = "hide";
-      }
-      let eventInfo = {
-        keyboard_type: "-2",
-        keyboard_type_name: "文字键盘",
-        keyboard_type_position: "1",
-      };
-      this.$record("virturl_keyboard_list_selection", eventInfo);
-    },
-    sup() {
-      this.sup_index = 1; // 问题19
-      this.isSub = true;
-      this.isBtn = 2;
-      this.isMode = false;
-      this.isShowMyborad = false;
-      this.showModeSelect = false;
-      this.showFullScreenSelect = false;
-      this.exitCustomEdit = false;
-      let eventInfo = {
-        control_panel_event_position: "1",
-      };
-      this.$record("control_panel_event", eventInfo);
-      // if ([5].includes(this.initMsg.flag)) {
-      // document.body.addEventListener("touchmove", this.$bodyScroll, {
-      //   passive: false
-      // });
-      // }
-    },
-    keySort(item, index) {
-      console.log("官方键盘", item, index);
-      this.quitOfficialKeyboard = false;
-      this.saveOfficialKeyboard.item = item;
-      this.saveOfficialKeyboard.index = index;
-      this.officialKeyboardFlag = item.key_id;
-      // this.officialKeyboardFlag = 'FIFAKeys';
-      // this.keyLists.forEach(function (item) {
-      //   item.isShow = false;
-      // });
-      // if (this.keyLists.find((ele) => ele.key === item.key)) {
-      //   this.keyLists.find((ele) => ele.key === item.key).isShow = true;
-      // }
-      // 重叠
-      this.show_customize_div = false;
-      // 问题34
-      this.sub_index = index;
-      this.keyboard_index = null;
-      this.setCopyItemList(
-        Object.assign({ myselfKeyboardIndex: null }, { myselfKeyboardArr: [] })
-      );
-      this.isBtn = 2;
-      this.keyShow = true;
-      this.isSidwbar = false;
-      this.isSub = false;
-      // forEach
-
-      // 问题 22
-      // if (this.panel || this.allKey) {
-      this.panel = false;
-      this.allKey = false;
-      // }
-      this.setItemList([]);
-      this.setShowNavBar(false);
-      this.exitCustomEdit = true;
-      let eventInfo = {
-        keyboard_type: "-1",
-        keyboard_type_position: "1",
-        keyboard_type_name: key_name,
-      };
-      this.$record("virturl_keyboard_list_selection", eventInfo);
-    },
-
-    exitKey() {
-      this.officialKeyboardFlag = "";
-      this.quitOfficialKeyboard = true;
-      this.keyShow = false;
-      this.isSub = false;
-      this.set_EmptyKey();
-      this.set_BtnEmptyKey();
-      this.controlCode = 0;
-      this.mouseClickFlag = 0;
-      this.sub_index = undefined;
-      let eventInfo = {
-        virturl_keyboard_event_position: "5",
-      };
-      this.$record("virturl_keyboard_event", eventInfo);
-    },
-
     // conn 连接
     isHref() {
       console.log("进去初始链接");
@@ -3133,7 +2385,7 @@ export default {
       // 出现弹窗
       this.dialogStatus = errorType;
       // alert(msg);
-      Dialog.alert({
+      this.$dialog.alert({
         message: msg,
       }).then(() => {
         // on confirm
@@ -3141,7 +2393,7 @@ export default {
       });
       // .catch(() => {
       //   // on cancel
-      //   Dialog.close;
+      //   this.$dialog.close;
       // });
       /*
             switch (errorType)
@@ -3361,37 +2613,7 @@ export default {
       } else if (which.key === "ALT(R)") {
         this.controlCode |= this.SpecialKey.RightAlt;
       } else if (which.key === "隐藏") {
-        this.sub_index = null;
-        this.panel = false;
-        this.allKey = false;
-        this.signKey = false;
-        this.SpeKey = false;
-        this.keyShow =
-          this.showNavBar || this.editKeyboard || this.quitOfficialKeyboard
-            ? false
-            : true;
-        // if (this.keyShow) {
-        //   this.sub_index = this.keyLists.findIndex((ele) => ele.isShow);
-        // }
-        this.officialKeyboardFlag = this.saveOfficialKeyboardFlag;
-        if (this.editKeyboard) {
-          this.show_customize_div = true;
-        }
-        this.setItemList(this.copyItemList.myselfKeyboardArr);
-        this.keyboard_index = this.copyItemList.myselfKeyboardIndex;
-        if (this.editKeyboard && this.clickEditKeyboard) {
-          this.show_customize_div = false;
-        }
-        if (this.editKeyboard && !this.clickEditKeyboard) return;
-        if (this.needShowNavBar) {
-          this.popupNav = "all";
-        }
-        if (this.needIconShow) {
-          this.popupNav = "iconShow";
-        }
-        if (!this.needShowNavBar && !this.needShowNavBar) {
-          this.popupNav = "hide";
-        }
+
       } else if (which.key === "@") {
         this.keySignDown(which);
       } else if (which.key === "符") {
@@ -3739,44 +2961,7 @@ export default {
       if (
         Object.prototype.toString.call(e.target) === "[object HTMLVideoElement]"
       ) {
-        if (!this.isSidwbar && this.panel) {
-          this.sub_index = null;
-          this.panel = false;
-          this.allKey = false;
-          this.signKey = false;
-          this.SpeKey = false;
-          this.sub_index = undefined;
-          this.keyShow =
-            this.showNavBar || this.editKeyboard || this.quitOfficialKeyboard
-              ? false
-              : true;
-          // if (this.keyShow) {
-          //   this.sub_index = this.keyLists.findIndex((ele) => ele.isShow);
-          // }
-          this.officialKeyboardFlag = this.saveOfficialKeyboardFlag;
-          if (this.editKeyboard) {
-            this.show_customize_div = true;
-          }
-          this.setItemList(this.copyItemList.myselfKeyboardArr);
-          this.keyboard_index = this.copyItemList.myselfKeyboardIndex;
-          if (this.editKeyboard && this.clickEditKeyboard) {
-            this.show_customize_div = false;
-          }
-          if (this.editKeyboard && !this.clickEditKeyboard) return;
-          if (this.needShowNavBar) {
-            this.popupNav = "all";
-          }
-          if (this.needIconShow) {
-            this.popupNav = "iconShow";
-          }
-          if (!this.needShowNavBar && !this.needShowNavBar) {
-            this.popupNav = "hide";
-          }
-          return;
-        }
-        if (this.isSidwbar) {
-          this.isSidwbar = false;
-        }
+        this.setJudgeTouchStart(true)
       }
       $("#remoteVideo")[0].muted = false;
       if ($("#remoteVideo")[0].paused) {
@@ -3845,62 +3030,32 @@ export default {
         if (e.moveMouse) {
           this.mouseData.mouseClickFlag = 0;
         }
-        if (this.mouseSpeed == 1) {
-          if (this.isHorizontalScreen) {
-            this.mouseLeft += e.deltaX;
-            this.mouseTop += e.deltaY;
-            this.mouseData.mouseMovementX =
-              clickMouseX -
-              this.mouseData.lastPositionX +
-              this.mouseData.mouseMovementX;
-            this.mouseData.mouseMovementY =
-              clickMouseY -
-              this.mouseData.lastPositionY +
-              this.mouseData.mouseMovementY;
-          } else {
-            this.mouseLeft -= e.deltaY;
-            this.mouseTop += e.deltaX;
-            //竖屏数据传递
-            //水平方向
-            this.mouseData.mouseMovementX = -(
-              clickMouseY -
-              this.mouseData.lastPositionY +
-              this.mouseData.mouseMovementX
-            );
-            //垂直方向
-            this.mouseData.mouseMovementY =
-              clickMouseX -
-              this.mouseData.lastPositionX +
-              this.mouseData.mouseMovementY;
-          }
+        if (this.isHorizontalScreen) {
+          this.mouseLeft += e.deltaX * this.mouseSpeed;
+          this.mouseTop += e.deltaY * this.mouseSpeed;
+          this.mouseData.mouseMovementX =
+            clickMouseX * this.mouseSpeed -
+            this.mouseData.lastPositionX +
+            this.mouseData.mouseMovementX;
+          this.mouseData.mouseMovementY =
+            clickMouseY * this.mouseSpeed -
+            this.mouseData.lastPositionY +
+            this.mouseData.mouseMovementY;
         } else {
-          if (this.isHorizontalScreen) {
-            this.mouseLeft += e.deltaX * this.mouseSpeed;
-            this.mouseTop += e.deltaY * this.mouseSpeed;
-            this.mouseData.mouseMovementX =
-              clickMouseX * this.mouseSpeed -
-              this.mouseData.lastPositionX +
-              this.mouseData.mouseMovementX;
-            this.mouseData.mouseMovementY =
-              clickMouseY * this.mouseSpeed -
-              this.mouseData.lastPositionY +
-              this.mouseData.mouseMovementY;
-          } else {
-            this.mouseLeft -= e.deltaY * this.mouseSpeed;
-            this.mouseTop += e.deltaX * this.mouseSpeed;
-            //竖屏数据传递
-            //水平方向
-            this.mouseData.mouseMovementX = -(
-              clickMouseY * this.mouseSpeed -
-              this.mouseData.lastPositionY +
-              this.mouseData.mouseMovementX
-            );
-            //垂直方向
-            this.mouseData.mouseMovementY =
-              clickMouseX * this.mouseSpeed -
-              this.mouseData.lastPositionX +
-              this.mouseData.mouseMovementY;
-          }
+          this.mouseLeft -= e.deltaY * this.mouseSpeed;
+          this.mouseTop += e.deltaX * this.mouseSpeed;
+          //竖屏数据传递
+          //水平方向
+          this.mouseData.mouseMovementX = -(
+            clickMouseY * this.mouseSpeed -
+            this.mouseData.lastPositionY +
+            this.mouseData.mouseMovementX
+          );
+          //垂直方向
+          this.mouseData.mouseMovementY =
+            clickMouseX * this.mouseSpeed -
+            this.mouseData.lastPositionX +
+            this.mouseData.mouseMovementY;
         }
 
         if (this.mouseLeft <= 0) {
@@ -4604,9 +3759,9 @@ export default {
       return params;
     },
     // 暂时离开
-    away() {
+    away(a, b, c, d) {
       this.firstEntry = 1;
-      this.setAction();
+      this.setAction(a, b, c, d);
       this.sup_index = 3; //问题19
       this.sendingDisconn();
       this.setHideShowCourse(true);
@@ -4650,7 +3805,7 @@ export default {
             // this.sendingDisconn();
             let msg = res.txt;
             // msg ? '' : msg = "本次扣费还剩42分钟，剩余时间可返还1云豆，是否注销？";
-            Dialog.confirm({
+            this.$dialog.confirm({
               title: "",
               message: msg,
             })
@@ -4667,11 +3822,11 @@ export default {
                       window.location.href = document.referrer;
                       //   window.history.go(-1);
                     } else {
-                      Dialog.alert({
+                      this.$dialog.alert({
                         message: "注销成功",
                       }).then(() => {
                         // on close
-                        Dialog.close;
+                        this.$dialog.close;
                       });
                     }
                   });
@@ -4681,11 +3836,11 @@ export default {
               });
             //   window.history.go(-1);
           } else {
-            Dialog.alert({
+            this.$dialog.alert({
               message: "注销失败",
             }).then(() => {
               // on close
-              Dialog.close;
+              this.$dialog.close;
             });
           }
         });
