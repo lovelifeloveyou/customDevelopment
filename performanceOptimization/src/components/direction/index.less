@@ -1,0 +1,28 @@
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#wheel {
+	width: 130px; 
+	height: 130px; 
+}
+
+ul {
+	position: absolute;
+	display: flex;
+	width: 120px; 
+	height: 120px; 
+	flex-wrap: wrap;
+	background: url("../../assets/img/direction/top.png") no-repeat center center;
+	background-size: 130px 130px; 
+}
+li {
+	width: calc(calc(100% / 3) - 10px);
+	margin: 5px; 
+	height: calc(calc(100% / 3) - 10px);
+	box-sizing: border-box;
+	border: 1px solid white;
+}
