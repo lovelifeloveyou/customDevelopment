@@ -56,9 +56,14 @@ module.exports = {
   },
   css: {
     // 组件样式内联
-    extract: true,
-    sourceMap: false,
+    extract: false,
     loaderOptions: {
+      less: {
+        modifyVars: {
+          red: "#DB2F2F",
+          orange: "#f08d49"
+        }
+      },
       postcss: {
         plugins: [
           require('postcss-px2rem-exclude')({
@@ -68,8 +73,7 @@ module.exports = {
           }),
         ]
       }
-    },
-    modules: false
+    }
   },
   devServer: {
     inline: true,

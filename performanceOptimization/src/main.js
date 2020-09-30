@@ -13,7 +13,9 @@ import './directives/waves.js'
 import store from './store/index'
 import config from './config'
 import helpers from './directives/helpers.js'
+import cloudComputerCustom from 'cloud-computer-custom'
 import {
+  Slider,
   Tab,
   Tabs,
   Overlay,
@@ -32,11 +34,12 @@ Vue.config.productionTip = false
 
 // let vConsole = new Vconsole()
 // Vue.use(vConsole)
-Vue.use(Tab).use(Tabs).use(Overlay).use(Button).use(Col).use(Row).use(NavBar).use(Dialog).use(Toast).use(Field).use(List).use(Icon);
+Vue.use(Slider).use(Tab).use(Tabs).use(Overlay).use(Button).use(Col).use(Row).use(NavBar).use(Dialog).use(Toast).use(Field).use(List).use(Icon);
 Vue.use(helpers)
 Vue.use(VueHammer)
 Vue.use(gesture)
 Vue.use(VueCookies)
+Vue.use(cloudComputerCustom)
 
 Vue.prototype.$httpClient = httpClient
 Vue.prototype.$config = config
