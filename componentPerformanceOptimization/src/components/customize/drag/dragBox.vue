@@ -207,7 +207,6 @@ export default {
     keymsg: Object,
     screen: Object,
     isHorizontalScreen: Boolean,
-    dragBoxShowSidebar: Boolean,
     title: Number,
     secondMenu: Boolean
   },

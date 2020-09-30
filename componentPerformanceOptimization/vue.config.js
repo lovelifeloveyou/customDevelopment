@@ -16,6 +16,23 @@ module.exports = {
       .set("@c", resolve("src/components"))
       .set("@v", resolve("src/views"))
       .set("@p", resolve("public"));
+    config.module
+      .rule('images')
+        // 给 image-webpack-loader 加上缓存来加快编译
+        .use('cache-loader')
+          .before('url-loader')
+          .loader('cache-loader')
+          .options({
+            cacheDirectory: path.join(__dirname, 'node_modules/.cache/image-webpack-loader')
+          })
+        .end()
+        .use('image-webpack-loader')
+          .loader('image-webpack-loader')
+          .options({
+            bypassOnDebug: true
+          })
+          .end()
+        .end()
     config.plugins
         .delete('prefetch')
         .delete('preload');
@@ -39,14 +56,9 @@ module.exports = {
   },
   css: {
     // 组件样式内联
-    extract: false,
+    extract: true,
+    sourceMap: false,
     loaderOptions: {
-      less: {
-        modifyVars: {
-          red: "#DB2F2F",
-          orange: "#f08d49"
-        }
-      },
       postcss: {
         plugins: [
           require('postcss-px2rem-exclude')({
@@ -56,7 +68,8 @@ module.exports = {
           }),
         ]
       }
-    }
+    },
+    modules: false
   },
   devServer: {
     inline: true,

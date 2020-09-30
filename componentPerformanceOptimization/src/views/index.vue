@@ -74,7 +74,6 @@
       :title="index"
       :screen="screenInfomation"
       :isHorizontalScreen="isHorizontalScreen"
-      :dragBoxShowSidebar="dragBoxShowSidebar"
       :secondMenu="secondMenu"
       @transferData="transferData"
       @returnData="returnData"
@@ -348,9 +347,7 @@ export default {
     'colorA',
     'colorB',
     // 创建自定义键盘相关
-    'universal',
-    // 操作自定义键盘相关
-    'dragBoxShowSidebar'
+    'universal'
   ],
   computed: {
     ...mapGetters([
@@ -370,7 +367,6 @@ export default {
       "fullScreenShow",
       "popupNav",
       "beforeCustomKeyboard",
-      "setBeforeCustomKeyboard",
       "judgeTouchStart"
     ]),
     secondMenu() {
@@ -472,6 +468,7 @@ export default {
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
       "setPopupNav",
+      "setBeforeCustomKeyboard",
       "setJudgeTouchStart"
     ]),
     // 本地开发调试，模拟悬浮球
