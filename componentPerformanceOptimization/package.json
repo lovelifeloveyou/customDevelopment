@@ -1,17 +1,17 @@
 {
-  "name": "custom-development",
+  "name": "cloud-component",
   "version": "0.1.3",
   "private": false,
-  "main": "dist/custom-development.umd.min.js",
+  "main": "dist/cloud-component.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve --mode dev",
     "build-test": "vue-cli-service build --mode test",
     "build-pre": "vue-cli-service build --mode pre",
     "build": "vue-cli-service build --mode production",
-    "build-dev-package": "vue-cli-service build --mode dev --target lib --name custom-development ./src/index.js",
-    "build-test-package": "vue-cli-service build --mode test --target lib --name custom-development ./src/index.js",
-    "build-pre-package": "vue-cli-service build --mode pre --target lib --name custom-development ./src/index.js",
-    "build-package": "vue-cli-service build --target lib --name custom-development ./src/index.js",
+    "build-dev-package": "vue-cli-service build --mode dev --target lib --name cloud-component ./src/index.js",
+    "build-test-package": "vue-cli-service build --mode test --target lib --name cloud-component ./src/index.js",
+    "build-pre-package": "vue-cli-service build --mode pre --target lib --name cloud-component ./src/index.js",
+    "build-package": "vue-cli-service build --target lib --name cloud-component ./src/index.js",
     "lint": "vue-cli-service lint",
     "report": "vue-cli-service build --report"
   },

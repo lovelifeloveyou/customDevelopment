@@ -110,7 +110,7 @@ import tools from "@/utils/tools"
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'customDevelopment',
+  name: 'cloudComponent',
   data () {
     return {
       isSidwbar: false, // 本地开发调试

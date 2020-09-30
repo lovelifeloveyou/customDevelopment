@@ -1,5 +1,5 @@
-import customDevelopment from './views/index'
+import cloudComponent from './views/index'
 
-customDevelopment.install = Vue => Vue.component(customDevelopment.name, customDevelopment);//注册组件
+cloudComponent.install = Vue => Vue.component(cloudComponent.name, cloudComponent);//注册组件
 
-export default customDevelopment
+export default cloudComponent
