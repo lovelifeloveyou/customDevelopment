@@ -16,26 +16,29 @@ module.exports = {
       .set("@c", resolve("src/components"))
       .set("@v", resolve("src/views"))
       .set("@p", resolve("public"));
-    config.module
-      .rule('images')
-        // 给 image-webpack-loader 加上缓存来加快编译
-        .use('cache-loader')
-          .before('url-loader')
-          .loader('cache-loader')
-          .options({
-            cacheDirectory: path.join(__dirname, 'node_modules/.cache/image-webpack-loader')
-          })
-        .end()
-        .use('image-webpack-loader')
-          .loader('image-webpack-loader')
-          .options({
-            bypassOnDebug: true
-          })
-          .end()
-        .end()
+    // config.module
+    //   .rule('images')
+    //     // 给 image-webpack-loader 加上缓存来加快编译
+    //     .use('cache-loader')
+    //       .before('url-loader')
+    //       .loader('cache-loader')
+    //       .options({
+    //         cacheDirectory: path.join(__dirname, 'node_modules/.cache/image-webpack-loader')
+    //       })
+    //     .end()
+    //     .use('image-webpack-loader')
+    //       .loader('image-webpack-loader')
+    //       .options({
+    //         bypassOnDebug: true
+    //       })
+    //       .end()
+    //     .end()
     config.plugins
         .delete('prefetch')
         .delete('preload');
+    config.externals({
+      'echarts': 'echarts'
+    })
     if (process.env.NODE_ENV === 'production') {
       config.plugin('compressionPlugin')
           .use(new CompressionPlugin({

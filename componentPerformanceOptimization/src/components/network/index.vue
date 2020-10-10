@@ -43,7 +43,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from "vuex";
-import echarts from "echarts"
+// import echarts from "echarts"
 
 export default {
   name: "network",
