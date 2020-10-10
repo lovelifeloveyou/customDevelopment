@@ -1,5 +1,32 @@
 <template>
   <div>
+    <cloudComputerCustom
+      :isSidwbar="isSidwbar"
+      :showFullScreenSwitch="showFullScreenSwitch"
+      :firstLoad="firstLoad"
+      :roundTripTime="roundTripTime"
+      :byteRateSpeed="byteRateSpeed"
+      :packetRate="packetRate"
+      :colorA="colorA"
+      :colorB="colorB"
+      :universal="universal"
+      @changeSideBarShow="changeSideBarShow"
+      @away="away"
+      @reset="reset"
+      @goRechargeUrl="goRechargeUrl"
+      @changemousespeed="changemousespeed"
+      @showSidebar="showSidebar"
+      @showFullScreen="showFullScreen"
+      @whickKeyTextKeyboard="whichKey"
+      @KeyEndTextKeyboard="KeyEnd"
+      @keySignDownTextKeyboard="keySignDown"
+      @keySpecailUp="keySpecailUp"
+      @transferData="transferData"
+      @returnData="returnData"
+      @clk_cus_close_sidebar="clk_cus_close_sidebar"
+      @sendDataBuriedPoint="sendDataBuriedPoint"
+    >
+    </cloudComputerCustom>
     <div
       id="player"
       :class="[5,'5'].includes(initMsg.flag) && isVertical  ? 'playTop' : 'pageTop'"
@@ -112,34 +139,6 @@
             <div v-if="firstLoad && btnFist" class="icon arrow_rbox"></div>
           </div>
         </div>
-
-        <cloudComputerCustom
-          :isSidwbar="isSidwbar"
-          :showFullScreenSwitch="showFullScreenSwitch"
-          :firstLoad="firstLoad"
-          :roundTripTime="roundTripTime"
-          :byteRateSpeed="byteRateSpeed"
-          :packetRate="packetRate"
-          :colorA="colorA"
-          :colorB="colorB"
-          :universal="universal"
-          @changeSideBarShow="changeSideBarShow"
-          @away="away"
-          @reset="reset"
-          @goRechargeUrl="goRechargeUrl"
-          @changemousespeed="changemousespeed"
-          @showSidebar="showSidebar"
-          @showFullScreen="showFullScreen"
-          @whickKeyTextKeyboard="whichKey"
-          @KeyEndTextKeyboard="KeyEnd"
-          @keySignDownTextKeyboard="keySignDown"
-          @keySpecailUp="keySpecailUp"
-          @transferData="transferData"
-          @returnData="returnData"
-          @clk_cus_close_sidebar="clk_cus_close_sidebar"
-          @sendDataBuriedPoint="sendDataBuriedPoint"
-        >
-        </cloudComputerCustom>
 
         <div class="dialog-start" v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : true">
           <div class="pannel">
@@ -896,7 +895,7 @@ export default {
       this.imgSrc = canvas.toDataURL("image/jpeg");
     },
     // 用户暂时离开
-    setAction() {
+    setAction(a, b, c, d) {
       if (a) {
         localStorage.setItem(
           "saveUserBehavior",

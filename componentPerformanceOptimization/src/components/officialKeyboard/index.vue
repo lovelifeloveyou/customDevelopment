@@ -190,6 +190,7 @@ button {
   background-color: rgba(0, 0, 0, 0.7) !important;
   border: 1.7px solid #0e4a55;
   opacity: 0.9;
+  z-index: 100;
   .nameDisplay {
     font-size: 16.7px;
     position: absolute;

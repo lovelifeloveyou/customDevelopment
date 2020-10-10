@@ -185,6 +185,7 @@ p {
   position: absolute;
   top: 33.3px;
   left: 33.3px;
+  z-index: 100;
   .network {
     width: 366.7px;
     background: linear-gradient(135deg, #2f4bb3 0%, #783c5e 100%, #7180f5 100%);
