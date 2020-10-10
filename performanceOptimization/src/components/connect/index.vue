@@ -34,45 +34,45 @@ export default {
 <style scoped>
 .connect {
   position: fixed;
-  bottom: 30px; 
-  right: 30px; 
-  width: 210px; 
-  height: 125px; 
+  bottom: 50px;
+  right: 50px;
+  width: 350px;
+  height: 208.3px;
   background: rgba(0, 0, 0, 0.7);
   /* border: 1px solid #8f8f8f; */
-  border-radius: 4px; 
+  border-radius: 6.7px;
   z-index: 55555555;
 }
 .text {
-  line-height: 19px; 
+  line-height: 31.7px;
   font-family: Microsoft YaHei;
 }
 .align {
-  margin-bottom: 5px; 
+  margin-bottom: 8.3px;
   color: #cacaca;
-  font-size: 14px; 
+  font-size: 23.3px;
   font-family: Microsoft YaHei;
   font-weight: 400;
 }
 .title {
-  font-size: 16px; 
+  font-size: 26.7px;
   font-weight: 400;
   color: #fff;
-  margin: 9px 0 9px; 
+  margin: 15px 0 15px;
 }
 .count {
-  width: 30px; 
+  width: 50px;
   display: inline-block;
 }
 .close {
-  padding: 3px 23px; 
+  padding: 5px 38.3px;
   background: rgba(36, 36, 36, 0.8);
   color: #cacaca;
-  border-radius: 6px; 
-  margin-top: 12px; 
-  border: 1px solid rgba(108, 108, 108, 1);
-  font-size: 14px; 
-  width: 40px; 
-  margin-left: 60px; 
+  border-radius: 10px;
+  margin-top: 20px;
+  border: 1.7px solid rgba(108, 108, 108, 1);
+  font-size: 23.3px;
+  width: 66.7px;
+  margin-left: 100px;
 }
 </style>
