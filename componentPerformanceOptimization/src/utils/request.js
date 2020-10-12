@@ -2,7 +2,7 @@ import axios from 'axios'
 import config from '../config/index'
 import tools from './tools'
 
-config.accessToken.set('pc:1fd4ce808a62baaa0ba9650684e873b28b6c8ef1')
+// config.accessToken.set('pc:1fd4ce808a62baaa0ba9650684e873b28b6c8ef1')
 // 保存最近一次请求的信息 401时重新发起
 // const oldRequest = {}
 // const tip = tipTmp
@@ -17,9 +17,9 @@ const serverWhiteList = [
 // 超时时间
 axios.defaults.timeout = 15000
 
-axios.defaults.headers.common["Token"] = config.accessToken.get();          
-// let token =JSON.parse( localStorage.getItem('vuex'))
-// axios.defaults.headers.common["Token"] = token.bbs.token;
+// axios.defaults.headers.common["Token"] = config.accessToken.get();          
+let token =JSON.parse( localStorage.getItem('vuex'))
+axios.defaults.headers.common["Token"] = token.bbs.token;
 
 // http请求拦截器
 axios.interceptors.request.use(request => {
