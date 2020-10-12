@@ -15,7 +15,7 @@
     "axios": "^0.19.1",
     "babel-runtime": "^6.26.0",
     "cloud-computer-component": "^0.1.9",
-    "custom-development": "^0.1.3",
+    "custom-development": "^0.1.5",
     "fastclick": "^1.0.6",
     "hammerjs": "^2.0.8",
     "html2canvas": "^1.0.0-rc.5",

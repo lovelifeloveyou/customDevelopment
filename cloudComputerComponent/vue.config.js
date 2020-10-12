@@ -16,6 +16,11 @@ module.exports = {
       .set("@c", resolve("src/components"))
       .set("@v", resolve("src/views"))
       .set("@p", resolve("public"));
+      config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, { limit: 50000 }))
     config.plugins
         .delete('prefetch')
         .delete('preload');

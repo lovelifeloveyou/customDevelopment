@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-show="true" class="floatBall" @touchstart="showMenu">悬浮球</button>
+    <button v-show="false" class="floatBall" @touchstart="showMenu">悬浮球</button>
     <!-- 菜单栏组件 -->
     <slidebar-item
       :isSidwbar="isSidwbar"
@@ -114,7 +114,7 @@ export default {
   name: 'customDevelopment',
   data () {
     return {
-      isSidwbar: false, // 本地开发调试
+      // isSidwbar: false, // 本地开发调试
       customize_editBtn_data: {},
       show_customize_div: false,
       Showcustomize: 1,
@@ -337,7 +337,7 @@ export default {
   },
   props: [
     // 自定义菜单相关
-    // 'isSidwbar', // 本地调试暂时隐藏
+    'isSidwbar', // 本地调试暂时隐藏
     'showFullScreenSwitch',
     'firstLoad',
     // 网络监测相关
@@ -476,7 +476,7 @@ export default {
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {
-      this.isSidwbar = !this.isSidwbar
+      // this.isSidwbar = !this.isSidwbar
     },
     sendDataBuriedPoint (name, data) {
       this.$emit('sendDataBuriedPoint', name, data)
@@ -486,7 +486,7 @@ export default {
       this.isBtn = 2;
       this.allKey = this.SpeKey || this.signKey ? false : true;
       // 改变菜单是否显示
-      this.isSidwbar = false;
+      // this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.isSub = false;
       // 问题34
@@ -545,7 +545,7 @@ export default {
       this.allKey = false;
       this.signKey = false;
       this.SpeKey = false;
-      this.isSidwbar = false;
+      // this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.Showcustomize = 0;
       this.show_customize_div = false;
@@ -566,7 +566,7 @@ export default {
       this.isNetshow = data
     },
     showSidebar () {
-      this.isSidwbar = !this.showSidebar // 本地开发调试
+      // this.isSidwbar = !this.showSidebar // 本地开发调试
       this.$emit('showSidebar')
     },
     showFullScreen (data) {
@@ -650,7 +650,7 @@ export default {
         JSON.parse(JSON.stringify(this.itemList))
       );
       this.show_customize_div = false;
-      this.isSidwbar = false;
+      // this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.setShowNavBar(true);
       this.setLevelShow(false);
@@ -748,7 +748,7 @@ export default {
       this.setClickEditKeyboard(false);
       this.setCreateClick(false);
       this.setLevelShow(true);
-      this.isSidwbar = false;
+      // this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.show_customize_div = true;
       this.customize_editBtn_data = item;
@@ -829,7 +829,7 @@ export default {
       );
       this.isBtn = 2;
       this.keyShow = true;
-      this.isSidwbar = false;
+      // this.isSidwbar = false;
       this.$emit('changeSideBarShow', false)
       this.isSub = false;
       // forEach
