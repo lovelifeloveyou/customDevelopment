@@ -129,6 +129,7 @@
 import keyboard from "../../api/keyboard";
 import keyboardList from "../keyboard/keyboardList";
 import util from "../../common/libs/util.crypto";
+import tools from "@/utils/tools"
 import { mapGetters } from "vuex";
 export default {
   name: "slidebar",
@@ -454,7 +455,7 @@ export default {
         let online = zswk.onlinetime;
         // online.value = '10:05-11:00'
         let time = online ? online.value : '';
-        let minutes = time ? this.common.timeDifference(time) : 0;
+        let minutes = time ? tools.timeDifference(time) : 0;
         this.intervalTimer(minutes);
       } else {
         let sendData = {
@@ -467,7 +468,7 @@ export default {
         let online = res.onlinetime;
         // online.value = '10:05-11:00'
         let time = online ? online.value : '';
-        let minutes = time ? this.common.timeDifference(time) : 0;
+        let minutes = time ? tools.timeDifference(time) : 0;
         this.intervalTimer(minutes);
         console.log(minutes);
         console.log(res);
