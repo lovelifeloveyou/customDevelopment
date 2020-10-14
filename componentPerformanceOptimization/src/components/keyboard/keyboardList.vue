@@ -807,7 +807,7 @@ export default {
           display: flex;
           flex-direction: row;
           justify-content: flex-end;
-          font-size: 26.7px;
+          font-size: 23.3px;
           height: 53.3px;
           color: #fff;
           position: absolute;
@@ -818,7 +818,7 @@ export default {
           }
 
           p:nth-child(1) {
-            width: 166.7px;
+            width: 170px;
             height: 53.3px;
             background: linear-gradient(
               90deg,
@@ -833,7 +833,7 @@ export default {
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            margin-right: 13.3px;
+            margin-right: 10px;
 
             span:nth-child(1) {
               width: 36.7px;
@@ -850,7 +850,7 @@ export default {
           }
 
           p:nth-child(2) {
-            width: 166.7px;
+            width: 170px;
             height: 50px;
             border: 1.7px solid rgba(61, 160, 254, 1);
             opacity: 1;
@@ -871,7 +871,7 @@ export default {
                 0 0 no-repeat;
               background-size: 300px 303.3px;
               background-position: -1.7px -260px;
-              margin-right: 26.7px;
+              margin-right: 10px;
             }
           }
         }
@@ -921,7 +921,7 @@ export default {
           }
 
           p:nth-child(2) {
-            margin-right: 26.7px;
+            margin-right: 10px;
             border: 1.7px solid rgba(61, 160, 254, 1);
             span:nth-child(1) {
               width: 33.3px;
@@ -988,7 +988,7 @@ export default {
                 0 0 no-repeat;
               background-size: 300px 303.3px;
               background-position: -1.7px -260px;
-              margin-right: 26.7px;
+              margin-right: 10px;
             }
           }
         }
