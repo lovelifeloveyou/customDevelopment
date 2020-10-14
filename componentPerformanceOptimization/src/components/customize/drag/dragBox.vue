@@ -831,7 +831,7 @@ p {
 }
 .btn {
   position: absolute;
-  font-size: 10px; 
+  font-size: 16.7px; 
   height: 50px; 
   width: 50px; 
   line-height: 50px; 

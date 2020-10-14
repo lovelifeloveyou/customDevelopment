@@ -375,7 +375,8 @@ export default {
       "fullScreenShow",
       "popupNav",
       "beforeCustomKeyboard",
-      "judgeTouchStart"
+      "judgeTouchStart",
+      "showTextKeyboard"
     ]),
     secondMenu() {
       return this.isShowMyborad || this.keyShow;
@@ -446,8 +447,20 @@ export default {
         if (this.isSidwbar) {
           this.$emit('changeSideBarShow', false)
         }
-        this.setJudgeTouchStart(false)
       }
+      this.setJudgeTouchStart(false)
+    },
+    isSidwbar () {
+      this.setJudgeTouchStart(false)
+    },
+    panel () {
+      this.setJudgeTouchStart(false)
+    },
+    showTextKeyboard () {
+      if (this.showTextKeyboard) {
+        this.showKey()
+      }
+      this.setShowTextKeyboard(false)
     }
   },
   provide() {
@@ -485,7 +498,8 @@ export default {
       "setFullScreenShow",
       "setPopupNav",
       "setBeforeCustomKeyboard",
-      "setJudgeTouchStart"
+      "setJudgeTouchStart",
+      "setShowTextKeyboard"
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {

@@ -857,7 +857,8 @@ export default {
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
       "setBeforeCustomKeyboard",
-      "setJudgeTouchStart"
+      "setJudgeTouchStart",
+      "setShowTextKeyboard"
     ]),
     sendDataBuriedPoint (name, data) {
       this.$record(name, data)
@@ -3142,7 +3143,8 @@ export default {
           this.mouseData.mouseClickFlag |= this.MousePress.RightClick;
         }
         if (e.threeFingerClick) {
-          this.showKey();
+          // this.showKey();
+          this.setShowTextKeyboard(true)
         }
         let that = this;
         if (this.mouseData.mouseClickFlag == 0x01) {
@@ -3717,7 +3719,8 @@ export default {
         $("#mouseImg").hide();
         // this.showKey();
       } else if (data[0] == "0x07") {
-        this.showKey();
+        // this.showKey();
+        this.setShowTextKeyboard(true)
       }
       //   }
     },
