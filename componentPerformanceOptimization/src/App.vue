@@ -28,4 +28,7 @@ export default {
 html, body {
   overflow: hidden !important;
 }
+.van-dialog {
+  z-index: 60000 !important;
+}
 </style>
