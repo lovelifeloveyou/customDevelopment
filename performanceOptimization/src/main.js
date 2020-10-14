@@ -13,6 +13,7 @@ import './directives/waves.js'
 import store from './store/index'
 import config from './config'
 import helpers from './directives/helpers.js'
+import loading from './components/loading'
 import cloudComputerCustom from 'cloud-computer-custom'
 import {
   Slider,
@@ -45,6 +46,7 @@ Vue.prototype.$httpClient = httpClient
 Vue.prototype.$config = config
 Vue.prototype.$toast = Toast
 Vue.prototype.$ = $
+Vue.prototype.$loading = loading
 
 FastClick.prototype.focus = function (targetElement) {
   let length
