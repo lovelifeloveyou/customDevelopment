@@ -20,7 +20,7 @@ if ((window.location.href).indexOf("?") != -1) {
   let token =JSON.parse( localStorage.getItem('vuex'))
   axios.defaults.headers.common["Token"] = token.bbs.token;
 } else {
-  config.accessToken.set('pc:cfab2f138ce4025d7b11a779094a466d5094b9e7')
+  config.accessToken.set('pc:8f1b50086efc25723b4e05901450a417e641f704')
   axios.defaults.headers.common["Token"] = config.accessToken.get(); 
 }         
 
