@@ -64,7 +64,7 @@ export default {
       if(this.officialKeyboardFlag){
         console.log(this.officialKeyInfo)
         this.officialKeyInfo.forEach(item => {
-          if([103,104].includes(Number(item.rockerType))&& item.keyStyle == '1'){
+          if([103,104].includes(Number(item.rockerType))&& item.keyStyle == 1){
             let keyItem={
               keyWidth:item.keyWidth/(1080 / this.screen.videosHeight),
               keyHeight:item.keyHeight/(1080 / this.screen.videosHeight),
@@ -73,6 +73,11 @@ export default {
               rockerType:item.rockerType
             }
             this.directionrollerInfo=keyItem;
+            if(this.directionrollerInfo.rockerType == 103){
+              this.direction_imgCurrent = require("../assets/img/direction/middle.png");
+            }else{
+              this.direction_imgCurrent = this.direction_keyImg
+            }
             this.cartView();
             console.log('数据111',this.directionrollerInfo)
           }
@@ -84,7 +89,7 @@ export default {
       if(this.officialKeyInfo){
         console.log(this.officialKeyInfo)
         this.officialKeyInfo.forEach(item => {
-          if([103,104].includes(Number(item.rockerType))&& item.keyStyle == '1'){
+          if([103,104].includes(Number(item.rockerType))&& item.keyStyle == 1){
             let keyItem={
               keyWidth:item.keyWidth/(1080 / this.screen.videosHeight),
               keyHeight:item.keyHeight/(1080 / this.screen.videosHeight),
@@ -93,6 +98,11 @@ export default {
               rockerType:item.rockerType
             }
             this.directionrollerInfo=keyItem;
+            if(this.directionrollerInfo.rockerType == 103){
+              this.direction_imgCurrent = require("../assets/img/direction/middle.png");
+            }else{
+              this.direction_imgCurrent = this.direction_keyImg
+            }
             this.cartView();
             console.log('数据111',this.directionrollerInfo)
           }
@@ -101,11 +111,6 @@ export default {
     }
   },
   mounted() {
-    if(this.directionrollerInfo.rockerType == 103){
-      this.direction_imgCurrent = require("../assets/img/direction/middle.png");
-    }else{
-      this.direction_imgCurrent = this.direction_keyImg
-    }
     if (![null, undefined, 'null', 'undefined'].includes(localStorage.getItem("directionInfo"))) {
       this.directionrollerInfo = JSON.parse(localStorage.getItem("directionInfo"))
       this.$nextTick(function () {

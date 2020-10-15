@@ -1,5 +1,5 @@
-let server = 'https://vsryunesstest.dalongyun.com'
-// let server = 'https://vsryunesspre.dalongyun.com'
+// let server = 'https://vsryunesstest.dalongyun.com'
+let server = 'https://vsryunesspre.dalongyun.com'
 
 
 const config = {
@@ -7,14 +7,14 @@ const config = {
   prefixPath: '/video',
   apiServer: server + '/v1/rtc',
   directTest: true,
-  WSS_URL: 'wss://vsrwsstest.dalongyun.com',
-  pcRechargeEntry: 'https://waptest.dalongyun.com/indexs.php?mod=recharge&sl=6&loginSign=',
-  mobileRechargeEntry: 'http://waptest.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
-  zswkRechargeEntry:'http://waptest.ucbgames.com/recharge',
-  // WSS_URL: 'wss://vsrwsspre.dalongyun.com',
-  // pcRechargeEntry: 'https://wappre.dalongyun.com/indexs.php?mod=recharge&sl=6&loginSign=',
-  // mobileRechargeEntry: 'https://wappre.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
-  // zswkRechargeEntry:'https://wappre.zhangshangtech.com/recharge',
+  // WSS_URL: 'wss://vsrwsstest.dalongyun.com',
+  // pcRechargeEntry: 'https://waptest.dalongyun.com/indexs.php?mod=recharge&sl=6&loginSign=',
+  // mobileRechargeEntry: 'http://waptest.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
+  // zswkRechargeEntry:'http://waptest.ucbgames.com/recharge',
+  WSS_URL: 'wss://vsrwsspre.dalongyun.com',
+  pcRechargeEntry: 'https://wappre.dalongyun.com/indexs.php?mod=recharge&sl=6&loginSign=',
+  mobileRechargeEntry: 'https://wappre.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
+  zswkRechargeEntry:'https://wappre.zhangshangtech.com/recharge',
   // ip: '172.81.197.168',
   // port: '59808',
   ip: '172.81.197.161',

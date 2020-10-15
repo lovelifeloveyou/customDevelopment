@@ -8,7 +8,7 @@
       marginTop: screenInfomation.top + 'px'
     }"
   >
-    <button v-if="false" class="floatBall" @touchstart="showMenu">悬浮球</button>
+    <button v-if="true" class="floatBall" @touchstart="showMenu">悬浮球</button>
     <!-- 菜单栏组件 -->
     <slidebar-item
       :isSidwbar="isSidwbar"
@@ -121,7 +121,7 @@ export default {
   name: 'cloudComputerCustom',
   data () {
     return {
-      // isSidwbar: false, // 本地开发调试
+      isSidwbar: false, // 本地开发调试
       customize_editBtn_data: {},
       show_customize_div: false,
       Showcustomize: 1,
@@ -345,7 +345,7 @@ export default {
   },
   props: [
     // 自定义菜单相关
-    'isSidwbar', // 本地调试暂时隐藏
+    // 'isSidwbar', // 本地调试暂时隐藏
     'firstLoad',
     // 网络监测相关
     'roundTripTime',
@@ -503,7 +503,7 @@ export default {
     // 本地开发调试，模拟悬浮球
     showMenu () {
       if (this.showNavBar) return
-      // this.isSidwbar = !this.isSidwbar // 本地开发调试
+      this.isSidwbar = !this.isSidwbar // 本地开发调试
     },
     sendDataBuriedPoint (name, data) {
       this.$emit('sendDataBuriedPoint', name, data)
@@ -513,7 +513,7 @@ export default {
       this.isBtn = 2;
       this.allKey = this.SpeKey || this.signKey ? false : true;
       // 改变菜单是否显示
-      // this.isSidwbar = false; // 本地开发调试
+      this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
       this.isSub = false;
       // 问题34
@@ -572,7 +572,7 @@ export default {
       this.allKey = false;
       this.signKey = false;
       this.SpeKey = false;
-      // this.isSidwbar = false; // 本地开发调试
+      this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
       this.Showcustomize = 0;
       this.show_customize_div = false;
@@ -593,12 +593,12 @@ export default {
       this.isNetshow = data
     },
     showSidebar () {
-      // this.isSidwbar = !this.showSidebar // 本地开发调试
+      this.isSidwbar = !this.showSidebar // 本地开发调试
       this.$emit('showSidebar')
     },
     showFullScreen (data) {
       this.setFullScreenShow(data);
-      // this.isSidwbar = false; // 本地开发调试
+      this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
     },
     whickKeyTextKeyboard (which, index) {
@@ -679,7 +679,7 @@ export default {
         JSON.parse(JSON.stringify(this.itemList))
       );
       this.show_customize_div = false;
-      // this.isSidwbar = false; // 本地开发调试
+      this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
       this.setShowNavBar(true);
       let eventInfo = {
@@ -775,7 +775,7 @@ export default {
       this.setEditKeyboard(true);
       this.setClickEditKeyboard(false);
       this.setCreateClick(false);
-      // this.isSidwbar = false; // 本地开发调试
+      this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
       this.show_customize_div = true;
       this.customize_editBtn_data = item;
@@ -785,35 +785,28 @@ export default {
       this.keyShow = false;
       this.officialKeyboardFlag = "";
       let keyInfo = "";
-      if (
-        Number(item.width) === this.screenInfomation.videosWidth &&
-        Number(item.height) === this.screenInfomation.videosHeight
-      ) {
-        keyInfo = item.key_info;
-      } else {
-        keyInfo =
-          Object.prototype.toString.call(item.key_info) === "[object String]"
-            ? JSON.parse(item.key_info)
-            : item.key_info;
-        keyInfo = keyInfo.map((ele, index) => {
-          return {
-            ...ele,
-            id: ele.id ? ele.id : index,
-            keyWidth:
-              (Number(ele.keyWidth) / Number(item.width)) *
-              this.screenInfomation.videosWidth,
-            keyHeight:
-              (Number(ele.keyWidth) / Number(item.width)) *
-              this.screenInfomation.videosWidth,
-            keyLeft:
-              (Number(ele.keyLeft) / Number(item.width)) *
-              this.screenInfomation.videosWidth,
-            keyTop:
-              (Number(ele.keyTop) / Number(item.height)) *
-              this.screenInfomation.videosHeight,
-          };
-        });
-      }
+      keyInfo =
+        Object.prototype.toString.call(item.key_info) === "[object String]"
+          ? JSON.parse(item.key_info)
+          : item.key_info;
+      keyInfo = keyInfo.map((ele, index) => {
+        return {
+          ...ele,
+          id: ele.id ? ele.id : index,
+          keyWidth:
+            (Number(ele.keyWidth) / Number(item.width)) *
+            this.screenInfomation.videosWidth,
+          keyHeight:
+            (Number(ele.keyWidth) / Number(item.width)) *
+            this.screenInfomation.videosWidth,
+          keyLeft:
+            (Number(ele.keyLeft) / Number(item.width)) *
+            this.screenInfomation.videosWidth,
+          keyTop:
+            (Number(ele.keyTop) / Number(item.height)) *
+            this.screenInfomation.videosHeight,
+        };
+      });
       setTimeout(() => {
         this.setItemList(
           Object.prototype.toString.call(keyInfo) === "[object String]"
@@ -856,7 +849,7 @@ export default {
       );
       this.isBtn = 2;
       this.keyShow = true;
-      // this.isSidwbar = false; // 本地开发调试
+      this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
       this.isSub = false;
       // forEach

@@ -90,7 +90,7 @@
         ref="direction"
         v-if="[103, 104].includes(Number(keymsg.rockerType))"
       >
-        <img :src="keymsg.rockerType == 103 ? roller_img[2] : roller_img[3]" :width="keymsg.keyWidth" />
+        <img :src="direction_imgCurrent" :width="keymsg.keyWidth" />
       </div>
     </div>
     <!-- dialog -->
@@ -262,6 +262,11 @@ export default {
   },
   mounted() {
     console.log('键盘数据',this.keymsg)
+    if (this.keymsg.rockerType == 103) {
+      this.direction_imgCurrent = require("../../../assets/img/direction/middle.png");
+    } else if (this.keymsg.rockerType == 104) {
+      this.direction_imgCurrent = this.direction_keyImg
+    }
     if (this.editKeyboard || this.justSave) {
       this.saveRadio = this.keyInfo.keyPressMode;
       if ([101,104,102, 103].includes(this.keymsg.rockerType)) {

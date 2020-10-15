@@ -703,15 +703,7 @@ export default {
     },
     mouseMode() {
       this.sum_index = this.mouseMode ? 1 : this.mouseMode === false ? 2 : 0;
-    },
-    fullScreenShow() {
-      this.rotate();
-      if (this.itemList.length) {
-        this.setItemList([]);
-        const { item, index } = this.saveCustomKeyboard;
-        this.btnSelf(item, index);
-      }
-    },
+    }
   },
   mounted() {
     let that = this;
