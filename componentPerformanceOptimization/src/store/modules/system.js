@@ -37,7 +37,6 @@ const state = {
 	},
 	createClick: false,
 	hideShowCourse: false,
-	levelShow: false,
 	addNewCustomizeBtn: false,
 	rollerInfoData: {},
 	mouseMode: false, // true为触屏模式，false为鼠标模式
@@ -75,7 +74,6 @@ const getters = {
 	saveAfterEdit: state => state.saveAfterEdit,
 	createClick: state => state.createClick,
 	hideShowCourse: state => state.hideShowCourse,
-	levelShow: state => state.levelShow,
 	addNewCustomizeBtn: state => state.addNewCustomizeBtn,
 	rollerInfoData: state => state.rollerInfoData,
 	mouseMode: state => state.mouseMode,
@@ -249,9 +247,6 @@ const mutations = {
 	},
 	setHideShowCourse (state, data) {
 		state.hideShowCourse = data
-	},
-	setLevelShow (state, data) {
-		state.levelShow = data
 	},
 	setAddNewCustomizeBtn (state, data) {
 		state.addNewCustomizeBtn = data

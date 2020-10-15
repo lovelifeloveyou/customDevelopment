@@ -851,14 +851,14 @@ export default {
       "setCreateClick",
       "setHideShowCourse",
       "setCurrentTutorial",
-      "setLevelShow",
       "setAddNewCustomizeBtn",
       "setMouseMode",
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
       "setBeforeCustomKeyboard",
       "setJudgeTouchStart",
-      "setShowTextKeyboard"
+      "setShowTextKeyboard",
+      "setMoveItem"
     ]),
     sendDataBuriedPoint (name, data) {
       this.$record(name, data)
@@ -1702,7 +1702,6 @@ export default {
       }
       if (this.firstEntry === 1) {
         this.firstEntry++;
-        this.setLevelShow(true);
       }
       this.isBtn = 2;
       this.traceLog("this.isSidwbar: " + this.isSidwbar);
@@ -2966,6 +2965,7 @@ export default {
     },
 
     press(e) {
+      if (this.showNavBar) return
       if (
         e.target &&
         Object.prototype.toString.call(e.target) === "[object HTMLVideoElement]"
@@ -2980,6 +2980,7 @@ export default {
       }
     },
     pressup(e) {
+      if (this.showNavBar) return
       // this.traceLog("长按放开：");
       if (this.isPress) {
         this.isPress = false;
@@ -2992,6 +2993,10 @@ export default {
       this.showWaves = data;
     },
     gestureTouchStart(e) {
+      if (this.showNavBar) {
+        this.setMoveItem(true)
+        return
+      }
       let that = this;
       if (
         Object.prototype.toString.call(e.target) === "[object HTMLVideoElement]"
@@ -3038,6 +3043,7 @@ export default {
       }
     },
     pressMove(e) {
+      if (this.showNavBar) return
       if (this.mouseMode) {
       } else {
         let clickMouseX, clickMouseY;
@@ -3117,6 +3123,7 @@ export default {
       }
     },
     gestureTouchEnd(e) {
+      if (this.showNavBar) return
       // e.preventDefault();
       if (event.srcElement.id === "remoteVideo") {
         if (tools.judgeClient() !== "Android") {
@@ -3292,6 +3299,7 @@ export default {
     },
 
     tap(event) {
+      if (this.showNavBar) return
       if (
         event.target &&
         Object.prototype.toString.call(event.target) ===

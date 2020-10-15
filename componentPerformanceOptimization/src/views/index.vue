@@ -491,7 +491,6 @@ export default {
       "setCreateClick",
       "setHideShowCourse",
       "setCurrentTutorial",
-      "setLevelShow",
       "setAddNewCustomizeBtn",
       "setMouseMode",
       "setSaveOfficialKeyboardFlag",
@@ -503,6 +502,7 @@ export default {
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {
+      if (this.showNavBar) return
       // this.isSidwbar = !this.isSidwbar // 本地开发调试
     },
     sendDataBuriedPoint (name, data) {
@@ -682,7 +682,6 @@ export default {
       // this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
       this.setShowNavBar(true);
-      this.setLevelShow(false);
       let eventInfo = {
         virturl_keyboard_event_position: "2",
       };
@@ -776,7 +775,6 @@ export default {
       this.setEditKeyboard(true);
       this.setClickEditKeyboard(false);
       this.setCreateClick(false);
-      this.setLevelShow(true);
       // this.isSidwbar = false; // 本地开发调试
       this.$emit('changeSideBarShow', false)
       this.show_customize_div = true;

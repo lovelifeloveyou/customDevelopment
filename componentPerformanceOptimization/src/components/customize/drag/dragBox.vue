@@ -276,7 +276,7 @@ export default {
     this.getAdaptive();
   },
   methods: {
-    ...mapMutations(["setMoveItem", "setLevelShow", "setAddNewCustomizeBtn"]),
+    ...mapMutations(["setMoveItem", "setAddNewCustomizeBtn"]),
     decreaseSize() {
       this.keyInfo.keySize--;
       if (this.keyInfo.keyStyle != 0) {
@@ -349,7 +349,6 @@ export default {
       }
     },
     clickFn() {
-      this.setLevelShow(true);
       this.flag = true;
       var touch;
       if (event.touches) {
@@ -470,7 +469,6 @@ export default {
     },
     clickDirectionFn(e) {
       e.preventDefault();
-      this.setLevelShow(true);
       this.flag = true;
       var touch;
       if (event.touches) {

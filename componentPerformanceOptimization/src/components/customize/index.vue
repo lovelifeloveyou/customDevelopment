@@ -1,5 +1,5 @@
 <template>
-  <div class="customize" :style="highLevel" v-show="isOpen" @touchstart="isShow($event)">
+  <div class="customize" v-show="isOpen" @touchstart="isShow($event)">
     <div class="nav_prent" v-show="isNavShow">
       <div class="nav">
         <img :src="nav_icon[0]" :height="imgShowSize.a" @click="closeCustomizePanel" />
@@ -32,7 +32,7 @@
     </div>
 
     <!-- nav栏组件 -->
-    <div class="compSon">
+    <div class="compSon" style="pointer-events: initial;">
       <mouseKey-item
         @showDragBall="showDragBall"
         v-show="comp_actived == 1"
@@ -85,7 +85,7 @@
       </div>
     </van-dialog>
     <van-dialog id="vertical" v-model="verticalPreserve" title="保存配置">
-      <div class="preserve_content" style="display : block;">
+      <div class="preserve_content" style="display: block;pointer-events: initial;">
         <img
           class="exitImg_pres"
           :src="close_exitImg"
@@ -190,7 +190,6 @@ export default {
       count: 1,
       actived: "",
       close_exitImg: require("../../assets/img/roller/关闭.png"),
-      highLevel: {},
       imgShowSize: {
         a: 45,
         b: 65,
@@ -209,8 +208,7 @@ export default {
       "clickEditKeyboard",
       "showNavBar",
       "saveAfterEdit",
-      "hideShowCourse",
-      "levelShow"
+      "hideShowCourse"
     ])
   },
   watch: {
@@ -237,10 +235,7 @@ export default {
     isNavShow() {
       this.$nextTick(() => {
         if (this.isNavShow) {
-          this.setLevelShow(false);
           this.$emit("showNavBar", this.isNavShow, this.isIconShow);
-        } else {
-          this.setLevelShow(true);
         }
         this.setNavBarShow(this.isNavShow);
       });
@@ -288,9 +283,6 @@ export default {
           this.isIconShow = false;
         }
       }
-    },
-    levelShow() {
-      this.highLevel = { "z-index": this.levelShow ? "10" : "1500" };
     }
   },
   components: {
@@ -323,7 +315,6 @@ export default {
       "setSaveAfterEdit",
       "setCreateClick",
       "setHideShowCourse",
-      "setLevelShow",
       "setAddNewCustomizeBtn",
       "setRollerInfo"
     ]),
@@ -380,7 +371,6 @@ export default {
     },
     clk(num) {
       this.comp_actived = num;
-      this.setLevelShow(false);
     },
     onblur() {
       $("#save").removeClass("spin");
@@ -776,6 +766,7 @@ p {
   background-color: #161f1999;
   border: 3.3px solid #0e4a55;
   border-radius: 16.7px;  
+  pointer-events: initial;
 }
 .nav {
   position: fixed;
@@ -783,7 +774,7 @@ p {
   transform: translate(-50%);
   width: 120%;
   height: 100%;
-
+  pointer-events: initial;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -794,10 +785,12 @@ p {
   left: 50%;
   transform: translate(-50%);
   z-index: 5;
+  pointer-events: initial;
 }
 .course {
   width: 100%;
   height: 100%;
+  pointer-events: initial;
   img {
     display: none;
     height: 100%;
@@ -814,6 +807,7 @@ p {
   top: 0;
   left: 0;
   z-index: 1500;
+  pointer-events: none;
 }
 
 .add {
@@ -975,6 +969,7 @@ p {
   width: 100%;
   border-radius: 26.7px;
   background-color: rgba(0, 0, 0, 0.7);
+  pointer-events: initial;
   .exitImg_pres {
     position: absolute;
     top: 0px;   
