@@ -97,7 +97,7 @@
     <van-dialog v-model="show_dialog">
       <div class="drag_content">
         <div class="btnStyle">
-          <div class="btnExample">{{keymsg.keyStyle == 0 ? '滚轮键盘' : keymsg.keyName}}</div>
+          <div class="btnExample"><span class="btnDisplayName" :style="{'top': keymsg.keyName === '拖动上下左右' ? '30px' : '35px'}">{{keymsg.keyStyle == 0 ? '滚轮键盘' : keymsg.keyName}}</span></div>
         </div>
         <div class="btnFunc">
           <div class="changeSize">
@@ -902,14 +902,19 @@ img {
     align-items: center;
     flex: 1;
     .btnExample {
+      position: relative;
       color: whitesmoke;
       font-size: 30px;
-      line-height: 166.7px;
       width: 166.7px;
       height: 166.7px;
       border-radius: 83.3px;
       border: 1.7px solid #8a8a8a;
       background-color: black;
+      .btnDisplayName {
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
     }
   }
   .btnFunc {
