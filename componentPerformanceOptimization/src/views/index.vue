@@ -966,14 +966,12 @@ export default {
       localStorage.setItem("screenInfomation", JSON.stringify(this.screenInfomation));
     }
   },
-  created () {
-    this.renderResize()
-  },
   mounted () {
     // 监听屏幕事件
     window.addEventListener("resize", this.renderResize, false);
   },
   async created () {
+    this.renderResize()
     // this.setFullScreenShow(JSON.parse(localStorage.getItem("cacheFullScreen")))
     const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
     if (saveFlag && saveFlag.flag === "official") {
