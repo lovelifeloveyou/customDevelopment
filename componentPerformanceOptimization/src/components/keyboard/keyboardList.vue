@@ -333,7 +333,9 @@ export default {
     },
     edit() {
       this.use();
-      this.editFn();
+      setTimeout(() => {
+        this.editFn();
+      })
     },
     use() {
       if (this.mykey) {
