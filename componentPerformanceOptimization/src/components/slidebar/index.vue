@@ -194,15 +194,11 @@ export default {
     isSidwbar() {
       if (!this.isSidwbar) {
         this.isHelp = false;
+        this.i = -1
       }
       if (this.isSidwbar) {
         clearInterval(this.timer);
         this.getUseInfo();
-      }
-      if (this.fullScreenShow) {
-        this.i = 5;
-      } else {
-        this.i = -1;
       }
     },
     showFullScreenSwitch() {

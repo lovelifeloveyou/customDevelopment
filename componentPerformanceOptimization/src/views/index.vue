@@ -5,7 +5,8 @@
       width: screenInfomation.videosWidth + 'px',
       height: screenInfomation.videosHeight + 'px',
       marginLeft: screenInfomation.left + 'px',
-      marginTop: screenInfomation.top + 'px'
+      marginTop: screenInfomation.top + 'px',
+      background: 'beige'
     }"
   >
     <button v-if="true" class="floatBall" @touchstart="showMenu">悬浮球</button>
