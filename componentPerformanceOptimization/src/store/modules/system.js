@@ -44,10 +44,6 @@ const state = {
 	fullScreenShow: true,
 	officialKeyInfo:[],
 	popupNav: '',
-	beforeCustomKeyboard: {
-		item: [],
-		index: ''
-	},
 	judgeTouchStart: false,
 	showTextKeyboard: false
 }
@@ -81,7 +77,6 @@ const getters = {
 	fullScreenShow: state => state.fullScreenShow,
 	officialKeyInfo: state=>state.officialKeyInfo,
 	popupNav: state => state.popupNav,
-	beforeCustomKeyboard: state => state.beforeCustomKeyboard,
 	judgeTouchStart: state => state.judgeTouchStart,
 	showTextKeyboard: state => state.showTextKeyboard
 }
@@ -268,9 +263,6 @@ const mutations = {
 	},
 	setPopupNav (state, data) {
 		state.popupNav = data
-	},
-	setBeforeCustomKeyboard (state, data) {
-		state.beforeCustomKeyboard = data
 	},
 	setJudgeTouchStart (state, data) {
 		state.judgeTouchStart = data

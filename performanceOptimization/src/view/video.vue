@@ -850,7 +850,6 @@ export default {
       "setMouseMode",
       "setSaveOfficialKeyboardFlag",
       "setFullScreenShow",
-      "setBeforeCustomKeyboard",
       "setJudgeTouchStart",
       "setShowTextKeyboard",
       "setMoveItem"
@@ -933,19 +932,6 @@ export default {
       this.lockBtnInputStatusCount = JSON.parse(
         localStorage.getItem("lockBtnInputCount")
       );
-      const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
-      if (saveFlag && saveFlag.flag === "official") {
-        let sendData = { key_id: saveFlag.item.key_id };
-        await this.getkeyInfo(sendData);
-      }
-      if (saveFlag && saveFlag.flag === "custom") {
-        // this.btnSelf(saveFlag.item, saveFlag.index);
-        this.setBeforeCustomKeyboard({
-          item: saveFlag.item,
-          index: saveFlag.index
-        })
-      }
-      localStorage.setItem("saveUserBehavior", null);
     },
     transferData(item, customizBtn, index) {
       if (
