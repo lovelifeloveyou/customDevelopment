@@ -693,7 +693,7 @@ export default {
         if (![2, 3, 3.1].includes(this.initMsg.flag)) {
           // 云电脑对网络延迟大于100ms的2s提示
           this.$toast({
-            position: "middle",
+            position: "bottom",
             message: "网络延迟过高",
             duration: 2000,
           });
