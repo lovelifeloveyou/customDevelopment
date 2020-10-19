@@ -169,6 +169,7 @@ export default {
         left: 0
       },
       isHorizontalScreen: false,
+      firstOnloadKeyboard: true,
       allKeys: [
         { key: "Tab", keyCode: 9 },
         { key: "q", keyCode: 81 },
@@ -466,6 +467,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      "getCustomizeBtnLists",
       "getkeyInfo"
     ]),
     ...mapMutations([
@@ -492,7 +494,8 @@ export default {
       "setPopupNav",
       "setJudgeTouchStart",
       "setShowTextKeyboard",
-      "setKeyInfo"
+      "setKeyInfo",
+      "setEmptyCustomizeBtnLists"
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {
@@ -501,6 +504,22 @@ export default {
     },
     sendDataBuriedPoint (name, data) {
       this.$emit('sendDataBuriedPoint', name, data)
+    },
+    async getCustomizeKeyboardLists() {
+      let params = {
+        event: "keyboard",
+        method: "myKeyboard",
+        page: this.count,
+      };
+      let data = await this.getCustomizeBtnLists(params);
+
+      if (data.success && data.data.length === 8) {
+        ++this.count;
+        this.getCustomizeKeyboardLists();
+      } else {
+        this.count = 1;
+        return;
+      }
     },
     showKey() {
       console.log("显示文字键盘");
@@ -1004,6 +1023,12 @@ export default {
       }
     }
     localStorage.setItem("saveUserBehavior", null);
+
+    if (this.firstOnloadKeyboard) {
+      this.firstOnloadKeyboard = false;
+      this.setEmptyCustomizeBtnLists([])
+      this.getCustomizeKeyboardLists();
+    }
   }
 }
 </script>
