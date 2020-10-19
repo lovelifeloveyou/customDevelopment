@@ -68,8 +68,8 @@
             finished-text="没有更多了"
             @load="onLoad"
           >
-            <li v-for="(item, index) in customizeBtnLists" :key="index">
-              <span>{{item.key_name}}</span>
+            <li v-for="(item, index) in customizeBtnLists" :key="index" @click="active(item)">
+              <span :class="item.key_id == actived ? 'color':''">{{item.key_name}}</span>
               <van-icon name="delete" @click="deleteBtn(item)" />
             </li>
           </van-list>
