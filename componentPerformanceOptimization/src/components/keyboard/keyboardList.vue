@@ -314,6 +314,8 @@ export default {
             this.keyboards = [];
             this.j = -1;
             this.keyInfos = [];
+            this.page = 1
+            this.finished = false
             this.getCustomizeKeyboardLists();
             // this.getCustomizeKey();
           }, 1000);

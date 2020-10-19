@@ -316,7 +316,8 @@ export default {
       "setCreateClick",
       "setHideShowCourse",
       "setAddNewCustomizeBtn",
-      "setRollerInfo"
+      "setRollerInfo",
+      "setEmptyCustomizeBtnLists"
     ]),
     expandNavBar() {
       this.isNavShow = true;
@@ -376,6 +377,7 @@ export default {
       $("#save").removeClass("spin");
     },
     empty() {
+      this.setEmptyCustomizeBtnLists([])
       this.getCustomizeKeyboardLists();
     },
     onLoad() {
@@ -463,6 +465,7 @@ export default {
           this.$loading.close();
           setTimeout(() => {
             this.$toast(res.msg);
+            this.setEmptyCustomizeBtnLists([])
             this.getCustomizeKeyboardLists();
           }, 1000);
           let eventInfo = {
@@ -476,11 +479,6 @@ export default {
         });
     },
     sendmsg: function() {
-      // if ([5].includes(this.initMsg.flag)) {
-      //   document.body.addEventListener("touchmove", this.$bodyScroll, {
-      //     passive: false
-      //   });
-      // }
       if (!this.name_keyName.trim().length) {
         this.$toast("请输入配置名称!");
         return;
@@ -531,6 +529,7 @@ export default {
         .preserveKeyboard(params)
         .then(res => {
           if (!!res.success) {
+            this.setEmptyCustomizeBtnLists([])
             this.getCustomizeKeyboardLists();
             if (res.status == 10000) {
               this.$loading.close();
@@ -540,7 +539,7 @@ export default {
                     ? this.customizeBtnLists.findIndex(
                         item => item.key_name === params.keyName
                       )
-                    : 0;
+                    : this.customizeBtnLists.length - 1;
                 this.$toast(res.msg);
                 this.showPreserve = false;
                 this.verticalPreserve = false
@@ -587,6 +586,7 @@ export default {
                     params.operation = "edit";
                     connectApi.preserveKeyboard(params).then(res => {
                       this.$loading.close();
+                      this.setEmptyCustomizeBtnLists([])
                       this.getCustomizeKeyboardLists();
                       setTimeout(() => {
                         this.$toast(res.msg);
@@ -631,6 +631,7 @@ export default {
                     params.operation = "edit";
                     connectApi.preserveKeyboard(params).then(res => {
                       this.$loading.close();
+                      this.setEmptyCustomizeBtnLists([])
                       this.getCustomizeKeyboardLists();
                       setTimeout(() => {
                         this.$toast(res.msg);

@@ -1,5 +1,5 @@
 import systemService from '../../api/keyboard'
-import tools from '../../utils/tools'
+
 const state = {
 	isBtn: 1,   //   1.屏幕按键， 2.按钮按键
 	keyArray: [],
@@ -87,7 +87,7 @@ const actions = {
 		return systemService.getMyKeyboard(products).then(data => {
 			if (!!data.success && data.data.length) {
 				var keyList=data.data.filter(item=> item.keyboard_type != 3)
-				commit('setCustomizeBtnLists', keyList.reverse())
+				commit('setCustomizeBtnLists', keyList)
 			}
 			return data
 		})
@@ -220,7 +220,10 @@ const mutations = {
 		state.copyItemList = data
 	},
 	setCustomizeBtnLists (state, data) {
-		state.customizeBtnLists = tools.duplicate([...data, ...state.customizeBtnLists], 'key_id')
+		state.customizeBtnLists = [...state.customizeBtnLists, ...data]
+	},
+	setEmptyCustomizeBtnLists (state, data) {
+		state.customizeBtnLists = data
 	},
 	setHasDelCustomizeBtn (state, data) {
 		state.customizeBtnLists = state.customizeBtnLists.filter(item => item.key_id !== data)
