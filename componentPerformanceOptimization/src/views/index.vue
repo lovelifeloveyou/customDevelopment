@@ -491,7 +491,8 @@ export default {
       "setFullScreenShow",
       "setPopupNav",
       "setJudgeTouchStart",
-      "setShowTextKeyboard"
+      "setShowTextKeyboard",
+      "setKeyInfo"
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {

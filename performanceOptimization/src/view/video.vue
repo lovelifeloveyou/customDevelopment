@@ -614,6 +614,7 @@ export default {
       firstLoad: false,
       btnFist: false,
       candidataFirst:0,
+      recordComeBackCount: 0
     };
   },
   created() {
@@ -892,6 +893,7 @@ export default {
     },
     // 用户暂时离开
     setAction(a, b, c, d) {
+      this.recordComeBackCount = 0
       if (a) {
         localStorage.setItem(
           "saveUserBehavior",
@@ -3746,7 +3748,10 @@ export default {
     // 当视频流开始播放时，设立相关状态位
     onVideoPlaying() {
       console.log("video ready");
-      this.getAction();
+      this.recordComeBackCount++
+      if (this.recordComeBackCount === 1) {
+        this.getAction();
+      }
       this.stepStatus++;
       let visable = JSON.parse(sessionStorage.getItem("isVisablty"));
       if (this.connectIsShow && visable) {
