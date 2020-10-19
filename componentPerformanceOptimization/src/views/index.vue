@@ -116,6 +116,7 @@ import officialKeyboard from '@c/officialKeyboard/index'
 import dragBox from '@c/customize/drag/dragBox'
 import customize from '@c/customize/index'
 import tools from "@/utils/tools"
+import keyboard from '@/api/keyboard'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -974,14 +975,32 @@ export default {
     this.renderResize()
     // this.setFullScreenShow(JSON.parse(localStorage.getItem("cacheFullScreen")))
     const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
-    if (saveFlag && saveFlag.flag === "official") {
-      let sendData = { key_id: saveFlag.item.key_id };
-      await this.getkeyInfo(sendData);
-    }
-    if (saveFlag && saveFlag.item) {
-      saveFlag.flag === "official"
-        ? this.keySort(saveFlag.item, saveFlag.index)
-        : this.btnSelf(saveFlag.item, saveFlag.index);
+    if (!saveFlag) {
+      let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
+      let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
+      let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 5) ? 3615551 : undefined) })
+      if (res.success && res.data) {
+        let keyInfo = JSON.parse(res.data.key_info)
+        const { width, height } = res.data
+        let officialkey = keyInfo.map((item)=>{
+        item.keyMarginTop = item.keyMarginTop =='-1' ? height - item.keyMarginBottom - item.keyHeight : item.keyMarginTop
+        item.keyMarginLeft = item.keyMarginLeft =='-1' ? width - item.keyMarginRight - item.keyWidth : item.keyMarginLeft
+        item.keyName = item.keyName.replace(/\\n/g,'\n')
+          return item
+        })
+        this.setKeyInfo(officialkey)
+        this.keySort(res.data, 0)
+      }
+    } else {
+      if (saveFlag && saveFlag.flag === "official") {
+        let sendData = { key_id: saveFlag.item.key_id };
+        await this.getkeyInfo(sendData);
+      }
+      if (saveFlag && saveFlag.item) {
+        saveFlag.flag === "official"
+          ? this.keySort(saveFlag.item, saveFlag.index)
+          : this.btnSelf(saveFlag.item, saveFlag.index);
+      }
     }
     localStorage.setItem("saveUserBehavior", null);
   }
