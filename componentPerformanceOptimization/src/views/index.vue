@@ -169,6 +169,7 @@ export default {
         left: 0
       },
       isHorizontalScreen: false,
+      count: 1,
       firstOnloadKeyboard: true,
       allKeys: [
         { key: "Tab", keyCode: 9 },
