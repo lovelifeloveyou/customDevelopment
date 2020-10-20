@@ -379,7 +379,8 @@ export default {
       "fullScreenShow",
       "popupNav",
       "judgeTouchStart",
-      "showTextKeyboard"
+      "showTextKeyboard",
+      "notifyComponent"
     ]),
     secondMenu() {
       return this.isShowMyborad || this.keyShow;
@@ -454,6 +455,40 @@ export default {
         this.showKey()
       }
       this.setShowTextKeyboard(false)
+    },
+    async notifyComponent () {
+      if (this.notifyComponent) {
+        const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
+        if (!saveFlag) {
+          let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
+          let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
+          let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 5) ? 3615551 : undefined) })
+          if (res.success && res.data) {
+            let keyInfo = JSON.parse(res.data.key_info)
+            const { width, height } = res.data
+            let officialkey = keyInfo.map((item)=>{
+            item.keyMarginTop = item.keyMarginTop =='-1' ? height - item.keyMarginBottom - item.keyHeight : item.keyMarginTop
+            item.keyMarginLeft = item.keyMarginLeft =='-1' ? width - item.keyMarginRight - item.keyWidth : item.keyMarginLeft
+            item.keyName = item.keyName.replace(/\\n/g,'\n')
+              return item
+            })
+            this.setKeyInfo(officialkey)
+            this.keySort(res.data, 0)
+          }
+        } else {
+          if (saveFlag && saveFlag.flag === "official") {
+            let sendData = { key_id: saveFlag.item.key_id };
+            await this.getkeyInfo(sendData);
+          }
+          if (saveFlag && saveFlag.item) {
+            saveFlag.flag === "official"
+              ? this.keySort(saveFlag.item, saveFlag.index)
+              : this.btnSelf(saveFlag.item, saveFlag.index);
+          }
+        }
+        localStorage.setItem("saveUserBehavior", null);
+      }
+      this.setNotifyComponent(false)
     }
   },
   provide() {
@@ -496,7 +531,8 @@ export default {
       "setJudgeTouchStart",
       "setShowTextKeyboard",
       "setKeyInfo",
-      "setEmptyCustomizeBtnLists"
+      "setEmptyCustomizeBtnLists",
+      "setNotifyComponent"
     ]),
     // 本地开发调试，模拟悬浮球
     showMenu () {
@@ -994,36 +1030,6 @@ export default {
   },
   async created () {
     this.renderResize()
-    // this.setFullScreenShow(JSON.parse(localStorage.getItem("cacheFullScreen")))
-    const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
-    if (!saveFlag) {
-      let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
-      let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
-      let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 5) ? 3615551 : undefined) })
-      if (res.success && res.data) {
-        let keyInfo = JSON.parse(res.data.key_info)
-        const { width, height } = res.data
-        let officialkey = keyInfo.map((item)=>{
-        item.keyMarginTop = item.keyMarginTop =='-1' ? height - item.keyMarginBottom - item.keyHeight : item.keyMarginTop
-        item.keyMarginLeft = item.keyMarginLeft =='-1' ? width - item.keyMarginRight - item.keyWidth : item.keyMarginLeft
-        item.keyName = item.keyName.replace(/\\n/g,'\n')
-          return item
-        })
-        this.setKeyInfo(officialkey)
-        this.keySort(res.data, 0)
-      }
-    } else {
-      if (saveFlag && saveFlag.flag === "official") {
-        let sendData = { key_id: saveFlag.item.key_id };
-        await this.getkeyInfo(sendData);
-      }
-      if (saveFlag && saveFlag.item) {
-        saveFlag.flag === "official"
-          ? this.keySort(saveFlag.item, saveFlag.index)
-          : this.btnSelf(saveFlag.item, saveFlag.index);
-      }
-    }
-    localStorage.setItem("saveUserBehavior", null);
 
     if (this.firstOnloadKeyboard) {
       this.firstOnloadKeyboard = false;

@@ -853,7 +853,8 @@ export default {
       "setFullScreenShow",
       "setJudgeTouchStart",
       "setShowTextKeyboard",
-      "setMoveItem"
+      "setMoveItem",
+      "setNotifyComponent"
     ]),
     sendDataBuriedPoint (name, data) {
       this.$record(name, data)
@@ -1717,6 +1718,7 @@ export default {
         console.log("appData", appData);
         console.log("decodeURIComponent(appData)", decodeURIComponent(appData));
         let dataMsg = util.decrypt(appData);
+        localStorage.setItem('openDefaultKeyboard', JSON.stringify(Number(dataMsg && dataMsg.key_id)))
         console.log("dataMsg", dataMsg);
         if (dataMsg != null) {
           if (dataMsg.g_path != null)
@@ -3750,6 +3752,7 @@ export default {
       console.log("video ready");
       this.recordComeBackCount++
       if (this.recordComeBackCount === 1) {
+        this.setNotifyComponent(true)
         this.getAction();
       }
       this.stepStatus++;

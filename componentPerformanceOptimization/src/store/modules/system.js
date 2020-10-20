@@ -45,7 +45,8 @@ const state = {
 	officialKeyInfo:[],
 	popupNav: '',
 	judgeTouchStart: false,
-	showTextKeyboard: false
+	showTextKeyboard: false,
+	notifyComponent: false
 }
 
 // 计算后返回
@@ -78,7 +79,8 @@ const getters = {
 	officialKeyInfo: state=>state.officialKeyInfo,
 	popupNav: state => state.popupNav,
 	judgeTouchStart: state => state.judgeTouchStart,
-	showTextKeyboard: state => state.showTextKeyboard
+	showTextKeyboard: state => state.showTextKeyboard,
+	notifyComponent: state => state.notifyComponent
 }
 
 // 调用api，异步请求
@@ -272,6 +274,9 @@ const mutations = {
 	},
 	setShowTextKeyboard (state, data) {
 		state.showTextKeyboard = data
+	},
+	setNotifyComponent (state, data) {
+		state.notifyComponent = data
 	}
 }
 

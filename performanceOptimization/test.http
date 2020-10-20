@@ -26,3 +26,8 @@ content-type: application/json; charset=utf-8
 GET https://vsryunesspre.dalongyun.com/v1/rtc/keyboard_info?key_id=3615551
 token: pc:14303a3b0d69a17da9ae0e0c39f1eee72b25eacd
 content-type: application/json; charset=utf-8
+
+###
+GET https://vsryunesstest.dalongyun.com/v1/rtc/keyboard_info?key_id=0
+token: h5:5b5eb097d6bb2d9f4b5756c524332050ec43c975
+content-type: application/json; charset=utf-8
