@@ -17,8 +17,14 @@ const serverWhiteList = [
 axios.defaults.timeout = 15000
 
 if ((window.location.href).indexOf("?") != -1) {
-  let token =JSON.parse( localStorage.getItem('vuex'))
-  axios.defaults.headers.common["Token"] = token.bbs.token;
+  let searchParams = new URLSearchParams(window.location.href)
+  let flag = Number(searchParams.get('flag'))
+  if ([10, 2, 3, 3.1].includes(flag)) {
+    axios.defaults.headers.common["Token"] = config.accessToken.get()
+  } else {
+    let token =JSON.parse(localStorage.getItem('vuex'))
+    axios.defaults.headers.common["Token"] = token.bbs.token
+  }
 } else {
   config.accessToken.set('pc:e3a8bafe3f3387fbcdf1458fc003ec6f60ca10a8')
   axios.defaults.headers.common["Token"] = config.accessToken.get(); 
@@ -30,7 +36,15 @@ axios.interceptors.request.use(request => {
     if (request.url.lastIndexOf('&') === request.url.length-1) {
       request.url = request.url.substring(0, request.url.lastIndexOf('&'))
     }
-    request.url = config.apiServer + request.url 
+    if ((request.url).includes('/useInfo')) {
+      request.url = config.zswkApiServer + request.url
+      // let token = JSON.parse(localStorage.getItem('h5userInfo')) || {apiToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjYwNDgwMCwiZXhwIjoxNjAzNzkzMTgxLCJ2ZXJzaW9uIjoiMS4wLjAiLCJhY2NvdW50IjoiOGU2OTZlMzljOTRjZDMxOGIyYzU5ZjUzMzEyZTZkMzUiLCJhcHBfa2V5IjoiZjIzZGFjYTQ2YmI5ZTFmM2M3YTY2YTZiYTlkMmJiOTEiLCJwYXJ0bmVyX2NvZGUiOiIxMjIxMDI5MDE5IiwiY2hhbm5lbF9jb2RlIjoiemhhbmdzaGFuZ3RlY2hfaDUiLCJ1aWQiOiI0MjEzNzM4NCIsInVuYW1lIjoiRExQVF83QTgzNzU3MCIsIm1vYmlsZSI6bnVsbCwiZW1haWwiOm51bGwsInVzZXJfdmlwIjowLCJwbGF0Zm9ybSI6Img1IiwicnRjX3Rva2VuIjoiOTIwYWUzZmZlNTk1YjUzNTQ2NTlmOTliNDI1YWM0Y2UiLCJwcmljZV9yYWRpbyI6MTAwLCJwcmljZV91bml0IjoiXHU3ZjUxXHU1ZTAxIiwiZmxhZyI6IjIifQ.k03iVtJhHUKn7CKA65JvenqiEaI38L0eMxKheLFGe58'}
+      let token = JSON.parse(localStorage.getItem('h5userInfo'))
+      request.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+      request.headers['Token'] = token.apiToken
+    } else {
+      request.url = config.apiServer + request.url
+    }
   }
   let tmpUrl = request.url
   if (request.method === 'get' && request.params) {

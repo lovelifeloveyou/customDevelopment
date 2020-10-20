@@ -3475,10 +3475,10 @@ export default {
       sendingMessage[6] = this.mouseData.mouseMovementY & 0xff;
       sendingMessage[7] = (this.mouseData.mousePositionY >> 8) & 0xff;
       // 相对位移
-      sendingMessage[8] = this.mouseData.mouseMovementX & 0xff;
-      sendingMessage[9] = (this.mouseData.mouseMovementX >> 8) & 0xff;
-      sendingMessage[10] = this.mouseData.mouseMovementY & 0xff;
-      sendingMessage[11] = (this.mouseData.mouseMovementY >> 8) & 0xff;
+      sendingMessage[8] = this.mouseData.mouseMovementX * 2 & 0xff;
+      sendingMessage[9] = (this.mouseData.mouseMovementX * 2 >> 8) & 0xff;
+      sendingMessage[10] = this.mouseData.mouseMovementY * 2 & 0xff;
+      sendingMessage[11] = (this.mouseData.mouseMovementY * 2 >> 8) & 0xff;
       // 控制码
       sendingMessage[12] = this.controlCode;
       // 键盘状态

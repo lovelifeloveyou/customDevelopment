@@ -1,0 +1,16 @@
+###
+POST https://vsryunesspre.dalongyun.com/v1/rtc/use_info
+Token: pc:e3a8bafe3f3387fbcdf1458fc003ec6f60ca10a8
+Content-Type: application/x-www-form-urlencoded
+
+cid=undefined
+
+
+###
+POST https://gwess.dalongyun.com/api/v1/rtc/useInfo
+Content-Type: application/x-www-form-urlencoded
+Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjYwNDgwMCwiZXhwIjoxNjAzNzkzMTgxLCJ2ZXJzaW9uIjoiMS4wLjAiLCJhY2NvdW50IjoiOGU2OTZlMzljOTRjZDMxOGIyYzU5ZjUzMzEyZTZkMzUiLCJhcHBfa2V5IjoiZjIzZGFjYTQ2YmI5ZTFmM2M3YTY2YTZiYTlkMmJiOTEiLCJwYXJ0bmVyX2NvZGUiOiIxMjIxMDI5MDE5IiwiY2hhbm5lbF9jb2RlIjoiemhhbmdzaGFuZ3RlY2hfaDUiLCJ1aWQiOiI0MjEzNzM4NCIsInVuYW1lIjoiRExQVF83QTgzNzU3MCIsIm1vYmlsZSI6bnVsbCwiZW1haWwiOm51bGwsInVzZXJfdmlwIjowLCJwbGF0Zm9ybSI6Img1IiwicnRjX3Rva2VuIjoiOTIwYWUzZmZlNTk1YjUzNTQ2NTlmOTliNDI1YWM0Y2UiLCJwcmljZV9yYWRpbyI6MTAwLCJwcmljZV91bml0IjoiXHU3ZjUxXHU1ZTAxIiwiZmxhZyI6IjIifQ.k03iVtJhHUKn7CKA65JvenqiEaI38L0eMxKheLFGe58
+
+{
+  'cid': 81290072
+}

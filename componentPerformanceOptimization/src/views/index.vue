@@ -486,7 +486,6 @@ export default {
               : this.btnSelf(saveFlag.item, saveFlag.index);
           }
         }
-        localStorage.setItem("saveUserBehavior", null);
       }
       this.setNotifyComponent(false)
     }
