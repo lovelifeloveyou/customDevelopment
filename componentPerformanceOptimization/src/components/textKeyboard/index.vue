@@ -6,8 +6,8 @@
                 :class="activeClass == index ? 'actived' : ''"
                 v-for="(item, index) in allKeys"
                 :key="index"
-                @touchstart="whichKey(item, index)"
-                @touchend="KeyEnd(item)"
+                @touchstart.stop.prevent="whichKey(item, index)"
+                @touchend.stop.prevent="KeyEnd(item)"
               >
                 <span v-if="item.key === '中/英'">
                   <span :style="{ color: colorA }">中</span>/
@@ -21,8 +21,8 @@
                 :class="activeClass == index + 100 ? 'actived' : ''"
                 v-for="(item, index) in numKey"
                 :key="index"
-                @touchstart="whichKey(item, index + 100)"
-                @touchend="KeyEnd(item)"
+                @touchstart.stop.prevent="whichKey(item, index + 100)"
+                @touchend.stop.prevent="KeyEnd(item)"
               >
                 <span>{{ item.key }}</span>
               </button>
@@ -33,8 +33,8 @@
               :class="activeClass == index + 200 ? 'actived' : ''"
               v-for="(item, index) in signKeys"
               :key="index"
-              @touchstart="keySignDown(item, index + 200)"
-              @touchend="keySpecailUp(item)"
+              @touchstart.stop.prevent="keySignDown(item, index + 200)"
+              @touchend.stop.prevent="keySpecailUp(item)"
             >
               <span v-if="item.key === '中/英'">
                 <span :style="{ color: colorA }">中</span>/
@@ -48,8 +48,8 @@
               :class="activeClass == index + 300 ? 'actived' : ''"
               v-for="(item, index) in speCtrls"
               :key="index"
-              @touchstart="whichKey(item, index + 300)"
-              @touchend="KeyEnd(item)"
+              @touchstart.stop.prevent="whichKey(item, index + 300)"
+              @touchend.stop.prevent="KeyEnd(item)"
             >
               <span v-if="item.key === '中/英'">
                 <span :style="{ color: colorA }">中</span>/

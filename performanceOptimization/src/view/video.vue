@@ -3056,32 +3056,63 @@ export default {
         if (e.moveMouse) {
           this.mouseData.mouseClickFlag = 0;
         }
-        if (this.isHorizontalScreen) {
-          this.mouseLeft += e.deltaX * this.mouseSpeed;
-          this.mouseTop += e.deltaY * this.mouseSpeed;
-          this.mouseData.mouseMovementX =
-            clickMouseX * this.mouseSpeed -
-            this.mouseData.lastPositionX +
-            this.mouseData.mouseMovementX;
-          this.mouseData.mouseMovementY =
-            clickMouseY * this.mouseSpeed -
-            this.mouseData.lastPositionY +
-            this.mouseData.mouseMovementY;
+
+        if (this.mouseSpeed == 1) {
+          if (this.isHorizontalScreen) {
+            this.mouseLeft += e.deltaX;
+            this.mouseTop += e.deltaY;
+            this.mouseData.mouseMovementX =
+              clickMouseX -
+              this.mouseData.lastPositionX +
+              this.mouseData.mouseMovementX;
+            this.mouseData.mouseMovementY =
+              clickMouseY -
+              this.mouseData.lastPositionY +
+              this.mouseData.mouseMovementY;
+          } else {
+            this.mouseLeft -= e.deltaY;
+            this.mouseTop += e.deltaX;
+            //竖屏数据传递
+            //水平方向
+            this.mouseData.mouseMovementX = -(
+              clickMouseY -
+              this.mouseData.lastPositionY +
+              this.mouseData.mouseMovementX
+            );
+            //垂直方向
+            this.mouseData.mouseMovementY =
+              clickMouseX -
+              this.mouseData.lastPositionX +
+              this.mouseData.mouseMovementY;
+          }
         } else {
-          this.mouseLeft -= e.deltaY * this.mouseSpeed;
-          this.mouseTop += e.deltaX * this.mouseSpeed;
-          //竖屏数据传递
-          //水平方向
-          this.mouseData.mouseMovementX = -(
-            clickMouseY * this.mouseSpeed -
-            this.mouseData.lastPositionY +
-            this.mouseData.mouseMovementX
-          );
-          //垂直方向
-          this.mouseData.mouseMovementY =
-            clickMouseX * this.mouseSpeed -
-            this.mouseData.lastPositionX +
-            this.mouseData.mouseMovementY;
+          if (this.isHorizontalScreen) {
+            this.mouseLeft += e.deltaX * this.mouseSpeed;
+            this.mouseTop += e.deltaY * this.mouseSpeed;
+            this.mouseData.mouseMovementX =
+                clickMouseX - this.mouseData.lastPositionX +
+                this.mouseData.mouseMovementX;
+            this.mouseData.mouseMovementY =
+                clickMouseY - this.mouseData.lastPositionY +
+                this.mouseData.mouseMovementY;
+            this.mouseData.mouseMovementX = this.mouseData.mouseMovementX * this.mouseSpeed
+            this.mouseData.mouseMovementY = this.mouseData.mouseMovementY * this.mouseSpeed
+          } else {
+            this.mouseLeft -= e.deltaY * this.mouseSpeed;
+            this.mouseTop += e.deltaX * this.mouseSpeed;
+            //竖屏数据传递
+            //水平方向
+            this.mouseData.mouseMovementX = -(
+              clickMouseY - this.mouseData.lastPositionY +
+              this.mouseData.mouseMovementX
+            );
+            //垂直方向
+            this.mouseData.mouseMovementY =
+              clickMouseX - this.mouseData.lastPositionX +
+              this.mouseData.mouseMovementY;
+            this.mouseData.mouseMovementX = this.mouseData.mouseMovementX * this.mouseSpeed
+            this.mouseData.mouseMovementY = this.mouseData.mouseMovementY * this.mouseSpeed
+          }
         }
 
         if (this.mouseLeft <= 0) {

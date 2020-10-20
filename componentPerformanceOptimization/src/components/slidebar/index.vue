@@ -40,7 +40,7 @@
                     @drag-end="dragEnd"
                     max="2.0"
                     min="0.5"
-                    step="0.15"
+                    step="0.1"
                   >
                     <template #button>
                       <div
