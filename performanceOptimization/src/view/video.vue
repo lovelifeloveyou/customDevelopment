@@ -6,6 +6,7 @@
       :style="data"
     >
       <cloudComputerCustom
+        ref="silderItem"
         :isSidwbar="isSidwbar"
         :showFullScreenSwitch="showFullScreenSwitch"
         :firstLoad="firstLoad"
@@ -614,10 +615,14 @@ export default {
       firstLoad: false,
       btnFist: false,
       candidataFirst:0,
-      recordComeBackCount: 0
+      recordComeBackCount: 0,
+      netNumber: 0,
+      startTime: 0,
+      nowTime: 0,
     };
   },
   created() {
+    this.startTime = new Date().getTime();
     //// 强制横屏test
     this.renderResize();
     // this.isGuide();
@@ -691,6 +696,7 @@ export default {
       if (this.roundTripTime > 100 && !this.delayReminder) {
         this.delayReminder = true;
         if (![2, 3, 3.1].includes(this.initMsg.flag)) {
+          this.netNumber++;
           // 云电脑对网络延迟大于100ms的2s提示
           this.$toast({
             position: "bottom",
@@ -2151,10 +2157,26 @@ export default {
         this.connError(this.errorMsg[7] + "(" + errorNo + ")", 1);
       }
       if (data.serverList) {
+        if (this.firstenter) {
+        let eventInfo = {
+          roomdetail_up_time: new Date().getTime() - this.nowTime,
+        };
+        this.nowTime = new Date().getTime();
+        this.$record("precheck_serverip_ready", eventInfo);
+        }
+        // console.log('时间2',new Date().getTime()-this.nowTime)
         console.log("控制流返回serverList成功", data.serverList);
         this.handleStunServer(data.serverList);
       }
       if (data.hashKey) {
+        if (this.firstenter) {
+          this.nowTime = new Date().getTime();
+          let eventInfo = {
+            roomdetail_up_time: this.nowTime - this.startTime,
+          };
+          console.log("时间1", this.nowTime - this.startTime);
+          this.$record("precheck_hashkey_ready", eventInfo);
+        }
         console.log("控制流返回hashkey成功", data.hashKey);
         this.stepStatus = 3;
         this.loadingProgress(20);
@@ -2170,6 +2192,14 @@ export default {
       }
 
       if (data.sdpValue) {
+        if (this.firstenter) {
+          let eventInfo = {
+            roomdetail_up_time: new Date().getTime() - this.nowTime,
+          };
+          // console.log('时间3',new Date().getTime()-this.nowTime)
+          this.nowTime = new Date().getTime();
+          this.$record("precheck_sdp_ready", eventInfo);
+        }
         console.log("控制流返回sdp成功", data.sdpValue);
         // sdp message
         this.stepStatus = 4;
@@ -2182,6 +2212,14 @@ export default {
         }
       }
       if (data.candidateValue) {
+        if (this.firstenter) {
+          let eventInfo = {
+            roomdetail_up_time: new Date().getTime() - this.nowTime,
+          };
+          // console.log('时间4',new Date().getTime()-this.nowTime)
+          this.nowTime = new Date().getTime();
+          this.$record("precheck_candidate_ready", eventInfo);
+        }
         // candidate message
         console.log("获取到candidateValue", data.candidateValue);
         console.log("获取candidate");
@@ -2350,6 +2388,12 @@ export default {
           // devicename:'',
         };
         this.$record("connection_succeeded", eventInfo);
+        let latency = new Date().getTime() - this.startTime;
+        let eventInfos = {
+          roomdetail_up_time: latency,
+        };
+        console.log("时间", new Date().getTime() - this.startTime);
+        this.$record("precheck_video_ready", eventInfos);
       }
     },
     // 使用中时进入暂停状态，“进入全屏” 弹窗出现
@@ -3682,6 +3726,13 @@ export default {
     /* ========== data channel 相关 ==========  */
     // 收到通道事件
     receiveChannelCallBack(event) {
+      if (this.firstenter) {
+        let eventInfo = {
+          roomdetail_up_time: new Date().getTime() - this.nowTime,
+        };
+        // console.log('时间5',new Date().getTime()-this.nowTime)
+        this.$record("precheck_data_ready", eventInfo);
+      }
       console.log("打开数据通道");
       //this.tracelog("success open datachannel");
       this.connChannel = event.channel;
@@ -3837,6 +3888,15 @@ export default {
         control_panel_event_position: "14",
       };
       this.$record("control_panel_event", eventInfo);
+      if (this.initMsg.flag != 10) {
+        let time = this.$refs.silderItem.$children[0].onlineTime;
+        let minutes = this.timeDifference(time);
+        let eventInfos = {
+          roomdetail_up_time: minutes,
+          port: this.netNumber,
+        };
+        this.$record("precheck_net_delay", eventInfos);
+      }
       //   window.history.go(-1);
       window.location.href = document.referrer;
     },
