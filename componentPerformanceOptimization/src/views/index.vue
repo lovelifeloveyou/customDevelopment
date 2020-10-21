@@ -460,20 +460,28 @@ export default {
       if (this.notifyComponent) {
         const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
         if (!saveFlag) {
-          let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
-          let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
-          let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 5) ? 3615551 : undefined) })
-          if (res.success && res.data) {
-            let keyInfo = JSON.parse(res.data.key_info)
-            const { width, height } = res.data
-            let officialkey = keyInfo.map((item)=>{
-            item.keyMarginTop = item.keyMarginTop =='-1' ? height - item.keyMarginBottom - item.keyHeight : item.keyMarginTop
-            item.keyMarginLeft = item.keyMarginLeft =='-1' ? width - item.keyMarginRight - item.keyWidth : item.keyMarginLeft
-            item.keyName = item.keyName.replace(/\\n/g,'\n')
-              return item
-            })
-            this.setKeyInfo(officialkey)
-            this.keySort(res.data, 0)
+          if (!localStorage.getItem('defaultKeyboardSetting')) {
+            let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
+            let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
+            let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 5) ? 3615551 : undefined) })
+            if (res.success && res.data) {
+              let keyInfo = JSON.parse(res.data.key_info)
+              const { width, height } = res.data
+              let officialkey = keyInfo.map((item)=>{
+              item.keyMarginTop = item.keyMarginTop =='-1' ? height - item.keyMarginBottom - item.keyHeight : item.keyMarginTop
+              item.keyMarginLeft = item.keyMarginLeft =='-1' ? width - item.keyMarginRight - item.keyWidth : item.keyMarginLeft
+              item.keyName = item.keyName.replace(/\\n/g,'\n')
+                return item
+              })
+              localStorage.setItem("saveUserBehavior", JSON.stringify({
+                item: tools.deepClone(res.data),
+                index: 0,
+                flag: 'official'
+              }))
+              localStorage.setItem('defaultKeyboardSetting', true)
+              this.setKeyInfo(officialkey)
+              this.keySort(res.data, 0)
+            }
           }
         } else {
           if (saveFlag && saveFlag.flag === "official") {
@@ -739,6 +747,7 @@ export default {
     cus_exitFn() {
       this.keyboard_index = null;
       this.show_customize_div = false;
+      localStorage.setItem("saveUserBehavior", null)
       this.setEditKeyboard(false);
       this.setClickEditKeyboard(false);
       this.setItemList([]);
@@ -755,6 +764,7 @@ export default {
     },
     exitKey() {
       this.officialKeyboardFlag = "";
+      localStorage.setItem("saveUserBehavior", null)
       this.quitOfficialKeyboard = true;
       this.keyShow = false;
       this.isSub = false;
@@ -820,6 +830,7 @@ export default {
       this.sub_index = undefined;
       this.saveCustomKeyboard.item = tools.deepClone(item);
       this.saveCustomKeyboard.index = index;
+      localStorage.setItem("saveUserBehavior", JSON.stringify(this.saveCustomKeyboard))
       this.setItemList([]);
       this.setEditKeyboard(true);
       this.setClickEditKeyboard(false);
@@ -880,6 +891,7 @@ export default {
       this.quitOfficialKeyboard = false;
       this.saveOfficialKeyboard.item = item;
       this.saveOfficialKeyboard.index = index;
+      localStorage.setItem("saveUserBehavior", JSON.stringify(this.saveOfficialKeyboard))
       this.officialKeyboardFlag = item.key_id;
       // this.officialKeyboardFlag = 'FIFAKeys';
       // this.keyLists.forEach(function (item) {

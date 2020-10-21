@@ -343,11 +343,8 @@ export default {
       this.name_keyName = e.key_name;
     },
     openSaveDialog() {
-      // if ([5].includes(this.initMsg.flag)) {
-      //   document.body.removeEventListener("touchmove", this.$bodyScroll, {
-      //     passive: false
-      //   });
-      // }
+      this.setEmptyCustomizeBtnLists([])
+      this.getCustomizeKeyboardLists()
       this.actived = "";
       if (this.isHorizontalScreen) {
         this.showPreserve = true;
