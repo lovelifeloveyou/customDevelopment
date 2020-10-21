@@ -3,7 +3,7 @@ import App from './App'
 import router from './router'
 import 'lib-flexible'
 import httpClient from './utils/request'
-import Vconsole from 'vconsole'
+// import Vconsole from 'vconsole'
 import FastClick from 'fastclick'
 import VueCookies from 'vue-cookies'
 import $ from 'jquery'
@@ -33,8 +33,8 @@ import {
 
 Vue.config.productionTip = false
 
-let vConsole = new Vconsole()
-Vue.use(vConsole)
+// let vConsole = new Vconsole()
+// Vue.use(vConsole)
 Vue.use(Slider).use(Tab).use(Tabs).use(Overlay).use(Button).use(Col).use(Row).use(NavBar).use(Dialog).use(Toast).use(Field).use(List).use(Icon);
 Vue.use(helpers)
 Vue.use(VueHammer)
