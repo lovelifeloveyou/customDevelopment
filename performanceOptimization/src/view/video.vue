@@ -871,6 +871,15 @@ export default {
     changemousespeed(speed) {
       this.mouseSpeed = speed;
     },
+    timeDifference(baseHour) {
+        var str = baseHour;
+        var arr = str.split(':');
+        var hs = parseInt(arr[0]*3600);
+        var ms = parseInt(arr[1]*60);
+        var ss = parseInt(arr[2]);
+        var seconds = hs + ms + ss;
+        return seconds;
+    },
     adaptScreen(x, y) {
       let a = x;
       let b = y;
@@ -2083,6 +2092,7 @@ export default {
     // 控制流通过web服务器转发数据
     httpWebSend(sendData, inter) {
       let curUrl = "video/transmit/" + this.loadData.serverUrl + inter;
+      console.log('curUrl', curUrl)
       $.ajax({
         dataType: "jsonp",
         type: "get",

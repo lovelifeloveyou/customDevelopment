@@ -10,6 +10,7 @@ module.exports = {
   zswkServer,
   apiServer: server + '/v1/rtc',
   zswkApiServer: zswkServer + '/api/v1/rtc',
+  directTest: false,
   mobileRechargeEntry: 'http://waptest.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
   zswkRechargeEntry:'http://waptest.ucbgames.com/recharge'
 }

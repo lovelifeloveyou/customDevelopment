@@ -10,6 +10,7 @@ module.exports = {
   zswkServer,
   apiServer: server + '/v1/rtc',
   zswkApiServer: zswkServer + '/api/v1/rtc',
+  directTest: false,
   // 预发布线打包
   mobileRechargeEntry: 'https://wappre.dalongyun.com/alipay.php?mod=addmoney&loginSign=',
   zswkRechargeEntry:'https://wappre.zhangshangtech.com/recharge'

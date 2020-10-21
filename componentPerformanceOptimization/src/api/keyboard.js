@@ -20,7 +20,7 @@ export default {
     },
     // 获取掌上网咖用户信息
     getZswkUseInfo (params) {
-        return httpclient.post(`/useInfo`, params)
+        return httpclient.post(`/useInfo`, tools.transObject(params))
     },
     // 我的自定义键盘
     getMyKeyboard (params) {

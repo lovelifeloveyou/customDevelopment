@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import config from '../config/index'
 
 Vue.use(VueRouter)
 
@@ -11,12 +12,17 @@ const routes = [
     }
 ]
 
+let router
 
-const router = new VueRouter({
-    mode: 'hash',
-    // mode: 'history',
-    base: process.env.BASE_URL,
-    routes
-})
+if (config.directTest) {
+    router = new VueRouter({
+        routes
+    })
+} else {
+    router = new VueRouter({
+       mode: 'history',
+       routes 
+    })
+}
 
 export default router
