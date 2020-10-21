@@ -84,10 +84,10 @@ export default {
       height: 16%;
     }
     .text {
-      font-size: 12px;
+      font-size: 20px;
       font-family: Source Han Sans CN;
       font-weight: 400;
-      line-height: 20px;
+      line-height: 33.3px;
       color: #cccccc;
       text-align: left;
     }
@@ -95,8 +95,8 @@ export default {
       position: absolute;
       left: 43%;
       top: 43%;
-      width: 143px;
-      height: 40px;
+      width: 238.3px;
+      height: 66.7px;
     }
     .use {
       position: absolute;
@@ -116,8 +116,8 @@ export default {
       position: absolute;
       bottom: 25%;
       right: 3%;
-      width: 143px;
-      height: 40px;
+      width: 238.3px;
+      height: 66.7px;
     }
     .creat {
       position: absolute;
@@ -138,22 +138,22 @@ export default {
       position: absolute;
       bottom: 4%;
       right: 38%;
-      width: 155px;
-      height: 40px;
+      width: 258.3px;
+      height: 66.7px;
     }
     .end{
       position: absolute;
       top: 9%;
       right: 4%;
-      width: 90px;
-      line-height: 26px;
-      height: 26px;
-      font-size: 14px;
+      width: 150px;
+      line-height: 43.3px;
+      height: 43.3px;
+      font-size: 23.3px;
       color: #fff;
       font-family: Source Han Sans CN;
       font-weight: 400;
-      border: 1px solid #fff;
-      border-radius: 35px;
+      border: 1.7px solid #fff;
+      border-radius: 58.3px;
     }
   }
 }
