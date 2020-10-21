@@ -19,7 +19,7 @@
               <li
                 v-for="(bar, index) in bars"
                 :key="index"
-                :class="i === index ? 'bar_active' : 'bar'"
+                :class="i == index ? 'bar_active' : 'bar'"
               >
                 <p @click="clickBar(index)">
                   <i class="icon" :class="'bar_icon_'+ (index + 1)"></i>
@@ -259,12 +259,16 @@ export default {
     },
     clickBar(index) {
       console.log(index);
+      this.$nextTick(() => {
       if (this.i == index) {
-        this.i = -1;
+        // this.i = -1;
+        this.$set(this, 'i', -1)
       } else {
-        this.i = index;
+        // this.i = index;
+        this.$set(this, 'i', index)
       }
-      this.isHelp = false;
+        this.isHelp = false;
+      })
       switch (index) {
         case 0:
           this.$emit("away");

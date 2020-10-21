@@ -605,7 +605,9 @@ export default {
       this.$emit('sendDataBuriedPoint', 'virturl_keyboard_list_selection', eventInfo)
     },
     away () {
-      this.$emit('away', this.keyShow, this.saveOfficialKeyboard, this.show_customize_div, this.saveCustomKeyboard)
+      setTimeout(() => {
+        this.$emit('away', this.keyShow, this.saveOfficialKeyboard, this.show_customize_div, this.saveCustomKeyboard)
+      }, 500)
     },
     reset () {
       this.$emit('reset')
