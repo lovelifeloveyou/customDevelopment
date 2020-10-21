@@ -2091,7 +2091,7 @@ export default {
     },
     // 控制流通过web服务器转发数据
     httpWebSend(sendData, inter) {
-      let curUrl = "video/transmit/" + this.loadData.serverUrl + inter;
+      let curUrl = process.env.NODE_ENV === 'development' ? "video/transmit/" + this.loadData.serverUrl + inter : "transmit/" + this.loadData.serverUrl + inter;
       console.log('curUrl', curUrl)
       $.ajax({
         dataType: "jsonp",
