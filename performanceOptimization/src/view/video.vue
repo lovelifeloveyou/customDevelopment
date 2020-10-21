@@ -119,7 +119,7 @@
             @touchend="panend"
           >
             <i></i>
-            <div class="detailMsg" :class="firstLoad && btnFist ?'arrow_box':''">
+            <div class="detailMsg" :class="firstLoad && btnFist ? 'arrow_box' : ''">
               <p v-if="byteRateSpeed === byteRateSpeed">
                 {{ byteRateSpeed }}
                 <span>KB/s</span>
@@ -3956,7 +3956,7 @@ export default {
   100% {
     border-left: none;
     border-color: #6f6;
-    box-shadow: 5px 5px 10px -4px #f2c329, 5px -5px 10px -4px #f2c329;
+    box-shadow: 8.3px 8.3px 16.7px -6.7px #f2c329, 8.3px -8.3px 16.7px -6.7px #f2c329;
     /* box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 1px 0 #6f6; */
   }
 }
@@ -3978,7 +3978,7 @@ export default {
     border-color: #6f6;
     /* box-shadow: -2px -3px 10px -4px #F2C329,
       -1px 5px 10px -4px #F2C329; */
-    box-shadow: -5px -5px 10px -4px #f2c329, -5px 5px 10px -4px #f2c329;
+    box-shadow: -8.3px -8.3px 16.7px -6.7px #f2c329, -8.3px 8.3px 16.7px -6.7px #f2c329;
     /* box-shadow: 5px 5px 10px -4px rgba(0,255,0,.6), 5px -5px 10px -4px rgba(0,255,0,.4); 
          box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 1px 0 #6f6; */
   }
