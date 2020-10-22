@@ -1,6 +1,6 @@
 {
   "name": "cloud-computer-custom",
-  "version": "1.0.1",
+  "version": "0.1.42",
   "private": false,
   "main": "dist/cloud-computer-custom.umd.min.js",
   "scripts": {
