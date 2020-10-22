@@ -834,7 +834,7 @@ p {
 }
 .btn {
   position: absolute;
-  font-size: 16.7px; 
+  font-size: 20px; 
   height: 50px; 
   width: 50px; 
   line-height: 50px; 
@@ -845,7 +845,7 @@ p {
   margin-left: auto;
   border-radius: 25px; 
   opacity: 0.9;
-  z-index: 100;
+  z-index: 500;
 }
 .wheel {
   width: 130px; 
@@ -875,7 +875,7 @@ img {
   width: 130px; 
   height: 130px; 
   position: absolute;
-  z-index: 100;
+  z-index: 1000;
 }
 /deep/ .van-dialog {
   overflow: inherit;

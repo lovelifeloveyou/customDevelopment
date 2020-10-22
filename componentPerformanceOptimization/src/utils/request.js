@@ -26,7 +26,7 @@ if ((window.location.href).indexOf("?") != -1) {
     axios.defaults.headers.common["Token"] = token.bbs.token
   }
 } else {
-  config.accessToken.set('pc:e3a8bafe3f3387fbcdf1458fc003ec6f60ca10a8')
+  config.accessToken.set('pc:10baf48dac1d88b04891b079a6eb96c6c7712b9b')
   axios.defaults.headers.common["Token"] = config.accessToken.get(); 
 }         
 

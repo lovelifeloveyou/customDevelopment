@@ -192,7 +192,7 @@ button {
   opacity: 0.9;
   z-index: 100;
   .nameDisplay {
-    font-size: 16.7px;
+    font-size: 20px;
     position: absolute;
     left: 50%;
     top: 50%;

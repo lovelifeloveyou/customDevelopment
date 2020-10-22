@@ -13,8 +13,8 @@ let url = window.location.href;
 let router;
 console.log(config)
 console.log('路径',url)
-if(config.directTest) {
-  config.accessToken.set('pc:e3a8bafe3f3387fbcdf1458fc003ec6f60ca10a8')
+if (config.directTest) {
+  config.accessToken.set('pc:10baf48dac1d88b04891b079a6eb96c6c7712b9b')
   axios.defaults.headers.common["Token"] = config.accessToken.get()
   router = new VueRouter({
     // base: '/video/',
@@ -27,7 +27,7 @@ if(config.directTest) {
       }
     ]
   })
-}else {
+} else {
   if(url.indexOf("?") != -1) {
     let queryString = url.split('?')[1].split('#')[0]
     let queryArr = queryString.split('&')

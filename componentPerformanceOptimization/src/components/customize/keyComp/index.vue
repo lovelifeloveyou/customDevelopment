@@ -344,7 +344,7 @@ export default {
 	z-index: 1500;
 	button {
 		color: #ffffff;
-		font-size: 12px;
+		font-size: 20px;
 		padding: 0px; 
 		margin: 0px; 
 		background-color: #000;
