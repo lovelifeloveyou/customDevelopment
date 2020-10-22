@@ -459,8 +459,9 @@ export default {
     async notifyComponent () {
       if (this.notifyComponent) {
         const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
-        if (!saveFlag) {
-          if (!localStorage.getItem('defaultKeyboardSetting')) {
+        if (!saveFlag || !saveFlag.item) {
+          let defaultKeyboardSetting = JSON.parse(localStorage.getItem('defaultKeyboardSetting'))
+          if (!defaultKeyboardSetting) {
             let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
             let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
             let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 5) ? 3615551 : undefined) })
@@ -478,7 +479,7 @@ export default {
                 index: 0,
                 flag: 'official'
               }))
-              localStorage.setItem('defaultKeyboardSetting', true)
+              localStorage.setItem('defaultKeyboardSetting', JSON.stringify(true))
               this.setKeyInfo(officialkey)
               this.keySort(res.data, 0)
             }
