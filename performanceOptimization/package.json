@@ -15,7 +15,7 @@
   "dependencies": {
     "axios": "^0.19.1",
     "babel-runtime": "^6.26.0",
-    "cloud-computer-custom": "^0.1.44",
+    "cloud-computer-custom": "^0.1.45",
     "fastclick": "^1.0.6",
     "html2canvas": "^1.0.0-rc.5",
     "jquery": "^3.5.1",

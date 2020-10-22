@@ -464,7 +464,7 @@ export default {
           if (!defaultKeyboardSetting) {
             let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
             let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
-            let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 5) ? 3615551 : undefined) })
+            let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 6) ? 3615551 : undefined) })
             if (res.success && res.data) {
               let keyInfo = JSON.parse(res.data.key_info)
               const { width, height } = res.data
