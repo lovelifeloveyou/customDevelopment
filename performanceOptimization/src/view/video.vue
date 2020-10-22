@@ -3526,9 +3526,9 @@ export default {
       // 绝对坐标
       sendingMessage[4] = this.mouseData.mousePositionX & 0xff;
       sendingMessage[5] = (this.mouseData.mousePositionX >> 8) & 0xff;
-      sendingMessage[6] = this.mouseData.mouseMovementY & 0xff;
+      sendingMessage[6] = this.mouseData.mousePositionY & 0xff;
       sendingMessage[7] = (this.mouseData.mousePositionY >> 8) & 0xff;
-      // 相对位移
+      // 相对位移 
       sendingMessage[8] = this.mouseData.mouseMovementX * 2 & 0xff;
       sendingMessage[9] = (this.mouseData.mouseMovementX * 2 >> 8) & 0xff;
       sendingMessage[10] = this.mouseData.mouseMovementY * 2 & 0xff;
