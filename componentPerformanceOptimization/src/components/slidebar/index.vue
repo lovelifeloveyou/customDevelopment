@@ -21,7 +21,7 @@
                 :key="index"
                 :class="i == index ? 'bar_active' : 'bar'"
               >
-                <p @click="clickBar(index)">
+                <p @touchstart.stop.prevent="clickBar(index)">
                   <i class="icon" :class="'bar_icon_'+ (index + 1)"></i>
                   <span>{{bar.name}}</span>
                 </p>

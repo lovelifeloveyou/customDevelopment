@@ -607,7 +607,7 @@ export default {
     away () {
       setTimeout(() => {
         this.$emit('away', this.keyShow, this.saveOfficialKeyboard, this.show_customize_div, this.saveCustomKeyboard)
-      }, 500)
+      }, 300)
     },
     reset () {
       this.$emit('reset')
