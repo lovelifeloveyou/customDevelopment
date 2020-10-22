@@ -187,9 +187,6 @@ export default {
       console.log(this.screen);
       this.online.left = this.screen.left + 140;
       this.online.top = this.screen.top;
-      if (!this.fullScreenShow) {
-        this.i = -1;
-      }
     },
     isSidwbar() {
       if (!this.isSidwbar) {
@@ -199,6 +196,9 @@ export default {
       if (this.isSidwbar) {
         clearInterval(this.timer);
         this.getUseInfo();
+        if (this.fullScreenShow) {
+          this.i = 5
+        }
       }
     },
     showFullScreenSwitch() {

@@ -713,6 +713,12 @@ export default {
     },
     fullScreenShow() {
       this.rotate()
+      if (!this.fullScreenShow) {
+        let btnIconLeft = (this.$refs.btnIcon.style.left).replace('px', '')
+        if (Number(btnIconLeft) + 100 >= this.screen.videosWidth) {
+          $(".btnIcon")[0].style.left = (this.screen.videosWidth - 100) + 'px'
+        }
+      }
     }
   },
   mounted() {
