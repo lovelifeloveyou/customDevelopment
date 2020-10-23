@@ -619,6 +619,9 @@ export default {
       netNumber: 0,
       startTime: 0,
       nowTime: 0,
+      datachannelLastTime:0,
+      channelFist:true,
+      sessionFirst:true
     };
   },
   created() {
@@ -1701,6 +1704,8 @@ export default {
       }
     },
     showSidebar() {
+      this.traceLog("this.isSidwbar: " + this.isSidwbar);
+      console.log('组件', this.$refs.silderItem)
       this.btnFist = false;
       if (this.showNavBar) {
         return;
@@ -1709,7 +1714,6 @@ export default {
         this.firstEntry++;
       }
       this.isBtn = 2;
-      this.traceLog("this.isSidwbar: " + this.isSidwbar);
       this.isSidwbar = !this.isSidwbar;
       this.lastTime = new Date().getTime();
       this.longTimeNoOperation = false;
@@ -1753,6 +1757,7 @@ export default {
             errorcode: "501",
             $pagename: this.gameName,
             port: this.loadData.port,
+            $tne:'paramMsg为null'
             // idc: "",
           };
           this.$record("connecting_error", eventInfo);
@@ -1788,6 +1793,27 @@ export default {
         if (that.everConnected) {
           return;
         }
+        let tne = ''
+        switch (Number(that.stepStatus)) {
+          case 1:
+            tne='数据为正确取出'
+            break;
+          case 2:
+            tne='收不到hashKey'
+            break;
+          case 3:
+            tne='未收到sdp'
+            break;
+          case 4:
+            tne='通道、视频未就位'
+            break;
+          case 5:
+            tne='视频未收到'
+            break;
+          case 6:
+            tne='未执行视频自动播放'
+            break;
+        }
         if (that.stepStatus < 2 && !that.connectIsShow && !that.freeIsEnd && !that.memberFreeIsEnd) {
           // that.connError(that.errorMsg[1] + "(40" + that.stepStatus + ")", 4);
           let code = "40" + that.stepStatus;
@@ -1795,6 +1821,7 @@ export default {
             errorcode: code,
             $pagename: that.gameName,
             port: that.loadData.port,
+            $tne: tne
             // idc: "",
           };
           that.$record("connecting_error", eventInfo);
@@ -1814,12 +1841,14 @@ export default {
           // that.connError(that.errorMsg[1] + "(40" + that.stepStatus + ")", 1);
           if(that.candidataFirst == 1){
             that.stepStatus = 9;
+            tne = '未找到服务器'
           }
           let code = "40" + that.stepStatus;
           let eventInfo = {
             errorcode: code,
             $pagename: that.gameName,
             port: that.loadData.port,
+            $tne: tne
             // idc: "",
           };
           that.$record("connecting_error", eventInfo);
@@ -1892,6 +1921,7 @@ export default {
             errorcode: "501",
             $pagename: this.gameName,
             port: this.loadData.port,
+            $tne: 'paramMsg为null'
             // idc: "",
           };
           this.$record("connecting_error", eventInfo);
@@ -1990,6 +2020,7 @@ export default {
           errorcode: "206",
           $pagename: this.gameName,
           port: this.loadData.port,
+          $tne: '收到的serverlist为空'
           // idc: "",
         };
         this.$record("connecting_error", eventInfo);
@@ -2121,13 +2152,17 @@ export default {
         if (data.status == -100) {
           // sessionKey校验失败
           this.connError(this.errorMsg[3] + "(100)", 1);
-          let eventInfo = {
-            errorcode: "100",
-            $pagename: this.gameName,
-            port: this.loadData.port,
-            // idc: "",
-          };
-          this.$record("connecting_error", eventInfo);
+          if (this.sessionFirst) {
+            this.sessionFirst = false;
+            let eventInfo = {
+              errorcode: "100",
+              $pagename: this.gameName,
+              port: this.loadData.port,
+              $tne:'sessionkey不正确'
+              // idc: "",
+            };
+            this.$record("connecting_error", eventInfo);
+          }
         } else if (data.status == -101) {
           // 服务正在使用中，拒绝连接
           this.serverUsing++;
@@ -2142,6 +2177,7 @@ export default {
             errorcode: "103",
             $pagename: this.gameName,
             port: this.loadData.port,
+            $tne: '设置sdp失败'
             // idc: "",
           };
           this.$record("connecting_error", eventInfo);
@@ -2315,6 +2351,18 @@ export default {
           });
           return
       }
+      let channelTime = new Date().getTime()-this.datachannelLastTime;
+      if(channelTime>3000 && this.onVideo && this.dataChannelReady && this.channelFist){
+        this.channelFist=false;
+        let eventInfo = {
+          errorcode: "601",
+          $pagename: this.gameName,
+          port: this.loadData.port,
+          $tne:'数据通道断开'
+          // idc: "",
+        };
+        this.$record("connecting_error", eventInfo);
+      }
       if (!navigator.onLine && !this.connectIsShow && !this.freeIsEnd && !this.memberFreeIsEnd) {
         //断网状态
         // this.cutPicture();
@@ -2407,6 +2455,7 @@ export default {
         let latency = new Date().getTime() - this.startTime;
         let eventInfos = {
           roomdetail_up_time: latency,
+          $duration: new Date().getTime()-this.nowTime
         };
         console.log("时间", new Date().getTime() - this.startTime);
         this.$record("precheck_video_ready", eventInfos);
@@ -3048,6 +3097,7 @@ export default {
       ) {
         this.setJudgeTouchStart(true)
       }
+      document.getElementById("remoteVideo").defaultMuted = false;
       $("#remoteVideo")[0].muted = false;
       if ($("#remoteVideo")[0].paused) {
         $("#remoteVideo")[0].play();
@@ -3734,6 +3784,7 @@ export default {
         errorcode: "202",
         $pagename: this.gameName,
         port: this.loadData.port,
+        $tne: '版本不匹配'
         // idc: "",
       };
       this.$record("connecting_error", eventInfo);
@@ -3746,6 +3797,7 @@ export default {
         let eventInfo = {
           roomdetail_up_time: new Date().getTime() - this.nowTime,
         };
+        this.nowTime = new Date().getTime()
         // console.log('时间5',new Date().getTime()-this.nowTime)
         this.$record("precheck_data_ready", eventInfo);
       }
@@ -3784,6 +3836,7 @@ export default {
     // 通道收到数据
     handleConnChannelMessage(event) {
       // console.log('通道数据',event)
+      this.datachannelLastTime = new Date().getTime()
       let byteArray = new Uint8Array(event.data);
       this.handleChannelData(byteArray);
     },
@@ -3834,6 +3887,7 @@ export default {
         errorcode: "205",
         $pagename: this.gameName,
         port: this.loadData.port,
+        $tne:'数据通道错误'
         // idc: "",
       };
       this.$record("connecting_error", eventInfo);
