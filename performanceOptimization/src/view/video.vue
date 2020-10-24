@@ -54,7 +54,7 @@
         <video
           id="remoteVideo"
           ref="remoteVideo"
-          muted
+          :muted="muteStatus"
           autoplay
           playsinline
           webkit-playsinline
@@ -621,7 +621,8 @@ export default {
       nowTime: 0,
       datachannelLastTime:0,
       channelFist:true,
-      sessionFirst:true
+      sessionFirst:true,
+      muteStatus: true
     };
   },
   created() {
@@ -3097,8 +3098,7 @@ export default {
       ) {
         this.setJudgeTouchStart(true)
       }
-      document.getElementById("remoteVideo").defaultMuted = false;
-      $("#remoteVideo")[0].muted = false;
+      this.$set(this, 'muteStatus', false)
       if ($("#remoteVideo")[0].paused) {
         $("#remoteVideo")[0].play();
       }
@@ -3770,7 +3770,7 @@ export default {
         candidate: candidateInfo.candidate,
         sdpMid: candidateInfo.sdpMid,
       });
-      this.peerConn
+      this.peerConn && this.peerConn.addIceCandidate && this.peerConn
         .addIceCandidate(candidate)
         .then(this.onAddIceCandidateSuccess, this.onAddIceCandidateError);
     },
