@@ -14,7 +14,7 @@ let router;
 console.log(config)
 console.log('路径',url)
 if (config.directTest) {
-  config.accessToken.set('pc:10baf48dac1d88b04891b079a6eb96c6c7712b9b')
+  config.accessToken.set('pc:08f1e13b30947bdea536fb839c3d3759b349fed7')
   axios.defaults.headers.common["Token"] = config.accessToken.get()
   router = new VueRouter({
     // base: '/video/',

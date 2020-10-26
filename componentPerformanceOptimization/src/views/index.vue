@@ -145,16 +145,6 @@ export default {
       needShowNavBar: false,
       needIconShow: false,
       exitCustomEdit: false,
-      saveOfficialKeyboard: {
-        item: "",
-        index: "",
-        flag: "official",
-      },
-      saveCustomKeyboard: {
-        item: "",
-        index: "",
-        flag: "custom",
-      },
       quitOfficialKeyboard: false,
       keyboard_index: null,
       officialKeyboardFlag: "",
@@ -458,13 +448,28 @@ export default {
     },
     async notifyComponent () {
       if (this.notifyComponent) {
-        const saveFlag = JSON.parse(localStorage.getItem("saveUserBehavior"));
-        if (!saveFlag || !saveFlag.item) {
+        let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
+        const { newUser, useCount } = saveCount
+        let serviceDefault = JSON.parse(localStorage.getItem('openDefaultKeyboard')) || {}
+        const { serviceId, keyId } = serviceDefault
+        let judge = JSON.parse(localStorage.getItem('saveUserBehavior'))
+        if (Object.prototype.toString.call(judge) !== '[object Array]') {
+          localStorage.setItem('saveUserBehavior', null)
+        }
+        let saveServiceKeyboard = JSON.parse(localStorage.getItem('saveUserBehavior')) || []
+        let exclusiveFlag = saveServiceKeyboard.find(item => item.serviceId === serviceId)
+        if (exclusiveFlag && exclusiveFlag.item) {
+          if (exclusiveFlag.flag === 'official') {
+            let sendData = { key_id: exclusiveFlag.item.key_id }
+            await this.getkeyInfo(sendData)
+            this.keySort(exclusiveFlag.item, exclusiveFlag.index)
+          } else if (exclusiveFlag.flag === 'custom') {
+            this.btnSelf(exclusiveFlag.item, exclusiveFlag.index)
+          }
+        } else {
           let defaultKeyboardSetting = JSON.parse(localStorage.getItem('defaultKeyboardSetting'))
           if (!defaultKeyboardSetting) {
-            let saveCount = JSON.parse(localStorage.getItem('saveUseCount')) || {}
-            let openDefaultKeyboard = JSON.parse(localStorage.getItem('openDefaultKeyboard'))
-            let res = await keyboard.getKeyboardInfo({ key_id: openDefaultKeyboard ? openDefaultKeyboard : ((saveCount.newUser && saveCount.useCount < 6) ? 3615551 : undefined) })
+            let res = await keyboard.getKeyboardInfo({ key_id: keyId ? keyId : ((newUser && useCount < 6) ? 3615551 : undefined) })
             if (res.success && res.data) {
               let keyInfo = JSON.parse(res.data.key_info)
               const { width, height } = res.data
@@ -474,25 +479,17 @@ export default {
               item.keyName = item.keyName.replace(/\\n/g,'\n')
                 return item
               })
-              localStorage.setItem("saveUserBehavior", JSON.stringify({
+              let realData = saveServiceKeyboard.filter(item => item.serviceId !== serviceId).concat({
+                serviceId: serviceId,
                 item: tools.deepClone(res.data),
                 index: 0,
                 flag: 'official'
-              }))
+              })
+              localStorage.setItem("saveUserBehavior", JSON.stringify(realData))
               localStorage.setItem('defaultKeyboardSetting', JSON.stringify(true))
               this.setKeyInfo(officialkey)
               this.keySort(res.data, 0)
             }
-          }
-        } else {
-          if (saveFlag && saveFlag.flag === "official") {
-            let sendData = { key_id: saveFlag.item.key_id };
-            await this.getkeyInfo(sendData);
-          }
-          if (saveFlag && saveFlag.item) {
-            saveFlag.flag === "official"
-              ? this.keySort(saveFlag.item, saveFlag.index)
-              : this.btnSelf(saveFlag.item, saveFlag.index);
           }
         }
       }
@@ -607,7 +604,7 @@ export default {
     },
     away () {
       setTimeout(() => {
-        this.$emit('away', this.keyShow, this.saveOfficialKeyboard, this.show_customize_div, this.saveCustomKeyboard)
+        this.$emit('away')
       }, 300)
     },
     reset () {
@@ -750,7 +747,16 @@ export default {
     cus_exitFn() {
       this.keyboard_index = null;
       this.show_customize_div = false;
-      localStorage.setItem("saveUserBehavior", null)
+      let serviceDefault = JSON.parse(localStorage.getItem('openDefaultKeyboard')) || {}
+      const { serviceId } = serviceDefault
+      let saveServiceKeyboard = JSON.parse(localStorage.getItem('saveUserBehavior')) || []
+      let realData = saveServiceKeyboard.filter(item => item.serviceId !== serviceId).concat({
+        serviceId: serviceId,
+        item: null,
+        index: null,
+        flag: 'custom'
+      })
+      localStorage.setItem("saveUserBehavior", JSON.stringify(realData))
       this.setEditKeyboard(false);
       this.setClickEditKeyboard(false);
       this.setItemList([]);
@@ -767,7 +773,16 @@ export default {
     },
     exitKey() {
       this.officialKeyboardFlag = "";
-      localStorage.setItem("saveUserBehavior", null)
+      let serviceDefault = JSON.parse(localStorage.getItem('openDefaultKeyboard')) || {}
+      const { serviceId } = serviceDefault
+      let saveServiceKeyboard = JSON.parse(localStorage.getItem('saveUserBehavior')) || []
+      let realData = saveServiceKeyboard.filter(item => item.serviceId !== serviceId).concat({
+        serviceId: serviceId,
+        item: null,
+        index: null,
+        flag: 'official'
+      })
+      localStorage.setItem("saveUserBehavior", JSON.stringify(realData))
       this.quitOfficialKeyboard = true;
       this.keyShow = false;
       this.isSub = false;
@@ -831,9 +846,16 @@ export default {
       );
       this.keyboard_index = index;
       this.sub_index = undefined;
-      this.saveCustomKeyboard.item = tools.deepClone(item);
-      this.saveCustomKeyboard.index = index;
-      localStorage.setItem("saveUserBehavior", JSON.stringify(this.saveCustomKeyboard))
+      let serviceDefault = JSON.parse(localStorage.getItem('openDefaultKeyboard')) || {}
+      const { serviceId } = serviceDefault
+      let saveServiceKeyboard = JSON.parse(localStorage.getItem('saveUserBehavior')) || []
+      let realData = saveServiceKeyboard.filter(item => item.serviceId !== serviceId).concat({
+        serviceId: serviceId,
+        item: tools.deepClone(item),
+        index: index,
+        flag: 'custom'
+      })
+      localStorage.setItem("saveUserBehavior", JSON.stringify(realData))
       this.setItemList([]);
       this.setEditKeyboard(true);
       this.setClickEditKeyboard(false);
@@ -892,17 +914,17 @@ export default {
     },
     keySort(item, index) {
       this.quitOfficialKeyboard = false;
-      this.saveOfficialKeyboard.item = item;
-      this.saveOfficialKeyboard.index = index;
-      localStorage.setItem("saveUserBehavior", JSON.stringify(this.saveOfficialKeyboard))
+      let serviceDefault = JSON.parse(localStorage.getItem('openDefaultKeyboard')) || {}
+      const { serviceId } = serviceDefault
+      let saveServiceKeyboard = JSON.parse(localStorage.getItem('saveUserBehavior')) || []
+      let realData = saveServiceKeyboard.filter(item => item.serviceId !== serviceId).concat({
+        serviceId: serviceId,
+        item: tools.deepClone(item),
+        index: index,
+        flag: 'official'
+      })
+      localStorage.setItem("saveUserBehavior", JSON.stringify(realData))
       this.officialKeyboardFlag = item.key_id;
-      // this.officialKeyboardFlag = 'FIFAKeys';
-      // this.keyLists.forEach(function (item) {
-      //   item.isShow = false;
-      // });
-      // if (this.keyLists.find((ele) => ele.key === item.key)) {
-      //   this.keyLists.find((ele) => ele.key === item.key).isShow = true;
-      // }
       // 重叠
       this.show_customize_div = false;
       // 问题34

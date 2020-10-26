@@ -1141,21 +1141,8 @@ export default {
       this.imgSrc = canvas.toDataURL("image/jpeg");
     },
     // 用户暂时离开
-    setAction(a, b, c, d) {
+    setAction() {
       this.recordComeBackCount = 0
-      if (a) {
-        localStorage.setItem(
-          "saveUserBehavior",
-          JSON.stringify(b)
-        );
-      } else if (c) {
-        localStorage.setItem(
-          "saveUserBehavior",
-          JSON.stringify(d)
-        );
-      } else {
-        localStorage.setItem("saveUserBehavior", null);
-      }
       localStorage.setItem(
         "currentInputStatus",
         JSON.stringify(this.inputStatus)
@@ -1967,7 +1954,11 @@ export default {
         console.log("appData", appData);
         console.log("decodeURIComponent(appData)", decodeURIComponent(appData));
         let dataMsg = util.decrypt(appData);
-        localStorage.setItem('openDefaultKeyboard', JSON.stringify(Number(dataMsg && dataMsg.key_id)))
+        let serviceDefault = {
+          serviceId: dataMsg && dataMsg.g_mark ? dataMsg.g_mark : '标配服务',
+          keyId: Number(dataMsg && dataMsg.key_id)
+        }
+        localStorage.setItem('openDefaultKeyboard', JSON.stringify(serviceDefault))
         console.log("dataMsg", dataMsg);
         if (dataMsg != null) {
           if (dataMsg.g_path != null)
@@ -4168,9 +4159,9 @@ export default {
       return params;
     },
     // 暂时离开
-    away(a, b, c, d) {
+    away() {
       this.firstEntry = 1;
-      this.setAction(a, b, c, d);
+      this.setAction();
       this.sup_index = 3; //问题19
       this.sendingDisconn();
       this.setHideShowCourse(true);
