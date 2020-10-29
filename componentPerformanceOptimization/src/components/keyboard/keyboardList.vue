@@ -36,6 +36,7 @@
           offset="1"
           class="keyboard_wrap"
           id="keyboard_wrap"
+          :style="ipadKeyboardWrapStyle"
         >
           <div
             class="keyboard_item"
@@ -47,13 +48,13 @@
             <p style="margin:0;">{{item.key_name}}</p>
           </div>
         </van-list>
-        <div class="right">
+        <div class="right" :style="ipadRightStyle">
           <div class="bg_key">
             <div
               class="bg_img"
-              :style="{ 'background-image': 'url(' + 'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/mobileGame/streamingPC/bg_button.png' + ')',backgroundSize:'100% 100%',backgroundRepeat: 'no-repeat',backgroundPosition:'center center',backgroundSize: 'cover'}"
+              :style="ipadBgStyle"
             ></div>
-            <ul v-if="mytab==1" class="btn_wrap">
+            <ul v-if="mytab==1" class="btn_wrap" :style="ipadBtnWrapStyle">
               <li v-for="(item, index) in keyInfos" :key="index">
                 <div
                   v-if="item.keyStyle == '0'"
@@ -94,19 +95,19 @@
                 </div>
               </li>
             </ul>
-            <ul v-if="mytab!=1" class="btn_wrap">
+            <ul v-if="mytab!=1" class="btn_wrap" :style="ipadBtnWrapStyle">
               <li v-for="(item, index) in keyInfo" :key="index">
                 <div
                   v-if="item.keyStyle == '0'"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius:  ${handlePX(item.keyWidth/2)};background-color:#1C263E;text-align:center;
-                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop)};
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
                             `"
                 >{{item.keyRealName}}</div>
 
                 <div
                   v-if="[103].includes(Number(item.rockerType)) && item.keyStyle == '1'"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
-                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop)}
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}
                             `"
                 >
                   <img
@@ -118,7 +119,7 @@
                 <div
                   v-if="[104].includes(Number(item.rockerType)) && item.keyStyle == '1'"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
-                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop)}
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}
                             `"
                 >
                   <img
@@ -130,7 +131,7 @@
                 <div
                   v-if="[101,102].includes(Number(item.rockerType)) && item.keyStyle == '1'"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
-                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop)}`"
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}`"
                 >
                   <img
                     id="wheelImage"
@@ -237,6 +238,10 @@ export default {
       },
       cusorShow: false,
       first: true,
+      ipadKeyboardWrapStyle: {},
+      ipadRightStyle: {},
+      ipadBgStyle: { 'background-image': 'url(' + 'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/mobileGame/streamingPC/bg_button.png' + ')',backgroundSize:'100% 100%',backgroundRepeat: 'no-repeat',backgroundPosition:'center center',backgroundSize: 'cover'},
+      ipadBtnWrapStyle: {}
     };
   },
   computed: {
@@ -244,6 +249,25 @@ export default {
   },
   inject: ["created", "editFn", "btnSelf", "keySort",'exitKey'],
   mounted() {
+      if (this.fullScreenShow) {
+        if (tools.isPad()) {
+          let screenInfo = tools.getScreenInfo()
+          const { totalWidth } = screenInfo
+          this.ipadKeyboardWrapStyle = {'width': 'calc(' + (totalWidth - 500) + 'px)'}
+          this.ipadRightStyle = {'width': '500px'}
+          this.ipadBgStyle = { 'background-image': 'url(' + 'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/mobileGame/streamingPC/bg_button.png' + ')',backgroundSize:'100% 100%',backgroundRepeat: 'no-repeat',backgroundPosition:'center center',backgroundSize: 'cover', width: '500px'}
+          this.ipadBtnWrapStyle = {'width': '500px'}
+        }
+      } else {
+        if (tools.isPad()) {
+          let screenInfo = tools.getScreenInfo()
+          const { totalWidth } = screenInfo
+          this.ipadKeyboardWrapStyle = {'width': 'calc(' + (totalWidth - 500) + 'px)'}
+          this.ipadRightStyle = {'width': '500px'}
+          this.ipadBgStyle = { 'background-image': 'url(' + 'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/mobileGame/streamingPC/bg_button.png' + ')',backgroundSize:'100% 100%',backgroundRepeat: 'no-repeat',backgroundPosition:'center center',backgroundSize: 'cover', width: '500px', 'height': '250px'}
+          this.ipadBtnWrapStyle = {'width': '500px', 'height': '250px'}
+        }
+      }
     // if (this.firstClick) {
     //   this.firstClick = false;
     //   this.getCustomizeKeyboardLists();
@@ -478,22 +502,34 @@ export default {
         console.log("键盘数据111", this.keyInfo);
       }
     },
-    handlePX(px) {
+    handlePX(px, status = false) {
       // console.log('屏幕信息',this.screen)
       let rate = "";
-      rate = 1920 / 386;
+      if (tools.isPad()) {
+        rate = 1920 / (status ? (this.fullScreenShow ? 780 : 450) : 500);
+      } else {
+        rate = 1920 / 386;
+      }
       // console.log('比例',rate)
       return px / rate + "px";
     },
     handlemyPX(px) {
       let rate = "";
-      rate = this.keyInfosWidth / 386;
+      if (tools.isPad()) {
+        rate = this.keyInfosWidth / 500
+      } else {
+        rate = this.keyInfosWidth / 386
+      }
       // console.log('比例',rate)
       return px / rate + "px";
     },
     handlemyTop(px) {
       let rate = "";
-      rate = this.keyInfoHeight / 217;
+      if (tools.isPad()) {
+        rate = this.keyInfoHeight / (this.fullScreenShow ? 400 : 217);
+      } else {
+        rate = this.keyInfoHeight / 217;
+      }
       // console.log('比例',rate)
       return px / rate + "px";
     }

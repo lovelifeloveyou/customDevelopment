@@ -315,5 +315,9 @@ export default {
       return child;
     };
     return _clone(parent);
+  },
+  isPad () {
+    var ua = navigator.userAgent.toLowerCase()
+    return ua.match(/iPad/i) == 'ipad'
   }
 }

@@ -3561,8 +3561,10 @@ export default {
               this.screen.videosWidth = this.screen.totalWidth;
               this.screen.videosHeight =
                 (this.screen.totalWidth * 9) / 16 + 200;
+              this.screen.changeRatioHeight = (this.screen.videosWidth / 16) * 9;
             } else {
               this.adaptScreen(this.screen.totalWidth, this.screen.totalHeight);
+              this.screen.changeRatioHeight = (this.screen.videosWidth / 16) * 9;
             }
             this.screen.top =
               (this.screen.totalHeight - this.screen.videosHeight) / 2;

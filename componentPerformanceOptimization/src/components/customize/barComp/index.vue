@@ -1,5 +1,5 @@
 <template>
-    <div class="bar_parent" style="position: relative;top: 100px;">
+    <div class="bar_parent" :style="barParentStyle">
         <div class="bar-item">
             <p>拖拽型</p>
             <ul>
@@ -102,7 +102,8 @@ export default {
 					type: 'button',
 					keySize: 5
 				}
-			],
+            ],
+            barParentStyle: {'position': 'relative','top': (tools.isPad() ? 160 : 100) + 'px'}
         };
     },
     methods: {

@@ -1,6 +1,6 @@
 <template>
 	<div class="mouse_Comp">
-		<div class="mouseComp" :style="{'position': 'absolute', 'top': videosTop + 100 + 'px'}">
+		<div class="mouseComp" :style="mouseCompStyle">
 			<ul class="mouseContent">
 				<li @click="addMouse('左键')">
 					<div>
@@ -46,7 +46,8 @@ export default {
 	data() {
 		return {
 			compMsg: [],
-			videosTop: 0
+			videosTop: 0,
+			mouseCompStyle: {}
 		};
 	},
 	computed: {
@@ -82,6 +83,11 @@ export default {
 		sizeAdaptive () {
 			let screenInfo = tools.getScreenInfo()
 			this.videosTop = screenInfo.top
+			if (this.videosTop <= 0 && tools.isPad()) {
+				this.mouseCompStyle = {'position': 'absolute', 'top': 165 + 'px'}
+			} else {
+				this.mouseCompStyle = {'position': 'absolute', 'top': this.videosTop + 100 + 'px'}
+			}
 		}
 	}
 };

@@ -185,7 +185,7 @@ export default {
   watch: {
     fullScreenShow() {
       console.log(this.screen);
-      this.online.left = this.screen.left + 140;
+      this.online.left = this.screen.left + (tools.isPad() ? 265 : 140);
       this.online.top = this.screen.top;
     },
     isSidwbar() {
@@ -222,7 +222,11 @@ export default {
       this.message =
         '点击"确定"后将强制关闭所有游戏，解决游戏卡住问题，请手动重启需要玩的游戏';
     }
-    this.online.left = this.screen ? this.screen.left + 140 : 140;
+    if (tools.isPad()) {
+      this.online.left = this.screen ? this.screen.left + 265 : 265;
+    } else {
+      this.online.left = this.screen ? this.screen.left + 140 : 140;
+    }
     this.online.top = this.screen ? this.screen.top : 0;
     if (!this.showFullScreenSwitch) {
       this.bars = this.bars.filter((item) => item.name !== "全屏显示");
