@@ -724,7 +724,8 @@ export default {
           this.netNumber++;
           // 云电脑对网络延迟大于100ms的2s提示
           this.$toast({
-            position: "bottom",
+            position: this.isHorizontalScreen ? 'bottom' : '',
+            className: this.isHorizontalScreen ? '' : 'highLatencyPortraitStyle',
             message: "网络延迟过高",
             duration: 2000,
           });
@@ -1321,6 +1322,7 @@ export default {
         // 首次进入适配
         this.isVertical = false;
         $(".dialog-start").hide();
+        this.data = {}
       } else {
         this.isHorizontalScreen = false;
         //this.tracelog("竖屏");
@@ -3526,7 +3528,6 @@ export default {
         window.screen.availWidth < window.screen.availHeight
           ? window.screen.availWidth
           : window.screen.availHeight;
-      // console.log('是否全屏',this.fullScreenShow)
 
       // 首先判断屏幕是否本身就是16:9的比例，若是则默认全屏显示，且不显示全屏显示，若不是该比例则显示
       if (
@@ -3596,31 +3597,10 @@ export default {
         }
       }
       localStorage.setItem("screen", JSON.stringify(this.screen));
-      //this.tracelog("window.orientation: " + window.orientation);
       if (this.firstMoveMouse) {
         this.mouseLeft = this.screen.videosWidth / 2;
         this.mouseTop = this.screen.videosHeight / 2;
         this.firstMoveMouse = false;
-      }
-      if (window.orientation === 180 || window.orientation === 0) {
-        this.isVertical = true;
-        //this.tracelog("竖屏");
-        // $(".dialog-start").hide();
-        // if((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 11)){
-        $(".dialog-start").show();
-        // }
-        this.data = {
-          width: this.y + "px",
-          height: this.x + "px",
-          transform:
-            "translate(0px, " +
-            (this.y - this.screen.left / 2) +
-            "px) rotate(-90deg)",
-        };
-      }
-      if (window.orientation === 90 || window.orientation === -90) {
-        this.isVertical = false;
-        $(".dialog-start").hide();
       }
     },
     fullScreen() {
@@ -4278,6 +4258,12 @@ export default {
   transform: rotate(-90deg);
   position: absolute;
   left: 36%;
+  top: 45%;
+}
+.highLatencyPortraitStyle {
+  transform: rotate(-90deg);
+  position: absolute;
+  left: 55%;
   top: 45%;
 }
 .imgSrc {
