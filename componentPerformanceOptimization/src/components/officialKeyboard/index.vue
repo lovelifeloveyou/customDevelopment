@@ -11,7 +11,7 @@
       >
         <div
           class="nameDisplay"
-          style="width: 100%;font-size: 10px;"
+          :style="{width: '100%',fontSize: (screen.totalWidth >= 1024 ? screen.totalWidth / 736 * 10 + 5 : 10) + 'px'}"
         >{{ item.keyName }}</div>
       </button>
     </div>

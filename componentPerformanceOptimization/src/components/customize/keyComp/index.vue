@@ -305,6 +305,13 @@ export default {
 		},
 		sizeAdaptive () {
 			let screenInfo = tools.getScreenInfo()
+			this.keyComp.forEach((item, index) => {
+				if (index < 19) {
+					this.btnHeight[index] = {'height': tools.isIphoneX() ? '30px' : (screenInfo.allWidth >= 1024 ? screenInfo.allWidth / 736 * 25 : 25 ) + 'px'}
+				} else {
+					this.btnHeight[index] = {'height': tools.isIphoneX() ? '35px' : (screenInfo.allWidth >= 1024 ? screenInfo.allWidth / 736 * 30 : 30 ) + 'px'}
+				}
+			})
 			if (tools.isIphoneX()) {
 				this.adaptIPhoneXStyle = {'width': screenInfo.totalWidth + 'px', 'left': screenInfo.left + 'px', 'bottom': screenInfo.top + 'px'}
 			} else {
@@ -324,13 +331,6 @@ export default {
 	},
 	mounted () {
 		this.sizeAdaptive()
-		this.keyComp.forEach((item, index) => {
-			if (index < 19) {
-				this.btnHeight[index] = {'height': tools.isIphoneX() ? '30px' : '25px'}
-			} else {
-				this.btnHeight[index] = {'height': tools.isIphoneX() ? '35px' : '30px'}
-			}
-		})
 	}
 };
 </script>

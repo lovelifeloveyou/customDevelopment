@@ -55,8 +55,8 @@
           class="exitImg_pres"
           :src="test_exitImg"
           @click="closeSaveDialog"
-          height="30"
-          width="30"
+          :height="closeSaveImg"
+          :width="closeSaveImg"
         />
         <!-- 键盘列表 -->
         <div class="config">
@@ -195,7 +195,8 @@ export default {
         b: 65,
         c: 40,
         d: 16
-      }
+      },
+      closeSaveImg: 30
     };
   },
   computed: {
@@ -343,6 +344,9 @@ export default {
       this.name_keyName = e.key_name;
     },
     openSaveDialog() {
+      if (this.screen.totalWidth >= 1024) {
+        this.closeSaveImg = this.screen.totalWidth / 736 * 30
+      }
       this.setEmptyCustomizeBtnLists([])
       this.getCustomizeKeyboardLists()
       this.actived = "";

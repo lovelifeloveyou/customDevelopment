@@ -92,27 +92,25 @@
           </div>
         </div>
       </div>
-    </div>
-    <div
-      :style="{left:online.left+'px',top:online.top+'px'}"
-      class="online_time"
-      v-show="slidebarShow"
-    >
-      <div class="title">
-        <p>在线时长</p>
-        <p v-if="[2, 3, 3.1].includes(initMsg.flag)" @click="goCharge">前往充值</p>
-      </div>
-      <div>{{onlineTime}}</div>
-      <div>
-        <p v-if="[2, 3, 3.1].includes(initMsg.flag)">
-          <span>本次消费 {{useCount}}网币</span>
-          <span>剩余 {{sumCount}}网币</span>
-        </p>
-        <p v-else>
-          <span>本次消费 {{useCount}}云豆</span>
-          <span>剩余 {{sumCount}}云豆</span>
-        </p>
-        <p v-if="!([2, 3, 3.1].includes(initMsg.flag))" @click="goCharge">前往充值</p>
+      <div
+        class="online_time"
+      >
+        <div class="title">
+          <p>在线时长</p>
+          <p v-if="[2, 3, 3.1].includes(initMsg.flag)" @click="goCharge">前往充值</p>
+        </div>
+        <div>{{onlineTime}}</div>
+        <div>
+          <p v-if="[2, 3, 3.1].includes(initMsg.flag)">
+            <span>本次消费 {{useCount}}网币</span>
+            <span>剩余 {{sumCount}}网币</span>
+          </p>
+          <p v-else>
+            <span>本次消费 {{useCount}}云豆</span>
+            <span>剩余 {{sumCount}}云豆</span>
+          </p>
+          <p v-if="!([2, 3, 3.1].includes(initMsg.flag))" @click="goCharge">前往充值</p>
+        </div>
       </div>
     </div>
     <keyboardList
@@ -169,11 +167,6 @@ export default {
       onlineTime: "00:00:00",
       game: "",
       message: "",
-      online: {
-        left: "",
-        top: "",
-        value: ''
-      },
       timer: "",
       helpFist: true,
       officalFist: true
@@ -183,11 +176,6 @@ export default {
     keyboardList,
   },
   watch: {
-    fullScreenShow() {
-      console.log(this.screen);
-      this.online.left = this.screen.left + (tools.isPad() ? 265 : 140);
-      this.online.top = this.screen.top;
-    },
     isSidwbar() {
       if (!this.isSidwbar) {
         this.isHelp = false;
@@ -222,12 +210,6 @@ export default {
       this.message =
         '点击"确定"后将强制关闭所有游戏，解决游戏卡住问题，请手动重启需要玩的游戏';
     }
-    if (tools.isPad()) {
-      this.online.left = this.screen ? this.screen.left + 265 : 265;
-    } else {
-      this.online.left = this.screen ? this.screen.left + 140 : 140;
-    }
-    this.online.top = this.screen ? this.screen.top : 0;
     if (!this.showFullScreenSwitch) {
       this.bars = this.bars.filter((item) => item.name !== "全屏显示");
     }
@@ -819,6 +801,92 @@ p {
         }
       }
     }
+    .online_time {
+      width: 316.7px;
+      height: 176.7px;
+      pointer-events: auto;
+      background: url(https://reso.dalongyun.com/yun/dalongyun_page/webRtc/mobileGame/streamingPC/bg_timer.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 1;
+      padding: 16.7px 18.3px 11.7px 18.3px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      position: absolute;
+      left: 233.3px;
+      top: 0;
+      z-index: 100;
+
+      div:nth-child(1) {
+        font-size: 23.3px;
+        color: #fff;
+        font-weight: bolder;
+        line-height: 33.3px;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        p:nth-child(2) {
+          width: 106.7px;
+          height: 33.3px;
+          background: rgba(61, 160, 254, 0.36);
+          border: 3.3px solid #3da0fe;
+          opacity: 1;
+          border-radius: 30px;
+          font-size: 20px;
+          color: #fff;
+          text-align: center;
+          line-height: 33.3px;
+          margin-left: auto;
+        }
+      }
+
+      div:nth-child(2) {
+        color: #3da0fe;
+        font-size: 33.3px;
+        font-weight: 600;
+        line-height: 33.3px;
+        margin: 10px 6.7px 10px 0px;
+        text-align: left;
+      }
+
+      div:nth-child(3) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        p:nth-child(1) {
+          font-size: 20px;
+          color: #3da0fe;
+          display: flex;
+          margin: 0;
+          text-align: left;
+          flex-direction: column;
+
+          span {
+            line-height: 23.3px;
+          }
+
+          span:nth-child(1) {
+            margin-bottom: 10px;
+          }
+        }
+
+        p:nth-child(2) {
+          width: 106.7px;
+          height: 33.3px;
+          background: rgba(61, 160, 254, 0.36);
+          border: 3.3px solid #3da0fe;
+          opacity: 1;
+          border-radius: 30px;
+          font-size: 20px;
+          color: #fff;
+          text-align: center;
+          line-height: 33.3px;
+          margin-left: auto;
+        }
+      }
+    }
   }
 
   .mouse {
@@ -978,90 +1046,6 @@ p {
     }
   }
 
-  .online_time {
-    width: 316.7px;
-    height: 176.7px;
-    pointer-events: auto;
-    background: url(https://reso.dalongyun.com/yun/dalongyun_page/webRtc/mobileGame/streamingPC/bg_timer.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: 1;
-    padding: 16.7px 18.3px 11.7px 18.3px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    position: fixed;
-    z-index: 100;
-
-    div:nth-child(1) {
-      font-size: 23.3px;
-      color: #fff;
-      font-weight: bolder;
-      line-height: 33.3px;
-      text-align: left;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      p:nth-child(2) {
-        width: 106.7px;
-        height: 33.3px;
-        background: rgba(61, 160, 254, 0.36);
-        border: 3.3px solid #3da0fe;
-        opacity: 1;
-        border-radius: 30px;
-        font-size: 20px;
-        color: #fff;
-        text-align: center;
-        line-height: 33.3px;
-        margin-left: auto;
-      }
-    }
-
-    div:nth-child(2) {
-      color: #3da0fe;
-      font-size: 33.3px;
-      font-weight: 600;
-      line-height: 33.3px;
-      margin: 10px 6.7px 10px 0px;
-      text-align: left;
-    }
-
-    div:nth-child(3) {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      p:nth-child(1) {
-        font-size: 20px;
-        color: #3da0fe;
-        display: flex;
-        margin: 0;
-        text-align: left;
-        flex-direction: column;
-
-        span {
-          line-height: 23.3px;
-        }
-
-        span:nth-child(1) {
-          margin-bottom: 10px;
-        }
-      }
-
-      p:nth-child(2) {
-        width: 106.7px;
-        height: 33.3px;
-        background: rgba(61, 160, 254, 0.36);
-        border: 3.3px solid #3da0fe;
-        opacity: 1;
-        border-radius: 30px;
-        font-size: 20px;
-        color: #fff;
-        text-align: center;
-        line-height: 33.3px;
-        margin-left: auto;
-      }
-    }
-  }
   .point_speed {
     width: 233.3px;
     height: 46.7px;

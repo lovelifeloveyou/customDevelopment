@@ -232,9 +232,10 @@ export default {
         } else {
           if ((allWidth * 9 / 16) <= allHeight) {
             totalWidth = allWidth
-            totalHeight = allWidth * 9 / 16 + 200
+            totalHeight = allHeight
           } else {
             adaptScreen(allWidth, allHeight)
+            totalHeight = allHeight
           }
           left = (allWidth - totalWidth) / 2
           top = (allHeight - totalHeight) / 2
