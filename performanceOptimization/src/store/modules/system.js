@@ -15,7 +15,7 @@ const state = {
 		token: '',
 		param: '',
 		app: '',
-		flag: 1
+		flag: 6
 	},
 	itemList: [],
 	currentTutorial: false,

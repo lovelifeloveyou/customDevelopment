@@ -1,7 +1,7 @@
 <template>
   <div
     id="player"
-    :class="[5,'5'].includes(initMsg.flag) && isVertical  ? 'playTop' : 'pageTop'"
+    :class="[5,'5'].includes(initMsg.flag) && !isHorizontalScreen  ? 'playTop' : 'pageTop'"
     :style="data"
   >
     <cloudComputerCustom
@@ -136,7 +136,7 @@
         </div>
       </div>
 
-      <div class="dialog-start" v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : true">
+      <div class="dialog-start" v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : (isHorizontalScreen ? false : true)">
         <div class="pannel">
           <p>请把手机“横向”摆放，若本提示还在，</p>
           <p>请关闭手机设置中【竖屏锁定】功能即可</p>
@@ -307,7 +307,6 @@ export default {
       directSessionKeyHead: "11566D692A774BCA08F8", // 直联sessionKey
       directSessionKeyFull: "11566D692A774BCA08F81490F59C3018", // 直联sessionKey
       isLog: true,
-      isVertical: true, // 是否为竖屏
       serverUsing: 0, // 服务正在使用次数
       onVideo: false, // 用户画面正在播放视频
       // 连接状态位
@@ -1317,27 +1316,15 @@ export default {
       this.getAdaptive();
       if (width > height) {
         this.isHorizontalScreen = true;
-        // 首次进入适配
-        this.isVertical = false;
-        $(".dialog-start").hide();
         this.data = {}
       } else {
         this.isHorizontalScreen = false;
-        //this.tracelog("竖屏");
-        // if((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 11)) {
-        $(".dialog-start").show();
-        // }
-        // $(".dialog-start").hide();
-
         this.rotate();
-        //this.tracelog(this.screen.left);
         this.data = {
           width: this.y + "px",
           height: this.x + "px",
           transform: "translate(0px, " + this.y + "px) rotate(-90deg)",
         };
-        // 首次进入适配
-        this.isVertical = true;
       }
     },
 
@@ -2853,7 +2840,7 @@ export default {
       this.lastTime = new Date().getTime();
       this.longTimeNoOperation = false;
       this.traceLog("panmove");
-      if (!this.isVertical) {
+      if (this.isHorizontalScreen) {
         $(".btnIcon")[0].style.left =
           event.targetTouches[0].clientX - this.screen.left - 25 + "px";
         $(".btnIcon")[0].style.top =
