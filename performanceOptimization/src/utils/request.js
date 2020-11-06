@@ -1,4 +1,3 @@
-import axios from 'axios'
 import config from '../config'
 
 // 保存最近一次请求的信息 401时重新发起

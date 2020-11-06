@@ -1,14 +1,13 @@
 import store from '../store'
 import video from '@/view/video'
 import config from '../config'
-import axios from 'axios'
 
 let url = window.location.href;
 let router;
 console.log(config)
 console.log('路径',url)
 if (config.directTest) {
-  config.accessToken.set('pc:52d9b809f6b919e6ba23f76da7f78dfc636f9675')
+  config.accessToken.set('pc:910454806736c5fed1396efd5e1b9de977f8a848')
   axios.defaults.headers.common["Token"] = config.accessToken.get()
   router = new VueRouter({
     // base: '/video/',

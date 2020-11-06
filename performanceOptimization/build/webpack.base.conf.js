@@ -72,6 +72,14 @@ module.exports = {
       }
     ]
   },
+  externals: {
+    'vue': 'Vue',
+    'axios': 'axios',
+    'vue-router': 'VueRouter',
+    'vuex': 'Vuex',
+    'jquery': '$',
+    'echarts': 'echarts'
+  },
   plugins: [
     // new webpack.DllReferencePlugin({
     //   // name参数和dllplugin里面name一致，可以不传
