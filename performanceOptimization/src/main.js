@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'lib-flexible'
@@ -14,7 +13,7 @@ import store from './store/index'
 import config from './config'
 import helpers from './directives/helpers.js'
 import loading from './components/loading'
-import cloudComputerCustom from 'cloud-computer-custom'
+// import cloudComputerCustom from 'cloud-computer-custom'
 import {
   Slider,
   Tab,
@@ -40,7 +39,9 @@ Vue.use(helpers)
 Vue.use(VueHammer)
 Vue.use(gesture)
 Vue.use(VueCookies)
-Vue.use(cloudComputerCustom)
+// Vue.use(cloudComputerCustom)
+
+console.log('cloudComputerCustom', window['cloud-computer-custom'].default)
 
 Vue.prototype.$httpClient = httpClient
 Vue.prototype.$config = config

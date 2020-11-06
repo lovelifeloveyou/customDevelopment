@@ -271,7 +271,8 @@ export default {
   name: "videoScreen",
   components: {
     "connect-item": Connect,
-    html2canvas
+    html2canvas,
+    cloudComputerCustom: window['cloud-computer-custom'].default
   },
   computed: {
     ...mapGetters([

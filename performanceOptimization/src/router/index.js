@@ -1,13 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
 import store from '../store'
 import video from '@/view/video'
 import config from '../config'
 import axios from 'axios'
-
-if (process.env.NODE_ENV === 'development') {
-  Vue.use(VueRouter)
-}
 
 let url = window.location.href;
 let router;

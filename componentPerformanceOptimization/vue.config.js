@@ -8,6 +8,13 @@ function resolve(dir) {
 module.exports = {
   lintOnSave: true,
   publicPath: './',
+  pages: {
+    index: {
+      entry: 'src/main.js',
+      template: 'public/index.html',
+      filename: 'index.html'
+    }
+  },
   productionSourceMap: process.env.NODE_ENV === 'production' ? false : true,
   chainWebpack: config => {
     config.resolve.alias
@@ -24,9 +31,6 @@ module.exports = {
     config.plugins
         .delete('prefetch')
         .delete('preload');
-    config.externals({
-      'echarts': 'echarts'
-    })
     if (process.env.NODE_ENV === 'production') {
       config.plugin('compressionPlugin')
           .use(new CompressionPlugin({
@@ -43,7 +47,18 @@ module.exports = {
         jQuery: 'jquery',
         'windows.jQuery': 'jquery'
       })
-    ]
+    ],
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    },
+    externals: {
+      'echarts': 'echarts'
+    },
+    output: {
+      libraryExport: 'default',
+    }
   },
   css: {
     // 组件样式内联
