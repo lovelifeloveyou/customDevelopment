@@ -2,7 +2,6 @@ import App from './App'
 import router from './router'
 import 'lib-flexible'
 import httpClient from './utils/request'
-// import Vconsole from 'vconsole'
 import FastClick from 'fastclick'
 import VueCookies from 'vue-cookies'
 import gesture from './directives/gesture/index'
@@ -12,7 +11,6 @@ import store from './store/index'
 import config from './config'
 import helpers from './directives/helpers.js'
 import loading from './components/loading'
-// import cloudComputerCustom from 'cloud-computer-custom'
 import {
   Slider,
   Tab,
@@ -31,16 +29,11 @@ import {
 
 Vue.config.productionTip = false
 
-// let vConsole = new Vconsole()
-// Vue.use(vConsole)
 Vue.use(Slider).use(Tab).use(Tabs).use(Overlay).use(Button).use(Col).use(Row).use(NavBar).use(Dialog).use(Toast).use(Field).use(List).use(Icon);
 Vue.use(helpers)
 Vue.use(VueHammer)
 Vue.use(gesture)
 Vue.use(VueCookies)
-// Vue.use(cloudComputerCustom)
-
-console.log('cloudComputerCustom', window['cloud-computer-custom'].default)
 
 Vue.prototype.$httpClient = httpClient
 Vue.prototype.$config = config
