@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "uat": "node build/uat.js",
+    "test": "node build/test.js",
+    "pre": "node build/pre.js",
     "build": "node build/build.js",
     "build:dll": "webpack --config build/webpack.dll.conf.js --progress",
     "analyze": "cross-env NODE_ENV=production npm_config_report=true npm run build"
