@@ -14,21 +14,7 @@ const serverWhiteList = [
   config.apiServer
 ]
 // 超时时间
-axios.defaults.timeout = 15000
-
-if ((window.location.href).indexOf("?") != -1) {
-  let searchParams = new URLSearchParams(window.location.href)
-  let flag = Number(searchParams.get('flag'))
-  if ([10, 2, 3, 3.1].includes(flag)) {
-    axios.defaults.headers.common["Token"] = config.accessToken.get()
-  } else {
-    let token =JSON.parse(localStorage.getItem('vuex'))
-    axios.defaults.headers.common["Token"] = token.bbs.token
-  }
-} else {
-  config.accessToken.set('pc:52d9b809f6b919e6ba23f76da7f78dfc636f9675')
-  axios.defaults.headers.common["Token"] = config.accessToken.get(); 
-}         
+axios.defaults.timeout = 15000      
 
 // http请求拦截器
 axios.interceptors.request.use(request => {
@@ -44,6 +30,19 @@ axios.interceptors.request.use(request => {
       request.headers['Token'] = token.apiToken
     } else {
       request.url = config.apiServer + request.url
+      if ((window.location.href).indexOf("?") != -1) {
+        let searchParams = new URLSearchParams(window.location.href)
+        let flag = Number(searchParams.get('flag'))
+        if ([10, 2, 3, 3.1].includes(flag)) {
+          request.headers['Token'] = config.accessToken.get()
+        } else {
+          let token =JSON.parse(localStorage.getItem('vuex'))
+          request.headers['Token'] = token.bbs.token
+        }
+      } else {
+        config.accessToken.set('h5:7ffac3069e86db58bb9d0ff32f2d78d006e89756')
+        request.headers['Token'] = config.accessToken.get(); 
+      } 
     }
   }
   let tmpUrl = request.url
