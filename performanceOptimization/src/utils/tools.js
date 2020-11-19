@@ -286,5 +286,14 @@ export default {
       return child;
     };
     return _clone(parent);
+  },
+  timeDifference (baseHour) {
+    var str = baseHour;
+    var arr = str.split(':');
+    var hs = parseInt(arr[0]*3600);
+    var ms = parseInt(arr[1]*60);
+    var ss = parseInt(arr[2]);
+    var seconds = hs + ms + ss;
+    return seconds;
   }
 }
