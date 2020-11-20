@@ -968,7 +968,7 @@ export default {
         this.rotate();
         this.data = {
           width: window.screen.height + "px",
-          height: window.screen.height + "px",
+          height: window.screen.width + "px",
           transform: "translate(0px, " + window.screen.height + "px) rotate(-90deg)",
         };
       }

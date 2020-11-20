@@ -4,6 +4,25 @@
     :class="[5,'5'].includes(initMsg.flag) && !isHorizontalScreen  ? 'playTop' : 'pageTop'"
     :style="data"
   >
+    <div class="dialog-start" v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : (isHorizontalScreen ? false : true)">
+      <div class="pannel">
+        <p>请把手机“横向”摆放，若本提示还在，</p>
+        <p>请关闭手机设置中【竖屏锁定】功能即可</p>
+      </div>
+    </div>
+    <div class="wrap" v-if="freeIsEnd">
+      <div class="popup_container">
+        <div class="popup">
+          <p class="title">体验已结束</p>
+          <p class="tip">开通会员畅玩更多精彩游戏</p>
+          <div class="rechargeBtn">
+            <p @click="toEnd">结束试玩</p>
+            <p @click="toRecharge">开通会员</p>
+          </div>
+        </div>
+        <div class="mark"></div>
+      </div>
+    </div>
     <cloudComputerCustom
       ref="silderItem"
       :isSidwbar="isSidwbar"
@@ -136,13 +155,6 @@
         </div>
       </div>
 
-      <div class="dialog-start" v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : (isHorizontalScreen ? false : true)">
-        <div class="pannel">
-          <p>请把手机“横向”摆放，若本提示还在，</p>
-          <p>请关闭手机设置中【竖屏锁定】功能即可</p>
-        </div>
-      </div>
-
       <!-- 引导图 -->
       <van-overlay :show="show">
         <div class="wrapper">
@@ -223,20 +235,6 @@
           </div>
         </div>
       </van-overlay>
-
-      <div class="wrap" v-if="freeIsEnd">
-        <div class="popup_container">
-          <div class="popup">
-            <p class="title">体验已结束</p>
-            <p class="tip">开通会员畅玩更多精彩游戏</p>
-            <div class="rechargeBtn">
-              <p @click="toEnd">结束试玩</p>
-              <p @click="toRecharge">开通会员</p>
-            </div>
-          </div>
-          <div class="mark"></div>
-        </div>
-      </div>
     </div>
     <div id="loadImg" :style="dataImg" v-if="UIloadingImg">
       <img
