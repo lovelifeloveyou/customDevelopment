@@ -54,9 +54,8 @@
     </cloudComputerCustom>
     <div
       id="videos"
-      v-hammer:tap="tap"
-      v-hammer:press="press"
-      v-hammer:pressup="pressup"
+      v-gesture:tap="tap"
+      v-gesture:longTap="press"
       v-gesture:start="gestureTouchStart"
       v-gesture:pressMove="pressMove"
       v-gesture:twoFingerPressMove="pressMove"

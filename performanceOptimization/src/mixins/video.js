@@ -730,6 +730,27 @@ export default {
         };
         console.log("时间", new Date().getTime() - this.startTime);
         this.$record("precheck_video_ready", eventInfos);
+      // var that = this
+      // setTimeout(() => {
+      //   const bot = document.getElementById('videos')
+      //   bot.onclick = function () {
+      //     if (that.recordComeBackCount > 1) {
+      //       console.log('模拟用户交互')
+      //       console.log(that.recordComeBackCount)
+      //       console.log(that.muteStatus)
+      //       Vue.set(that, 'muteStatus', false)
+      //     }
+      //   }
+      //   simulateClick()
+      //   function simulateClick () {
+      //     const event = new MouseEvent('click', {
+      //       view: window,
+      //       bubbles: true,
+      //       cancelable: true
+      //     })
+      //     bot.dispatchEvent(event)
+      //   }
+      // })
       }
     },
     // 使用中时进入暂停状态，“进入全屏” 弹窗出现

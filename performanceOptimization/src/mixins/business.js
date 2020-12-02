@@ -2133,6 +2133,7 @@ export default {
       } else {
         if (this.isPress) {
           this.isPress = false;
+          this.mouseData.mouseClickFlag &= this.MouseLift.LeftClickUp;
         }
         if (e.holdClick) {
           this.mouseData.mouseClickFlag |= this.MousePress.LeftClick;

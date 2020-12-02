@@ -221,7 +221,7 @@ function getLen (v) {
 		  this.longTapTimeout = setTimeout(function () {
 			  this.Observer.dispatch('longTap', evt)
 			  this._preventTap = true;
-		  }.bind(this), 750);
+		  }.bind(this), 100);
 	}
 	move (evt) {
 		  this.moveFlag = true
@@ -393,10 +393,10 @@ function getLen (v) {
   
 			  }, 0)
 		  } else {
+				if (!self._preventTap) {
+					self.Observer.dispatch('tap', evt);
+				}
 			  this.tapTimeout = setTimeout(function () {
-				  if (!self._preventTap) {
-					  self.Observer.dispatch('tap', evt);
-				  }
 				  // trigger double tap immediately
 				  if (self.isDoubleTap) {
 					  self.Observer.dispatch('doubleTap', evt)
