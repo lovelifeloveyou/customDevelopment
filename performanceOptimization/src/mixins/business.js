@@ -2023,13 +2023,13 @@ export default {
               }
             });
         }
-        if (this.tapFlag) {
-          this.tapFlag = false;
-          this.mouseData.mouseClickFlag = 0;
-        }
-        if (e.tapTheScreen) {
-          this.mouseData.mouseClickFlag |= this.MousePress.LeftClick;
-        }
+        // if (this.tapFlag) {
+        //   this.tapFlag = false;
+        //   this.mouseData.mouseClickFlag = 0;
+        // }
+        // if (e.tapTheScreen) {
+        //   this.mouseData.mouseClickFlag |= this.MousePress.LeftClick;
+        // }
         if (e.moveMouse) {
           this.mouseData.mouseClickFlag = 0;
         }

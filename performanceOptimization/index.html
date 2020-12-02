@@ -48,13 +48,13 @@
     <script src="/video/static/cdn/axios.min.js"></script>
     <script src="/video/static/cdn/jquery.min.js"></script>
     <script src="/video/static/cdn/echarts.min.js"></script>
-    <!-- <script src="/video/static/cdn/vconsole.min.js"></script> -->
+    <script src="/video/static/cdn/vconsole.min.js"></script>
     <script src="<%= htmlWebpackPlugin.options.base_home%>"></script>
 
     <script>
       // 初始化
-      // var vConsole = new VConsole();
-      // console.log('Hello world');
+      var vConsole = new VConsole();
+      console.log('Hello world');
 
       const style = 'color: red; background: skyblue; font-size: 24px; padding: 10px; font-weight: bold;'
       console.log('%c都看到这里了，还不点个赞？？？', style)
