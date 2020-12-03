@@ -2,8 +2,9 @@
   <div v-show="showOfficialKeyboard" class="officialKeyboard">
     <div v-for="(item, index) in keyInfo" :key="index">
       <button
-        @touchstart.stop.prevent="customizeDown(item, index)"
-        @touchend="customizeUp(item)"
+        @touchstart.stop.prevent="customizeDown($event, item, index)"
+        @touchmove="customizeMove($event, item)"
+        @touchend="customizeUp($event, item)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: item.keyWidth / 2 + 'px', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"

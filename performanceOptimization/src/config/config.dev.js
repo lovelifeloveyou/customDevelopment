@@ -49,9 +49,10 @@ const config = {
   //直连
   // ip: '192.168.2.199',
   // port:'58008',
-  ip: '172.81.197.180',
-  port: '59908',
-
+  // ip: '172.81.197.180',
+  // port: '59908',
+  ip: '140.143.105.205',
+  port:'60108',
   accessToken: {
     get: () => {
       return sessionStorage.getItem('access_token')

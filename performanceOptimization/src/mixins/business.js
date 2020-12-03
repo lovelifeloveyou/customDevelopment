@@ -319,7 +319,11 @@ export default {
       axesLeft: 0,
       axesTop: 0, 
       // 游戏手柄 end,
-      videoStyle: {}
+      videoStyle: {},
+      fireAnglePosition: {
+        x: null,
+        y: null
+      }
     };
   },
   computed: {
@@ -860,6 +864,85 @@ export default {
         item.keyPressMode == "2"
           ? this.lockBtn(item, index)
           : this.KeyEnd(item);
+      }
+    },
+    fireStart (e) {
+      this.mouseData.mousePositionX = Math.floor(
+        (this.mouseLeft / this.screen.videosWidth) * 32767
+      );
+      this.mouseData.mousePositionY = Math.floor(
+        (this.mouseTop / this.screen.videosHeight) * 32767
+      );
+      this.mouseData.lastPositionX = e.targetTouches[0].pageX;
+      this.mouseData.lastPositionY = e.targetTouches[0].pageY;
+      this.fireAnglePosition.x = e.targetTouches[0].pageX
+      this.fireAnglePosition.y = e.targetTouches[0].pageY
+      this.screen.mouseX = this.mouseLeft + this.screen.left;
+      this.screen.mouseY = this.mouseTop + this.screen.top;
+    },
+    fireAngle (e) {
+      let clickMouseX, clickMouseY
+      clickMouseX = e.targetTouches[0].pageX;
+      clickMouseY = e.targetTouches[0].pageY;
+      if (this.isHorizontalScreen) {
+        this.mouseLeft += (clickMouseX - this.fireAnglePosition.x) * this.mouseSpeed;
+        this.mouseTop += (clickMouseY - this.fireAnglePosition.y) * this.mouseSpeed;
+        this.mouseData.mouseMovementX =
+            clickMouseX - this.mouseData.lastPositionX +
+            this.mouseData.mouseMovementX;
+        this.mouseData.mouseMovementY =
+            clickMouseY - this.mouseData.lastPositionY +
+            this.mouseData.mouseMovementY;
+        this.mouseData.mouseMovementX = this.mouseData.mouseMovementX * this.mouseSpeed
+        this.mouseData.mouseMovementY = this.mouseData.mouseMovementY * this.mouseSpeed
+      }
+      if (this.mouseLeft <= 0) {
+        this.mouseLeft = 0;
+      }
+      if (this.mouseTop <= 0) {
+        this.mouseTop = 0;
+      }
+      if (this.mouseLeft >= this.screen.videosWidth - 5) {
+        this.mouseLeft = this.screen.videosWidth - 5;
+      }
+      if (this.mouseTop >= this.screen.videosHeight - 10) {
+        this.mouseTop = this.screen.videosHeight - 10;
+      }
+      this.mouseData.lastPositionX = clickMouseX;
+      this.mouseData.lastPositionY = clickMouseY;
+      this.fireAnglePosition.x = clickMouseX
+      this.fireAnglePosition.y = clickMouseY
+      this.mouseData.mousePositionX = Math.floor(
+        (this.mouseLeft / this.screen.videosWidth) * 32767
+      );
+      this.mouseData.mousePositionY = Math.floor(
+        (this.mouseTop / this.screen.videosHeight) * 32767
+      );
+    },
+    fireUp (e) {
+      if (this.isPress) {
+        this.isPress = false;
+        this.mouseData.mouseClickFlag &= this.MouseLift.LeftClickUp;
+      }
+      let that = this
+      if (this.mouseData.mouseClickFlag == 0x01) {
+        setTimeout(function () {
+          console.log("触摸结束，鼠标左键抬起");
+          that.mouseData.mouseClickFlag &= that.MouseLift.LeftClickUp;
+        }, 10);
+      } else if (
+        this.mouseData.mouseClickFlag == 0x02 ||
+        this.isRight ||
+        e.rightClick
+      ) {
+        setTimeout(() => {
+          this.mouseData.mouseClickFlag = 0;
+          if (this.isRight) {
+            this.isRight = false;
+          }
+        }, 10);
+      } else {
+        this.mouseData.mouseClickFlag = 0;
       }
     },
     clk_cus_close_sidebar(data) {

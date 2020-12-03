@@ -374,7 +374,7 @@ export default {
     change(data) {
       this.isBtn = data;
     },
-    customizeDown(item, index) {
+    customizeDown(event, item, index) {
       let customizBtn;
       this.addKeyCode(item);
       if (item.keyPressMode == "2") {
@@ -429,6 +429,7 @@ export default {
                 button: 0
               };
               this.lockMouse(customizBtn, index);
+              this.$emit('fireStart', event)
               this.$emit('transferData', item, customizBtn, index)
               break;
             default:
@@ -491,6 +492,7 @@ export default {
                 button: 0
               };
               this.mouseDown(customizBtn, index);
+              this.$emit('fireStart', event)
               this.$emit('transferData', item, customizBtn, index)
               break;
             default:
@@ -502,7 +504,13 @@ export default {
         }
       }
     },
-    customizeUp(item, index) {
+    customizeMove (event, item) {
+      if (item.keyRealName === '开火') {
+        console.log('event', event)
+        this.$emit('fireAngle', event)
+      }
+    },
+    customizeUp(event, item, index) {
       let customizBtn;
       this.addKeyCode(item);
       console.log('键盘数据33', item)
@@ -557,6 +565,7 @@ export default {
                 button: 0
               };
               // this.mouseUp(customizBtn);
+              this.$emit('fireUp', event)
               this.$emit('returnData', item, customizBtn, index)
               break;
             default:
@@ -618,6 +627,7 @@ export default {
               };
               this.mouseUp(customizBtn);
               this.$emit('selfmouseup', customizBtn)
+              this.$emit('fireUp', event)
               this.$emit('returnData', item, customizBtn, index)
               break;
             default:

@@ -103,6 +103,9 @@
       @exitOfficialKeyboard="exitKey"
       @transferData="transferData"
       @returnData="returnData"
+      @fireAngle="fireAngle"
+      @fireStart="fireStart"
+      @fireUp="fireUp"
     ></officialKeyboard>
   </div>
 </template>
@@ -801,6 +804,15 @@ export default {
     },
     returnData (item, customizBtn, index) {
       this.$emit('returnData', item, customizBtn, index)
+    },
+    fireStart (event) {
+      this.$emit('fireStart', event)
+    },
+    fireAngle (event) {
+      this.$emit('fireAngle', event)
+    },
+    fireUp (event) {
+      this.$emit('fireUp', event)
     },
     // 退出编辑后初始化
     initCustomizeShow(data) {
