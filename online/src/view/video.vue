@@ -100,7 +100,7 @@
         :style="{ left: mouseLeft + 'px', top: mouseTop + 'px' }"
         v-if="mouseMode === false"
       />
-      <!-- <div
+      <div
         class="dialog-start"
         v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : (isHorizontalScreen ? false : true)"
       >
@@ -108,7 +108,7 @@
           <p>请把手机“横向”摆放，若本提示还在，</p>
           <p>请关闭手机设置中【竖屏锁定】功能即可</p>
         </div>
-      </div> -->
+      </div>
 
       <!-- 引导图 -->
       <van-overlay :show="show">
@@ -683,6 +683,7 @@ export default {
       handleInfomation: {},
       axesLeft: 0,
       axesTop: 0,
+      gamepadInterval: null,
       // 游戏手柄 end
       videoStyle: {},
       errorReport:false,
@@ -703,6 +704,25 @@ export default {
   created() {
     //// 强制横屏test
     this.renderResize();
+    // 游戏手柄相关
+    console.log("游戏手柄");
+    console.log("navigator.getGamepads()", navigator.getGamepads());
+    window.addEventListener("gamepadconnected", function (e) {
+      console.log(
+        "控制器已连接于 %d 位: %s. %d 个按钮, %d 个坐标方向。",
+        e.gamepad.index,
+        e.gamepad.id,
+        e.gamepad.buttons.length,
+        e.gamepad.axes.length
+      );
+    });
+    window.addEventListener('load', this.init)
+    // window.addEventListener("load", this.gamepadInterval = setInterval(this.init, 500));
+    window.sendAxesInfo = this.sendAxesInfo;
+    window.showGamepadName = this.showGamepadName;
+    window.keyPressHandle = this.keyPressHandle;
+    window.liftUpKey = this.liftUpKey;
+    // 游戏手柄相关
     this.startTime = new Date().getTime();
     let localInfo = JSON.parse(localStorage.getItem("vuex"));
     let decodeParamPub = this.decodeStringKey(localStorage.getItem("paramPub"));
@@ -747,23 +767,6 @@ export default {
     // this.gameName = dataMsg ? dataMsg.g_name : "桌面模式";
     this.gameName = game ? game : "桌面模式";
     console.log("初始数据", this.universal, this.gameName, dataMsg);
-    // 游戏手柄相关
-    console.log("游戏手柄");
-    console.log("navigator.getGamepads()", navigator.getGamepads());
-    window.addEventListener("gamepadconnected", function (e) {
-      console.log(
-        "控制器已连接于 %d 位: %s. %d 个按钮, %d 个坐标方向。",
-        e.gamepad.index,
-        e.gamepad.id,
-        e.gamepad.buttons.length,
-        e.gamepad.axes.length
-      );
-    });
-    window.sendAxesInfo = this.sendAxesInfo;
-    window.showGamepadName = this.showGamepadName;
-    window.keyPressHandle = this.keyPressHandle;
-    window.liftUpKey = this.liftUpKey;
-    window.addEventListener("load", this.init);
   },
   watch: {
     // archive() {
@@ -1238,10 +1241,12 @@ export default {
     ]),
     // 游戏手柄 Start
     init() {
+      console.log('游戏手柄初始化')
       var listener = new GamepadListener({}, false);
       listener.on("gamepad:connected", function (e) {
         console.log("connected", e);
         showGamepadName(e);
+        clearInterval(this.gamepadInterval)
       });
 
       listener.on("gamepad:disconnected", function (e) {
@@ -2377,6 +2382,14 @@ export default {
         console.log("本地");
         let paramMsg = util.decrypt(
           "U2FsdGVkX19zOcVTf3Jg4HaMHvCZrSVXKFohba3QYzE/PvdGf+C+Tl+UtnTxGiWrmScUsG/Zq3Wn+ks53MUeOLliHKPwYkiNutO9T7ri4pgEwLrM8d6FpRMps0HWbHD42WcYGQYkYgTa14bCBoXs8EiLg1FmC5njGjb59PA1OviUjr0kRt+0lnps3yo1lyoR"
+        );
+        let serviceDefault = {
+          serviceId: "标配服务",
+          keyId: 3725425
+        };
+        localStorage.setItem(
+          "openDefaultKeyboard",
+          JSON.stringify(serviceDefault)
         );
         // console.log(paramMsg);
         this.initServer();
