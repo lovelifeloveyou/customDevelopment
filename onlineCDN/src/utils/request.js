@@ -40,7 +40,7 @@ axios.interceptors.request.use(request => {
           request.headers['Token'] = token.bbs.token
         }
       } else {
-        config.accessToken.set('pc:4b8f8d3cac797c2a592f5c89b89f3272adc6ef2f')
+        config.accessToken.set('pc:d9f1530f5039681f091b2af49294aec8816ce079')
         request.headers['Token'] = config.accessToken.get();
       }
     }

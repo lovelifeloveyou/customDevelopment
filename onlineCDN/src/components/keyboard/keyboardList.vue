@@ -129,7 +129,7 @@
                   />
                 </div>
                 <div
-                  v-if="[101,102].includes(Number(item.rockerType)) && item.keyStyle == '1'"
+                  v-if="[101,102,105,106].includes(Number(item.rockerType)) && item.keyStyle == '1'"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
                             line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}`"
                 >
@@ -462,7 +462,7 @@ export default {
       this.time = new Date().getTime();
       let sendData = {
         page: this.page,
-        keyboard_type: 1, // 1:普通 2：普通+手柄
+        keyboard_type: 2, // 1:普通 2：普通+手柄
         key_name: searchKey,
       };
       let res = await keyboard.getOfficeKeyboardList(sendData);
