@@ -98,11 +98,53 @@
             <ul v-if="mytab!=1" class="btn_wrap" :style="ipadBtnWrapStyle">
               <li v-for="(item, index) in keyInfo" :key="index">
                 <div
-                  v-if="item.keyStyle == '0'"
+                  v-if="item.keyStyle == '0' && !['LB', 'LT', 'RB', 'RT', 'SELECT', 'START'].includes(item.keyRealName.toLocaleUpperCase())"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius:  ${handlePX(item.keyWidth/2)};background-color:#1C263E;text-align:center;
                             line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
                             `"
                 >{{item.keyRealName}}</div>
+                <!-- 游戏手柄  LB、LT、RB、RT、SELECT、START按键特殊处理 -->
+                <div
+                  v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'LB'"
+                  :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius:  2px ${handlePX(item.keyWidth/2)} ${handlePX(item.keyWidth/2)} 2px;transform: rotate(20deg);background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
+                            `"
+                >{{item.keyRealName}}</div>
+                <div
+                  v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'RB'"
+                  :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius:  ${handlePX(item.keyWidth/2)} 2px 2px ${handlePX(item.keyWidth/2)};transform: rotate(-20deg);background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
+                            `"
+                >{{item.keyRealName}}</div>
+                <div
+                  v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'LT'"
+                  :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius:  ${handlePX(item.keyWidth/2)} 2px 2px ${handlePX(item.keyWidth/2)};transform: rotate(20deg);background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
+                            `"
+                >{{item.keyRealName}}</div>
+                <div
+                  v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'RT'"
+                  :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius:  2px ${handlePX(item.keyWidth/2)} ${handlePX(item.keyWidth/2)} 2px;transform: rotate(-20deg);background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
+                            `"
+                >{{item.keyRealName}}</div>
+                <div
+                  v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'SELECT'"
+                  :style="`width: ${handlePX(item.keyWidth-25)};height:${handlePX(item.keyWidth-25)};border-radius: ${handlePX((item.keyWidth-25)/2)};background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyWidth-25)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
+                            `"
+                >
+                <img :src="keyboardListPics[11]" :width="handlePX(item.keyWidth/3.5)" style="position: absolute;left: 50%;top: 50%; transform: translate(-50%, -50%);" />
+                </div>
+                <div
+                  v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'START'"
+                  :style="`width: ${handlePX(item.keyWidth-25)};height:${handlePX(item.keyWidth-25)};border-radius: ${handlePX((item.keyWidth-25)/2)};background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyWidth-25)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)};
+                            `"
+                >
+                <img :src="keyboardListPics[12]" :width="handlePX(item.keyWidth/3.5)" style="position: absolute;left: 50%;top: 50%; transform: translate(-50%, -50%);" />
+                </div>
+                <!-- 游戏手柄  LB、LT、RB、RT、SELECT、START按键特殊处理 -->
 
                 <div
                   v-if="[103].includes(Number(item.rockerType)) && item.keyStyle == '1'"
@@ -129,7 +171,7 @@
                   />
                 </div>
                 <div
-                  v-if="[101,102,105,106].includes(Number(item.rockerType)) && item.keyStyle == '1'"
+                  v-if="[101,102].includes(Number(item.rockerType)) && item.keyStyle == '1'"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
                             line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}`"
                 >
@@ -149,6 +191,50 @@
                     />
                   </div>
                 </div>
+                <!-- 游戏手柄摇杆特殊处理 -->
+                <div
+                  v-if="[105].includes(Number(item.rockerType)) && item.keyStyle == '1'"
+                  :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}`"
+                >
+                  <img
+                    id="wheelImage"
+                    :src="keyboardListPics[5]"
+                    :width="handlePX(item.keyWidth)"
+                  />
+                  <div
+                    :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};position:absolute;
+                top:0;left:0;`"
+                  >
+                    <img
+                      :style="`position:absolute;left:${handlePX(item.keyWidth/4)};top: ${handlePX(item.keyHeight/4)}`"
+                      :width="handlePX(item.keyWidth/2)"
+                      :src="keyboardListPics[7]"
+                    />
+                  </div>
+                </div>
+                <div
+                  v-if="[106].includes(Number(item.rockerType)) && item.keyStyle == '1'"
+                  :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
+                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}`"
+                >
+                  <img
+                    id="wheelImage"
+                    :src="keyboardListPics[5]"
+                    :width="handlePX(item.keyWidth)"
+                  />
+                  <div
+                    :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};position:absolute;
+                top:0;left:0;`"
+                  >
+                    <img
+                      :style="`position:absolute;left:${handlePX(item.keyWidth/4)};top: ${handlePX(item.keyHeight/4)}`"
+                      :width="handlePX(item.keyWidth/2)"
+                      :src="keyboardListPics[8]"
+                    />
+                  </div>
+                </div>
+                <!-- 游戏手柄摇杆特殊处理 -->
               </li>
             </ul>
           </div>
@@ -208,7 +294,13 @@ export default {
         'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/direction/middle.png',
         'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/directionkey/middle.png',
         'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_非焦点.png',
-        'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆_方向.png'
+        'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆_方向.png',
+        'https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E6%91%87%E6%9D%86_LS.png',
+        'https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E6%91%87%E6%9D%86_RS.png',
+        'https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%8D%81%E5%AD%97%E5%88%87%E5%9B%BE.png',
+        'https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%8D%81%E5%AD%97%E5%88%87%E5%9B%BE%E5%8F%B3.png',
+        'https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%9C%86%E8%A7%92%E7%9F%A9%E5%BD%A2%2011.png',
+        'https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%9C%86%E8%A7%92%E7%9F%A9%E5%BD%A2%2012.png'
       ],
       i: 0,
       j: -1,
