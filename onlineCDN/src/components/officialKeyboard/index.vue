@@ -138,36 +138,36 @@
 
     <!-- 游戏手柄摇杆特殊处理 -->
     <div
-      @touchstart.stop.prevent="touch($event)"
-      @touchmove="touch($event)"
-      @touchend="touchEnd($event)"
+      @touchstart.stop.prevent="touchGamepadLeft($event)"
+      @touchmove="touchGamepadLeft($event)"
+      @touchend="touchEndGamepadLeft($event)"
       class="wheel"
       :style="{ width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px', left: gamepadLeftHandle[0].keyMarginLeft + 'px', top: gamepadLeftHandle[0].keyMarginTop + 'px' }"
       ref="direction"
       v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105"
     >
-      <img :width="gamepadLeftHandle[0].keyWidth" id="imgBox" :src="imgCurrent" />
+      <img :width="gamepadLeftHandle[0].keyWidth" id="imgBox" :src="imgCurrentGamepadLeft" />
       <div
         id="directionBtn"
-        ref="directionBtn"
+        ref="directionBtnGamepadLeft"
         :style="{ width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px' }"
       >
         <img width="80" :src="imgList[3]" id="son" />
       </div>
     </div>
     <div
-      @touchstart.stop.prevent="touch($event)"
-      @touchmove="touch($event)"
-      @touchend="touchEnd($event)"
+      @touchstart.stop.prevent="touchGamepadRight($event)"
+      @touchmove="touchGamepadRight($event)"
+      @touchend="touchEndGamepadRight($event)"
       class="wheel"
       :style="{ width: gamepadRightHandle[0].keyWidth + 'px', height: gamepadRightHandle[0].keyHeight + 'px', left: gamepadRightHandle[0].keyMarginLeft + 'px', top: gamepadRightHandle[0].keyMarginTop + 'px' }"
       ref="direction"
       v-if="gamepadRightHandle.length && Number(gamepadRightHandle[0].rockerType) == 106"
     >
-      <img :width="gamepadRightHandle[0].keyWidth" id="imgBox" :src="imgCurrent" />
+      <img :width="gamepadRightHandle[0].keyWidth" id="imgBox" :src="imgCurrentGamepadRight" />
       <div
         id="directionBtn"
-        ref="directionBtn"
+        ref="directionBtnGamepadRight"
         :style="{ width: gamepadRightHandle[0].keyWidth + 'px', height: gamepadRightHandle[0].keyHeight + 'px' }"
       >
         <img width="80" :src="imgList[4]" id="son" />
