@@ -29,7 +29,13 @@ export default {
       imgList: [
           "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_非焦点.png",
           "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_焦点.png",
-          "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆_方向.png"
+          "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆_方向.png",
+          "https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E6%91%87%E6%9D%86_LS.png",
+          "https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E6%91%87%E6%9D%86_RS.png",
+          "https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%8D%81%E5%AD%97%E5%88%87%E5%9B%BE.png",
+          "https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%8D%81%E5%AD%97%E5%88%87%E5%9B%BE%E5%8F%B3.png",
+          "https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%8D%81%E5%AD%97%E5%88%87%E5%9B%BE%E7%84%A6%E7%82%B9.png",
+          "https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%8D%81%E5%AD%97%E5%88%87%E5%9B%BE%E5%8F%B3%E7%84%A6%E7%82%B9.png"
       ],
       rollerInfo: {}
     }

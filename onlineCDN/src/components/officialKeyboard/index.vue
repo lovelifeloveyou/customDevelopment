@@ -8,13 +8,101 @@
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: item.keyWidth / 2 + 'px', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
-        v-if="item.keyStyle == '0'"
+        v-if="item.keyStyle == '0' && !['LB', 'LT', 'RB', 'RT', 'SELECT', 'START'].includes(item.keyRealName.toLocaleUpperCase())"
       >
         <div
           class="nameDisplay"
           :style="{width: '100%',fontSize: (screen.totalWidth >= 1024 ? screen.totalWidth / 736 * 10 + 5 : 10) + 'px'}"
         >{{ item.keyName }}</div>
       </button>
+      <!-- 游戏手柄  LB、LT、RB、RT、SELECT、START按键特殊处理 -->
+      <button
+        @touchstart.stop.prevent="customizeDown($event, item, index)"
+        @touchmove="customizeMove($event, item)"
+        @touchend="customizeUp($event, item)"
+        ref="btn"
+        :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
+        :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: '2px ' + item.keyWidth / 2 + 'px ' + item.keyWidth / 2 + 'px ' +  '2px',transform: 'rotate(20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
+        v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'LB'"
+      >
+        <div
+          class="nameDisplay"
+          :style="{width: '100%',fontSize: (screen.totalWidth >= 1024 ? screen.totalWidth / 736 * 10 + 5 : 10) + 'px'}"
+        >{{ item.keyName }}</div>
+      </button>
+      <button
+        @touchstart.stop.prevent="customizeDown($event, item, index)"
+        @touchmove="customizeMove($event, item)"
+        @touchend="customizeUp($event, item)"
+        ref="btn"
+        :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
+        :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: item.keyWidth / 2 + 'px ' + '2px ' + '2px ' + item.keyWidth / 2 + 'px',transform: 'rotate(-20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
+        v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'RB'"
+      >
+        <div
+          class="nameDisplay"
+          :style="{width: '100%',fontSize: (screen.totalWidth >= 1024 ? screen.totalWidth / 736 * 10 + 5 : 10) + 'px'}"
+        >{{ item.keyName }}</div>
+      </button>
+      <button
+        @touchstart.stop.prevent="customizeDown($event, item, index)"
+        @touchmove="customizeMove($event, item)"
+        @touchend="customizeUp($event, item)"
+        ref="btn"
+        :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
+        :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: item.keyWidth / 2 + 'px ' + '2px ' + '2px ' + item.keyWidth / 2 + 'px',transform: 'rotate(20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
+        v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'LT'"
+      >
+        <div
+          class="nameDisplay"
+          :style="{width: '100%',fontSize: (screen.totalWidth >= 1024 ? screen.totalWidth / 736 * 10 + 5 : 10) + 'px'}"
+        >{{ item.keyName }}</div>
+      </button>
+      <button
+        @touchstart.stop.prevent="customizeDown($event, item, index)"
+        @touchmove="customizeMove($event, item)"
+        @touchend="customizeUp($event, item)"
+        ref="btn"
+        :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
+        :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: '2px ' + item.keyWidth / 2 + 'px ' + item.keyWidth / 2 + 'px ' +  '2px',transform: 'rotate(-20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
+        v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'RT'"
+      >
+        <div
+          class="nameDisplay"
+          :style="{width: '100%',fontSize: (screen.totalWidth >= 1024 ? screen.totalWidth / 736 * 10 + 5 : 10) + 'px'}"
+        >{{ item.keyName }}</div>
+      </button>
+      <button
+        @touchstart.stop.prevent="customizeDown($event, item, index)"
+        @touchmove="customizeMove($event, item)"
+        @touchend="customizeUp($event, item)"
+        ref="btn"
+        :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
+        :style="{ width: item.keyWidth-10 + 'px', height: item.keyWidth-10 + 'px', borderRadius: (item.keyWidth-10) / 2 + 'px ',left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
+        v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'SELECT'"
+      >
+        <img
+          src="https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%9C%86%E8%A7%92%E7%9F%A9%E5%BD%A2%2011.png"
+          :width="item.keyWidth/4"
+          style="position: absolute;left: 50%;top: 50%; transform: translate(-50%, -50%);"
+        />
+      </button>
+      <button
+        @touchstart.stop.prevent="customizeDown($event, item, index)"
+        @touchmove="customizeMove($event, item)"
+        @touchend="customizeUp($event, item)"
+        ref="btn"
+        :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
+        :style="{ width: item.keyWidth-10 + 'px', height: item.keyWidth-10 + 'px', borderRadius: (item.keyWidth-10) / 2 + 'px ',left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
+        v-if="item.keyStyle == '0' && item.keyRealName.toLocaleUpperCase() == 'START'"
+      >
+        <img
+          src="https://vcsstore.oss-cn-hangzhou.aliyuncs.com/image/floatBall/gamepad/%E5%9C%86%E8%A7%92%E7%9F%A9%E5%BD%A2%2012.png"
+          :width="item.keyWidth/4"
+          style="position: absolute;left: 50%;top: 50%; transform: translate(-50%, -50%);"
+        />
+      </button>
+      <!-- 游戏手柄  LB、LT、RB、RT、SELECT、START按键特殊处理 -->
     </div>
     <div
       @touchstart.stop.prevent="touch($event)"
@@ -48,6 +136,45 @@
       <img id="wheelImage" :src="direction_imgCurrent" :width="directW[0].keyWidth" />
     </div>
 
+    <!-- 游戏手柄摇杆特殊处理 -->
+    <div
+      @touchstart.stop.prevent="touch($event)"
+      @touchmove="touch($event)"
+      @touchend="touchEnd($event)"
+      class="wheel"
+      :style="{ width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px', left: gamepadLeftHandle[0].keyMarginLeft + 'px', top: gamepadLeftHandle[0].keyMarginTop + 'px' }"
+      ref="direction"
+      v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105"
+    >
+      <img :width="gamepadLeftHandle[0].keyWidth" id="imgBox" :src="imgCurrent" />
+      <div
+        id="directionBtn"
+        ref="directionBtn"
+        :style="{ width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px' }"
+      >
+        <img width="80" :src="imgList[3]" id="son" />
+      </div>
+    </div>
+    <div
+      @touchstart.stop.prevent="touch($event)"
+      @touchmove="touch($event)"
+      @touchend="touchEnd($event)"
+      class="wheel"
+      :style="{ width: gamepadRightHandle[0].keyWidth + 'px', height: gamepadRightHandle[0].keyHeight + 'px', left: gamepadRightHandle[0].keyMarginLeft + 'px', top: gamepadRightHandle[0].keyMarginTop + 'px' }"
+      ref="direction"
+      v-if="gamepadRightHandle.length && Number(gamepadRightHandle[0].rockerType) == 106"
+    >
+      <img :width="gamepadRightHandle[0].keyWidth" id="imgBox" :src="imgCurrent" />
+      <div
+        id="directionBtn"
+        ref="directionBtn"
+        :style="{ width: gamepadRightHandle[0].keyWidth + 'px', height: gamepadRightHandle[0].keyHeight + 'px' }"
+      >
+        <img width="80" :src="imgList[4]" id="son" />
+      </div>
+    </div>
+    <!-- 游戏手柄摇杆特殊处理 -->
+
     <div class="handle_btn_wrap">
       <div v-show="isShowBtn" class="show_wrap">
         <div class="exitBtn" style="margin-right:10px;" @click="changeKeyboard">切换</div>
@@ -76,6 +203,8 @@ export default {
       keyInfo: [],
       direction: [],
       directW:[],
+      gamepadLeftHandle: [],
+      gamepadRightHandle: [],
       sizeA: 30,
       sizeB: 50,
       sizeC: 25,
@@ -110,6 +239,8 @@ export default {
     officialKeyboardFlag() {
       this.directW=[]
       this.direction=[]
+      this.gamepadLeftHandle = []
+      this.gamepadRightHandle = []
       this.isShowBtn = true
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
@@ -130,6 +261,14 @@ export default {
           if ([103,104].includes(Number(item.rockerType)) && item.keyStyle == '1') {
             this.directW.shift();
             this.directW.push(item);
+          }
+          if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
+            this.gamepadLeftHandle.shift()
+            this.gamepadLeftHandle.push(item)
+          }
+          if (Number(item.rockerType) == 106 && item.keyStyle == '1') {
+            this.gamepadRightHandle.shift()
+            this.gamepadRightHandle.push(item)
           }
           return item;
         });
@@ -157,6 +296,14 @@ export default {
           if ([103,104].includes(Number(item.rockerType)) && item.keyStyle == '1') {
             this.directW.shift();
             this.directW.push(item);
+          }
+          if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
+            this.gamepadLeftHandle.shift()
+            this.gamepadLeftHandle.push(item)
+          }
+          if (Number(item.rockerType) == 106 && item.keyStyle == '1') {
+            this.gamepadRightHandle.shift()
+            this.gamepadRightHandle.push(item)
           }
           return item;
         });
