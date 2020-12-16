@@ -137,6 +137,26 @@
     </div>
 
     <!-- 游戏手柄摇杆特殊处理 -->
+    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '101px',height: '50px', left: '110px',top: '120px'}"> -->
+        <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '134px',height: '104px',left: '95px', 'top': '100px'}">
+      <!-- <img :src="imgList[5]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" /> -->
+      <img :src="imgList[7]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
+    </div>
+    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '53px',height: '106px',left: '275px',top: '225px'}"> -->
+    <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '104px',height: '134px',left: '240px',top: '215px'}">
+      <!-- <img :src="imgList[6]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" /> -->
+      <img :src="imgList[8]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
+    </div>
+    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '101px',height: '50px', left: '110px',top: '400px'}"> -->
+    <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '134px',height: '104px',left: '95px',top: '360px'}">
+      <!-- <img :src="imgList[5]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" /> -->
+      <img :src="imgList[7]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
+    </div>
+    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '53px',height: '106px',left: '0px',top: '235px'}"> -->
+    <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '104px',height: '134px',left: '-20px',top: '220px'}">
+      <!-- <img :src="imgList[6]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" /> -->
+      <img :src="imgList[8]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
+    </div>
     <div
       @touchstart.stop.prevent="touchGamepadLeft($event)"
       @touchmove="touchGamepadLeft($event)"
