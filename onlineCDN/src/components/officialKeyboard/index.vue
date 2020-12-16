@@ -119,7 +119,7 @@
         ref="directionBtn"
         :style="{ width: direction[0].keyWidth + 'px', height: direction[0].keyHeight + 'px' }"
       >
-        <img width="80" :src="imgList[2]" id="son" />
+        <img :width="80 / 230 * direction[0].keyWidth" :src="imgList[2]" id="son" />
       </div>
     </div>
     <div
@@ -172,7 +172,7 @@
         ref="directionBtnGamepadLeft"
         :style="{ width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px' }"
       >
-        <img width="80" :src="imgList[3]" id="son" />
+        <img :width="80 / 230 * gamepadLeftHandle[0].keyWidth" :src="imgList[3]" id="son" />
       </div>
     </div>
     <div
@@ -190,7 +190,7 @@
         ref="directionBtnGamepadRight"
         :style="{ width: gamepadRightHandle[0].keyWidth + 'px', height: gamepadRightHandle[0].keyHeight + 'px' }"
       >
-        <img width="80" :src="imgList[4]" id="son" />
+        <img :width="80 / 230 * gamepadRightHandle[0].keyWidth" :src="imgList[4]" id="son" />
       </div>
     </div>
     <!-- 游戏手柄摇杆特殊处理 -->
