@@ -67,6 +67,7 @@ export default {
       gamepadRightTurn: 0,
       imgCurrentGamepadLeft: "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_非焦点.png",
       imgCurrentGamepadRight: "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_非焦点.png"
+      // 虚拟游戏手柄
     }
   },
   computed: {
@@ -259,13 +260,6 @@ export default {
       this.gamepadRightDRadius = (d_width * 2) / 5; //这个因为是给了个图片，按钮的圆包含在图片里，所以只能取个大概，如果图片本身就是个圆那就更好说了直接d_width / 2
       this.gamepadRightDirectionLeft = this.gamepadRightZoreX - d_X + 'px'
       this.gamepadRightDirectionTop = this.gamepadRightZoreY - d_Y + 'px'
-    },
-    stripPX(obj) {
-      if(obj.indexOf("px")!=-1){
-        return parseInt(obj.slice(0,-2));
-      }else{
-        return 0;
-      }
     },
     touch(event) {
       var event = event || window.event;
@@ -537,12 +531,12 @@ export default {
       }
       // 通过角度获取圆上点坐标  算出的坐标需要加上背景中心点坐标再减去按钮的半径
       this.gamepadLeftDotX =
-        (this.gamepadLeftRadius - this.gamepadLeftRadius) *
+        (this.gamepadLeftRadius - this.gamepadLeftDRadius) *
           Math.cos((angle * Math.PI) / 180) +
         this.gamepadLeftZoreX -
         this.$refs.directionBtnGamepadLeft.offsetHeight / 2;
       this.gamepadLeftDotY =
-        (this.gamepadLeftRadius - this.gamepadLeftRadius) *
+        (this.gamepadLeftRadius - this.gamepadLeftDRadius) *
           Math.sin((angle * Math.PI) / 180) +
         this.gamepadLeftZoreY -
         this.$refs.directionBtnGamepadLeft.offsetHeight / 2;
@@ -666,12 +660,12 @@ export default {
       }
       // 通过角度获取圆上点坐标  算出的坐标需要加上背景中心点坐标再减去按钮的半径
       this.gamepadRightDotX =
-        (this.gamepadRightRadius - this.gamepadRightRadius) *
+        (this.gamepadRightRadius - this.gamepadRightDRadius) *
           Math.cos((angle * Math.PI) / 180) +
         this.gamepadRightZoreX -
         this.$refs.directionBtnGamepadRight.offsetHeight / 2;
       this.gamepadRightDotY =
-        (this.gamepadRightRadius - this.gamepadRightRadius) *
+        (this.gamepadRightRadius - this.gamepadRightDRadius) *
           Math.sin((angle * Math.PI) / 180) +
         this.gamepadRightZoreY -
         this.$refs.directionBtnGamepadRight.offsetHeight / 2;
