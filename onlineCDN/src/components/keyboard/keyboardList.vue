@@ -192,27 +192,53 @@
                   </div>
                 </div>
                 <!-- 游戏手柄摇杆特殊处理 -->
+
                 <div
+                  :style="`position: absolute;width: ${handlePX(item.keyWidth)};height: ${handlePX(item.keyWidth)};left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}`"
                   v-if="[105].includes(Number(item.rockerType)) && item.keyStyle == '1'"
-                  :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
-                            line-height:${handlePX(item.keyHeight)};position:absolute;left:${handlePX(item.keyMarginLeft)};top: ${handlePX(item.keyMarginTop, true)}`"
                 >
-                  <img
-                    id="wheelImage"
-                    :src="keyboardListPics[5]"
-                    :width="handlePX(item.keyWidth)"
-                  />
                   <div
-                    :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};position:absolute;
-                top:0;left:0;`"
+                    :style="`position:absolute;width: ${handlePX(303 / item.keyWidth * item.realKeyWidth)};height: ${handlePX(150 / item.keyWidth * item.realKeyWidth)};left: 50%;top: 0;transform: translateX(-50%);`"
+                  >
+                    <img :src="keyboardListPics[9]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
+                  </div>
+                  <div
+                    :style="`position:absolute;width: ${handlePX(150 / item.keyWidth * item.realKeyWidth)};height: ${handlePX(303 / item.keyWidth * item.realKeyWidth)};top: 50%;right: 0;transform: translateY(-50%);`"
+                  >
+                    <img :src="keyboardListPics[10]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
+                  </div>
+                  <div
+                    :style="`position:absolute;width: ${handlePX(303 / item.keyWidth * item.realKeyWidth)};height: ${handlePX(150 / item.keyWidth * item.realKeyWidth)};left: 50%;bottom: 0;transform: translateX(-50%);`"
+                  >
+                    <img :src="keyboardListPics[9]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
+                  </div>
+                  <div
+                    :style="`position:absolute;width: ${handlePX(150 / item.keyWidth * item.realKeyWidth)};height: ${handlePX(303 / item.keyWidth * item.realKeyWidth)};top: 50%;left: 0;transform: translateY(-50%);`"
+                  >
+                    <img :src="keyboardListPics[10]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
+                  </div>
+                  <div
+                    :style="`width: ${handlePX(item.realKeyWidth)};height:${handlePX(item.realKeyWidth)};border-radius: 50%;background-color:#1C263E;text-align:center;
+                              line-height:${handlePX(item.realKeyWidth)};position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);`"
                   >
                     <img
-                      :style="`position:absolute;left:${handlePX(item.keyWidth/4)};top: ${handlePX(item.keyHeight/4)}`"
-                      :width="handlePX(item.keyWidth/2)"
-                      :src="keyboardListPics[7]"
+                      id="wheelImage"
+                      :src="keyboardListPics[5]"
+                      :width="handlePX(item.realKeyWidth)"
                     />
+                    <div
+                      :style="`width: ${handlePX(item.realKeyWidth)};height:${handlePX(item.realKeyWidth)};position:absolute;
+                  top:0;left:0;`"
+                    >
+                      <img
+                        :style="`position:absolute;left:${handlePX(item.realKeyWidth/4)};top: ${handlePX(item.realKeyWidth/4)}`"
+                        :width="handlePX(item.realKeyWidth/2)"
+                        :src="keyboardListPics[7]"
+                      />
+                    </div>
                   </div>
                 </div>
+
                 <div
                   v-if="[106].includes(Number(item.rockerType)) && item.keyStyle == '1'"
                   :style="`width: ${handlePX(item.keyWidth)};height:${handlePX(item.keyHeight)};border-radius: 50%;background-color:#1C263E;text-align:center;
@@ -614,7 +640,14 @@ export default {
       } else {
         let sendData = { key_id: item.key_id };
         let res = await this.getkeyInfo(sendData);
-        this.keyInfo = res;
+        this.keyInfo = (res || []).map(item => {
+          if ([105].includes(Number(item.rockerType)) && item.keyStyle == '1') {
+            item.realKeyWidth = item.keyWidth - 200
+          }
+          return {
+            ...item,
+          }
+        });
       }
     },
     handlePX(px, status = false) {
