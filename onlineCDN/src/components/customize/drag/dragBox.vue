@@ -27,7 +27,7 @@
       >
         <img :width="keymsg.keyWidth" id="imgBox" :src="imgCurrent" />
         <div id="directionBtn" ref="directionBtn" :style="moveDirectionStyle">
-          <img width="80" :src="imgList[2]" id="son" />
+          <img :width="80 / 230 * keymsg.keyWidth" :src="imgList[2]" id="son" />
         </div>
       </div>
       <!-- wasd方向键 -->
@@ -74,7 +74,7 @@
       >
         <img :width="keymsg.keyWidth" id="imgBox" :src="roller_img[0]" />
         <div id="directionBtn" :style="moveDirectionStyle">
-          <img width="80" :src="roller_img[1]" id="son" />
+          <img :width="80 / 230 * keymsg.keyWidth" :src="roller_img[1]" id="son" />
         </div>
       </div>
       <div
