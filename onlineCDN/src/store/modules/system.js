@@ -46,7 +46,18 @@ const state = {
 	popupNav: '',
 	judgeTouchStart: false,
 	showTextKeyboard: false,
-	notifyComponent: false
+	notifyComponent: false,
+	gamepadInfo: {  // 虚拟游戏手柄信息
+		flag: false,
+		highKeyStatus: 0,
+		lowKeyStatus: 0,
+		leftTrigger: 0,
+		rightTrigger: 0,
+		leftThumbX: 0,
+		leftTriggerY: 0,
+		rightThumbY: 0,
+		rightThumbY: 0
+	}
 }
 
 // 计算后返回
@@ -80,7 +91,8 @@ const getters = {
 	popupNav: state => state.popupNav,
 	judgeTouchStart: state => state.judgeTouchStart,
 	showTextKeyboard: state => state.showTextKeyboard,
-	notifyComponent: state => state.notifyComponent
+	notifyComponent: state => state.notifyComponent,
+	gamepadInfo: state => state.gamepadInfo
 }
 
 // 调用api，异步请求
@@ -279,6 +291,9 @@ const mutations = {
 	},
 	setNotifyComponent (state, data) {
 		state.notifyComponent = data
+	},
+	setGamepadInfo (state, data) {
+		state.gamepadInfo = {...state.gamepadInfo, data}
 	}
 }
 

@@ -109,9 +109,11 @@ export default {
             console.log('数据111',this.rollerInfo)
           }
           if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
+            let keyRealWidth = item.keyWidth-200
             let keyItem={
-              keyWidth:item.keyWidth/(1080 / this.screen.videosHeight),
-              keyHeight:item.keyHeight/(1080 / this.screen.videosHeight),
+              leftHandle: 50 / item.keyWidth * keyRealWidth,
+              keyWidth:(item.keyWidth-200)/(1080 / this.screen.videosHeight),
+              keyHeight:(item.keyHeight-200)/(1080 / this.screen.videosHeight),
               keyMarginLeft:item.keyMarginLeft/(1920 / this.screen.videosWidth),
               keyMarginTop:item.keyMarginTop/(1080 / this.screen.videosHeight),
               rockerType:item.rockerType
@@ -155,9 +157,11 @@ export default {
             console.log('数据111',this.rollerInfo)
           }
           if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
+            let keyRealWidth = item.keyWidth-200
             let keyItem={
-              keyWidth:item.keyWidth/(1080 / this.screen.videosHeight),
-              keyHeight:item.keyHeight/(1080 / this.screen.videosHeight),
+              leftHandle: 50 / item.keyWidth * keyRealWidth,
+              keyWidth:(item.keyWidth-200)/(1080 / this.screen.videosHeight),
+              keyHeight:(item.keyHeight-200)/(1080 / this.screen.videosHeight),
               keyMarginLeft:item.keyMarginLeft/(1920 / this.screen.videosWidth),
               keyMarginTop:item.keyMarginTop/(1080 / this.screen.videosHeight),
               rockerType:item.rockerType
@@ -206,8 +210,8 @@ export default {
 
         // 获取摇杆圆板半径
         this.radius = width / 2;
-        const d_width = 80
-        const d_heigth = 80
+        const d_width = 80 / 230 * width
+        const d_heigth = 80 / 230 * heigth
         const d_X = left + d_width / 2;
         const d_Y = top + d_heigth / 2;
 
@@ -218,19 +222,24 @@ export default {
       })
     },
     initGamepadLeftRoller () {
-      const left = (this.gamepadLeftRollerInfo.keyMarginLeft|| this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left) ? (this.gamepadLeftRollerInfo.keyMarginLeft|| this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left) : 0;
-      const top = (this.gamepadLeftRollerInfo.keyMarginTop || this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top) ? (this.gamepadLeftRollerInfo.keyMarginTop || this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top) : 0;
+      // const left = (this.gamepadLeftRollerInfo.keyMarginLeft|| this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left) ? Number(this.gamepadLeftRollerInfo.keyMarginLeft|| this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left)+this.gamepadLeftRollerInfo.leftHandle+5.5 : 0;
+      // const top = (this.gamepadLeftRollerInfo.keyMarginTop || this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top) ? Number(this.gamepadLeftRollerInfo.keyMarginTop || this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top)+this.gamepadLeftRollerInfo.leftHandle+5.5 : 0;
       const width = (this.gamepadLeftRollerInfo.keyWidth || this.gamepadLeftRollerInfo.width) ? (this.gamepadLeftRollerInfo.keyWidth || this.gamepadLeftRollerInfo.width) : 0;
       const heigth = (this.gamepadLeftRollerInfo.keyHeight || this.gamepadLeftRollerInfo.height) ? (this.gamepadLeftRollerInfo.keyHeight || this.gamepadLeftRollerInfo.height) : 0;
+      
+      // demo
+      const left = 84.83
+      const top = 207.497
       console.log('虚拟游戏手柄Left',left,top,width,heigth)
+      // debugger
       this.gamepadLeftZoreOffset = width / 8; // 小一点比如 1/8， 可以增大触发面积
       this.gamepadLeftZoreX = left + width / 2;
       this.gamepadLeftZoreY = top + heigth / 2;
 
       // 获取摇杆圆板半径
       this.gamepadLeftRadius = width / 2;
-      const d_width = 80
-      const d_heigth = 80
+      const d_width = 80 / 230 * width
+      const d_heigth = 80 / 230 * heigth
       const d_X = left + d_width / 2;
       const d_Y = top + d_heigth / 2;
 
@@ -251,8 +260,8 @@ export default {
 
       // 获取摇杆圆板半径
       this.gamepadRightRadius = width / 2;
-      const d_width = 80
-      const d_heigth = 80
+      const d_width = 80 / 230 * width
+      const d_heigth = 80 / 230 * heigth
       const d_X = left + d_width / 2;
       const d_Y = top + d_heigth / 2;
 

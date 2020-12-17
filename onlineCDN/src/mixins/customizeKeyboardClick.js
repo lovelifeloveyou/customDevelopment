@@ -378,7 +378,8 @@ export default {
   methods: {
     ...mapMutations([
       'delete_key',
-      'set_key'
+      'set_key',
+      'setGamepadInfo'
     ]),
     change(data) {
       this.isBtn = data;
@@ -389,21 +390,25 @@ export default {
           this.topCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: '-15px',transform: 'translateX(-50%)'}
           this.topCrossRockerImg = this.imgList[7]
           console.log('一直在按下十字摇杆up')
+          this.setGamepadInfo({lowKeyStatus: 0x01})
           break
         case 'right':
           this.rightCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: '-15px',top: '50%',transform: 'translateY(-50%)'}
           this.rightCrossRockerImg = this.imgList[8]
           console.log('一直在按下十字摇杆right')
+          this.setGamepadInfo({lowKeyStatus: 0x08})
           break
-        case 'bottom':
+        case 'down':
           this.bottomCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px', height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', bottom: '-15px',transform: 'translateX(-50%)'}
           this.bottomCrossRockerImg = this.imgList[7]
-          console.log('一直在按下十字摇杆bottom')
+          console.log('一直在按下十字摇杆down')
+          this.setGamepadInfo({lowKeyStatus: 0x02})
           break
         case 'left':
           this.leftCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '-15px',top: '50%',transform: 'translateY(-50%)'}
           this.leftCrossRockerImg = this.imgList[8]
           console.log('一直在按下十字摇杆left')
+          this.setGamepadInfo({lowKeyStatus: 0x04})
           break
       }
     },
@@ -413,21 +418,25 @@ export default {
           this.topCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: '-15px',transform: 'translateX(-50%)'}
           this.topCrossRockerImg = this.imgList[7]
           console.log('一直在按下十字摇杆up')
+          this.setGamepadInfo({lowKeyStatus: 0x01})
           break
         case 'right':
           this.rightCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: '-15px',top: '50%',transform: 'translateY(-50%)'}
           this.rightCrossRockerImg = this.imgList[8]
           console.log('一直在按下十字摇杆right')
+          this.setGamepadInfo({lowKeyStatus: 0x08})
           break
-        case 'bottom':
+        case 'down':
           this.bottomCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px', height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', bottom: '-15px',transform: 'translateX(-50%)'}
           this.bottomCrossRockerImg = this.imgList[7]
-          console.log('一直在按下十字摇杆bottom')
+          console.log('一直在按下十字摇杆down')
+          this.setGamepadInfo({lowKeyStatus: 0x02})
           break
         case 'left':
           this.leftCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '-15px',top: '50%',transform: 'translateY(-50%)'}
           this.leftCrossRockerImg = this.imgList[8]
           console.log('一直在按下十字摇杆left')
+          this.setGamepadInfo({lowKeyStatus: 0x04})
           break
       }
     },
@@ -437,290 +446,418 @@ export default {
           this.topCrossRockerStyle = {position: 'absolute',width: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: 0,transform: 'translateX(-50%)'}
           this.topCrossRockerImg = this.imgList[5]
           console.log('松开十字摇杆up')
+          this.setGamepadInfo({lowKeyStatus: 0})
           break
         case 'right':
           this.rightCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: 0,top: '50%',transform: 'translateY(-50%)'}
           this.rightCrossRockerImg = this.imgList[6]
           console.log('松开十字摇杆right')
+          this.setGamepadInfo({lowKeyStatus: 0})
           break
-        case 'bottom':
+        case 'down':
           this.bottomCrossRockerStyle = {position: 'absolute',width: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px', height: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', bottom: 0,transform: 'translateX(-50%)'}
           this.bottomCrossRockerImg = this.imgList[5]
-          console.log('松开十字摇杆bottom')
+          console.log('松开十字摇杆down')
+          this.setGamepadInfo({lowKeyStatus: 0})
           break
         case 'left':
           this.leftCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: 0,top: '50%',transform: 'translateY(-50%)'}
           this.leftCrossRockerImg = this.imgList[6]
           console.log('松开十字摇杆left')
+          this.setGamepadInfo({lowKeyStatus: 0})
           break
       }
     },
-    customizeDown(event, item, index, type) {
+    customizeDown(event, item, index, type = []) {
       if (type.length) {
-        
-      }
-      let customizBtn;
-      this.addKeyCode(item);
-      if (item.keyPressMode == "2") {
-        // 这一块是设置的锁定的
-        if (item.keyStyle == "0") {
-          // console.log("非摇杆");
-          switch (item.keyRealName || item.keyName || item.key) {
-            case "左键":
-              customizBtn = {
-                button: 0
-              };
-              this.lockMouse(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "移动射击":
-              customizBtn = {
-                button: 0
-              };
-              this.lockMouse(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "中键":
-              customizBtn = {
-                button: 1
-              };
-              this.lockMouse(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "右键":
-              customizBtn = {
-                button: 2
-              };
-              this.lockMouse(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "滚轮上":
-              customizBtn = {
-                value: 1
-              };
-              this.lockWheel(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "滚轮下":
-              customizBtn = {
-                value: -1
-              };
-              this.lockWheel(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "开火":
-              customizBtn = {
-                button: 0
-              };
-              this.lockMouse(customizBtn, index);
-              this.$emit('fireStart', event)
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            default:
-              this.lockBtn(item, index);
-              this.$emit('transferData', item, customizBtn, index)
-          }
-        } else {
-          // console.log("按住摇杆");
+        this.isBoo = index;
+        this.activeClass = index;
+        switch (item.keyRealName.toLocaleUpperCase()) {
+          case "SELECT":
+            this.setGamepadInfo({lowKeyStatus: 0x20})
+            break
+          case "START":
+            this.setGamepadInfo({lowKeyStatus: 0x10})
+            break
+          case "LT":
+            this.setGamepadInfo({highKeyStatus: 0x04})
+            break
+          case "LB":
+            this.setGamepadInfo({leftTrigger: 250})
+            break
+          case "LS":
+            this.setGamepadInfo({highKeyStatus: 0x01})
+            break
+          case "RT":
+            this.setGamepadInfo({highKeyStatus: 0x08})
+            break
+          case "RB":
+            this.setGamepadInfo({rightTrigger: 250})
+            break
+          case "RS":
+            this.setGamepadInfo({highKeyStatus: 0x02})
+            break
+          case "Y":
+            this.setGamepadInfo({highKeyStatus: 0x80})
+            break
+          case "X":
+            this.setGamepadInfo({highKeyStatus: 0x40})
+            break
+          case "B":
+            this.setGamepadInfo({highKeyStatus: 0x20})
+            break
+          case "A":
+            this.setGamepadInfo({highKeyStatus: 0x10})
+            break
         }
       } else {
-        // 这一块设置的是即时的
-        if (item.keyStyle == "0") {
-          console.log("非按住");
-          switch (item.keyRealName || item.keyName || item.key) {
-            case "左键":
-              customizBtn = {
-                button: 0
-              };
-              this.mouseDown(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "移动射击":
-              customizBtn = {
-                button: 0
-              };
-              this.mouseDown(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "中键":
-              customizBtn = {
-                button: 1
-              };
-              this.mouseDown(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "右键":
-              customizBtn = {
-                button: 2
-              };
-              this.mouseDown(customizBtn, index);
-              console.log('selfmouseup', customizBtn)
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "滚轮上":
-              customizBtn = {
-                value: 1
-              };
-              this.wheelDown(customizBtn, index);
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "滚轮下":
-              customizBtn = {
-                value: -1
-              };
-              this.wheelDown(customizBtn, index)
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            case "开火":
-              customizBtn = {
-                button: 0
-              };
-              this.mouseDown(customizBtn, index);
-              this.$emit('fireStart', event)
-              this.$emit('transferData', item, customizBtn, index)
-              break;
-            default:
-              this.whichKey(item, index)
-              this.$emit('transferData', item, customizBtn, index)
+        let customizBtn;
+        this.addKeyCode(item);
+        if (item.keyPressMode == "2") {
+          // 这一块是设置的锁定的
+          if (item.keyStyle == "0") {
+            // console.log("非摇杆");
+            switch (item.keyRealName || item.keyName || item.key) {
+              case "左键":
+                customizBtn = {
+                  button: 0
+                };
+                this.lockMouse(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "移动射击":
+                customizBtn = {
+                  button: 0
+                };
+                this.lockMouse(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "中键":
+                customizBtn = {
+                  button: 1
+                };
+                this.lockMouse(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "右键":
+                customizBtn = {
+                  button: 2
+                };
+                this.lockMouse(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "滚轮上":
+                customizBtn = {
+                  value: 1
+                };
+                this.lockWheel(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "滚轮下":
+                customizBtn = {
+                  value: -1
+                };
+                this.lockWheel(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "开火":
+                customizBtn = {
+                  button: 0
+                };
+                this.lockMouse(customizBtn, index);
+                this.$emit('fireStart', event)
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              default:
+                this.lockBtn(item, index);
+                this.$emit('transferData', item, customizBtn, index)
+            }
+          } else {
+            // console.log("按住摇杆");
           }
         } else {
-          console.log("摇杆类型");
+          // 这一块设置的是即时的
+          if (item.keyStyle == "0") {
+            console.log("非按住");
+            switch (item.keyRealName || item.keyName || item.key) {
+              case "左键":
+                customizBtn = {
+                  button: 0
+                };
+                this.mouseDown(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "移动射击":
+                customizBtn = {
+                  button: 0
+                };
+                this.mouseDown(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "中键":
+                customizBtn = {
+                  button: 1
+                };
+                this.mouseDown(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "右键":
+                customizBtn = {
+                  button: 2
+                };
+                this.mouseDown(customizBtn, index);
+                console.log('selfmouseup', customizBtn)
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "滚轮上":
+                customizBtn = {
+                  value: 1
+                };
+                this.wheelDown(customizBtn, index);
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "滚轮下":
+                customizBtn = {
+                  value: -1
+                };
+                this.wheelDown(customizBtn, index)
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              case "开火":
+                customizBtn = {
+                  button: 0
+                };
+                this.mouseDown(customizBtn, index);
+                this.$emit('fireStart', event)
+                this.$emit('transferData', item, customizBtn, index)
+                break;
+              default:
+                this.whichKey(item, index)
+                this.$emit('transferData', item, customizBtn, index)
+            }
+          } else {
+            console.log("摇杆类型");
+          }
         }
       }
     },
-    customizeUp(event, item, index, type) {
-      let customizBtn;
-      this.addKeyCode(item);
-      console.log('键盘数据33', item)
-      if (item.keyPressMode == "2") {
-        // 锁定的方法
-        if (item.keyStyle == "0") {
-          switch (item.keyRealName || item.keyName || item.key) {
-            case "左键":
-              customizBtn = {
-                button: 0
-              };
-              // this.mouseUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "移动射击":
-              customizBtn = {
-                button: 0
-              };
-              // this.mouseUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "中键":
-              customizBtn = {
-                button: 1
-              };
-              // this.mouseUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "右键":
-              customizBtn = {
-                button: 2
-              };
-              // this.mouseUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "滚轮上":
-              customizBtn = {
-                value: 1
-              };
-              this.wheelUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "滚轮下":
-              customizBtn = {
-                value: -1
-              };
-              this.wheelUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "开火":
-              customizBtn = {
-                button: 0
-              };
-              // this.mouseUp(customizBtn);
-              this.$emit('fireUp', event)
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            default:
-              console.log('end00000')
-              this.lockBtn(item, index);
-              this.$emit('returnData', item, customizBtn, index)
-          }
+    customizeMove (event, item, type = []) {
+      if (type.length) {
+        switch (item.keyRealName.toLocaleUpperCase()) {
+          case "SELECT":
+            this.setGamepadInfo({lowKeyStatus: 0x20})
+            break
+          case "START":
+            this.setGamepadInfo({lowKeyStatus: 0x10})
+            break
+          case "LT":
+            this.setGamepadInfo({highKeyStatus: 0x04})
+            break
+          case "LB":
+            this.setGamepadInfo({leftTrigger: 250})
+            break
+          case "LS":
+            this.setGamepadInfo({highKeyStatus: 0x01})
+            break
+          case "RT":
+            this.setGamepadInfo({highKeyStatus: 0x08})
+            break
+          case "RB":
+            this.setGamepadInfo({rightTrigger: 250})
+            break
+          case "RS":
+            this.setGamepadInfo({highKeyStatus: 0x02})
+            break
+          case "Y":
+            this.setGamepadInfo({highKeyStatus: 0x80})
+            break
+          case "X":
+            this.setGamepadInfo({highKeyStatus: 0x40})
+            break
+          case "B":
+            this.setGamepadInfo({highKeyStatus: 0x20})
+            break
+          case "A":
+            this.setGamepadInfo({highKeyStatus: 0x10})
+            break
         }
       } else {
-        // 即时的
-        if (item.keyStyle == "0") {
-          switch (item.keyRealName || item.keyName || item.key) {
-            case "左键":
-              customizBtn = {
-                button: 0
-              };
-              this.mouseUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "移动射击":
-              customizBtn = {
-                button: 0
-              };
-              this.mouseUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "中键":
-              customizBtn = {
-                button: 1
-              };
-              this.mouseUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "右键":
-              customizBtn = {
-                button: 2
-              };
-              this.mouseUp(customizBtn);
-              console.log('selfmouseup', customizBtn)
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "滚轮上":
-              customizBtn = {
-                value: 1
-              };
-              this.wheelUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "滚轮下":
-              customizBtn = {
-                value: -1
-              };
-              this.wheelUp(customizBtn);
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            case "开火":
-              customizBtn = {
-                button: 0
-              };
-              this.mouseUp(customizBtn);
-              this.$emit('selfmouseup', customizBtn)
-              this.$emit('fireUp', event)
-              this.$emit('returnData', item, customizBtn, index)
-              break;
-            default:
-              this.KeyEnd(item);
-              this.$emit('returnData', item, customizBtn, index)
-          }
-        } else {
-          console.log("摇杆类型");
+        if (item.keyRealName === '开火') {
+          console.log('event', event)
+          this.$emit('fireAngle', event)
         }
       }
     },
-    customizeMove (event, item) {
-      if (item.keyRealName === '开火') {
-        console.log('event', event)
-        this.$emit('fireAngle', event)
+    customizeUp(event, item, index, type = []) {
+      if (type.length) {
+        this.isBoo = -1;
+        this.activeClass = -1;
+        switch (item.keyRealName.toLocaleUpperCase()) {
+          case "SELECT":
+            this.setGamepadInfo({lowKeyStatus: 0})
+            break
+          case "START":
+            this.setGamepadInfo({lowKeyStatus: 0})
+            break
+          case "LT":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+          case "LB":
+            this.setGamepadInfo({leftTrigger: 0})
+            break
+          case "LS":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+          case "RT":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+          case "RB":
+            this.setGamepadInfo({rightTrigger: 0})
+            break
+          case "RS":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+          case "Y":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+          case "X":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+          case "B":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+          case "A":
+            this.setGamepadInfo({highKeyStatus: 0})
+            break
+        }
+      } else {
+        let customizBtn;
+        this.addKeyCode(item);
+        console.log('键盘数据33', item)
+        if (item.keyPressMode == "2") {
+          // 锁定的方法
+          if (item.keyStyle == "0") {
+            switch (item.keyRealName || item.keyName || item.key) {
+              case "左键":
+                customizBtn = {
+                  button: 0
+                };
+                // this.mouseUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "移动射击":
+                customizBtn = {
+                  button: 0
+                };
+                // this.mouseUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "中键":
+                customizBtn = {
+                  button: 1
+                };
+                // this.mouseUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "右键":
+                customizBtn = {
+                  button: 2
+                };
+                // this.mouseUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "滚轮上":
+                customizBtn = {
+                  value: 1
+                };
+                this.wheelUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "滚轮下":
+                customizBtn = {
+                  value: -1
+                };
+                this.wheelUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "开火":
+                customizBtn = {
+                  button: 0
+                };
+                // this.mouseUp(customizBtn);
+                this.$emit('fireUp', event)
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              default:
+                console.log('end00000')
+                this.lockBtn(item, index);
+                this.$emit('returnData', item, customizBtn, index)
+            }
+          }
+        } else {
+          // 即时的
+          if (item.keyStyle == "0") {
+            switch (item.keyRealName || item.keyName || item.key) {
+              case "左键":
+                customizBtn = {
+                  button: 0
+                };
+                this.mouseUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "移动射击":
+                customizBtn = {
+                  button: 0
+                };
+                this.mouseUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "中键":
+                customizBtn = {
+                  button: 1
+                };
+                this.mouseUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "右键":
+                customizBtn = {
+                  button: 2
+                };
+                this.mouseUp(customizBtn);
+                console.log('selfmouseup', customizBtn)
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "滚轮上":
+                customizBtn = {
+                  value: 1
+                };
+                this.wheelUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "滚轮下":
+                customizBtn = {
+                  value: -1
+                };
+                this.wheelUp(customizBtn);
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              case "开火":
+                customizBtn = {
+                  button: 0
+                };
+                this.mouseUp(customizBtn);
+                this.$emit('selfmouseup', customizBtn)
+                this.$emit('fireUp', event)
+                this.$emit('returnData', item, customizBtn, index)
+                break;
+              default:
+                this.KeyEnd(item);
+                this.$emit('returnData', item, customizBtn, index)
+            }
+          } else {
+            console.log("摇杆类型");
+          }
+        }
       }
     },
     // 自定义键盘添加keyCode

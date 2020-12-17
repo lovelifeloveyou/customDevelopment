@@ -3,7 +3,7 @@
     <div v-for="(item, index) in keyInfo" :key="index">
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
-        @touchmove="customizeMove($event, item)"
+        @touchmove="customizeMove($event, item, gamepadLeftHandle)"
         @touchend="customizeUp($event, item, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
@@ -18,7 +18,7 @@
       <!-- 游戏手柄  LB、LT、RB、RT、SELECT、START按键特殊处理 -->
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
-        @touchmove="customizeMove($event, item)"
+        @touchmove="customizeMove($event, item, gamepadLeftHandle)"
         @touchend="customizeUp($event, item, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
@@ -32,7 +32,7 @@
       </button>
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
-        @touchmove="customizeMove($event, item)"
+        @touchmove="customizeMove($event, item, gamepadLeftHandle)"
         @touchend="customizeUp($event, item, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
@@ -46,7 +46,7 @@
       </button>
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
-        @touchmove="customizeMove($event, item)"
+        @touchmove="customizeMove($event, item, gamepadLeftHandle)"
         @touchend="customizeUp($event, item, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
@@ -60,7 +60,7 @@
       </button>
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
-        @touchmove="customizeMove($event, item)"
+        @touchmove="customizeMove($event, item, gamepadLeftHandle)"
         @touchend="customizeUp($event, item, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
@@ -74,7 +74,7 @@
       </button>
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
-        @touchmove="customizeMove($event, item)"
+        @touchmove="customizeMove($event, item, gamepadLeftHandle)"
         @touchend="customizeUp($event, item, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
@@ -89,7 +89,7 @@
       </button>
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
-        @touchmove="customizeMove($event, item)"
+        @touchmove="customizeMove($event, item, gamepadLeftHandle)"
         @touchend="customizeUp($event, item, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
@@ -159,9 +159,9 @@
         <img :src="rightCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
       </div>
       <div
-        @touchstart.stop.prevent="crossRockerDown('bottom')"
-        @touchmove="crossRockerMove('bottom')"
-        @touchend="crossRockerEnd('bottom')"
+        @touchstart.stop.prevent="crossRockerDown('down')"
+        @touchmove="crossRockerMove('down')"
+        @touchend="crossRockerEnd('down')"
         :style="bottomCrossRockerStyle"
       >
         <img :src="bottomCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
@@ -279,6 +279,7 @@ export default {
       this.direction=[]
       this.gamepadLeftHandle = []
       this.gamepadRightHandle = []
+      this.setGamepadInfo({flag: false})
       this.isShowBtn = true
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
@@ -306,6 +307,7 @@ export default {
           if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
             this.gamepadLeftHandle.shift()
             this.gamepadLeftHandle.push(item)
+            this.setGamepadInfo({flag: true})
             this.leftCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: 0,top: '50%',transform: 'translateY(-50%)'}
             this.topCrossRockerStyle = {position: 'absolute',width: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: 0,transform: 'translateX(-50%)'}
             this.rightCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: 0,top: '50%',transform: 'translateY(-50%)'}
@@ -316,6 +318,7 @@ export default {
             this.bottomCrossRockerImg = this.imgList[5]
           }
           if (Number(item.rockerType) == 106 && item.keyStyle == '1') {
+            this.setGamepadInfo({flag: true})
             this.gamepadRightHandle.shift()
             this.gamepadRightHandle.push(item)
           }
@@ -349,10 +352,12 @@ export default {
           if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
             this.gamepadLeftHandle.shift()
             this.gamepadLeftHandle.push(item)
+            this.setGamepadInfo({flag: true})
           }
           if (Number(item.rockerType) == 106 && item.keyStyle == '1') {
             this.gamepadRightHandle.shift()
             this.gamepadRightHandle.push(item)
+            this.setGamepadInfo({flag: true})
           }
           return item;
         });
