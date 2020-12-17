@@ -455,7 +455,10 @@ export default {
           break
       }
     },
-    customizeDown(event, item, index) {
+    customizeDown(event, item, index, type) {
+      if (type.length) {
+        
+      }
       let customizBtn;
       this.addKeyCode(item);
       if (item.keyPressMode == "2") {
@@ -585,7 +588,7 @@ export default {
         }
       }
     },
-    customizeUp(event, item, index) {
+    customizeUp(event, item, index, type) {
       let customizBtn;
       this.addKeyCode(item);
       console.log('键盘数据33', item)
