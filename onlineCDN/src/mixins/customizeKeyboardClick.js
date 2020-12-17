@@ -352,7 +352,16 @@ export default {
         LeftClickUp: 0xfe, // 鼠标左键标识 反码
         RightClickUp: 0xfd, // 鼠标右键标识 反码
         MidClickUp: 0xfb // 鼠标中键标识 反码
-      }
+      },
+      // 手柄十字摇杆操作键
+      leftCrossRockerStyle: {},
+      topCrossRockerStyle: {},
+      rightCrossRockerStyle: {},
+      bottomCrossRockerStyle: {},
+      leftCrossRockerImg: '',
+      topCrossRockerImg: '',
+      rightCrossRockerImg: '',
+      bottomCrossRockerImg: ''
     };
   },
   computed: {
@@ -373,6 +382,78 @@ export default {
     ]),
     change(data) {
       this.isBtn = data;
+    },
+    crossRockerDown (direction) {
+      switch (direction) {
+        case 'up':
+          this.topCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: '-15px',transform: 'translateX(-50%)'}
+          this.topCrossRockerImg = this.imgList[7]
+          console.log('一直在按下十字摇杆up')
+          break
+        case 'right':
+          this.rightCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: '-15px',top: '50%',transform: 'translateY(-50%)'}
+          this.rightCrossRockerImg = this.imgList[8]
+          console.log('一直在按下十字摇杆right')
+          break
+        case 'bottom':
+          this.bottomCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px', height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', bottom: '-15px',transform: 'translateX(-50%)'}
+          this.bottomCrossRockerImg = this.imgList[7]
+          console.log('一直在按下十字摇杆bottom')
+          break
+        case 'left':
+          this.leftCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '-15px',top: '50%',transform: 'translateY(-50%)'}
+          this.leftCrossRockerImg = this.imgList[8]
+          console.log('一直在按下十字摇杆left')
+          break
+      }
+    },
+    crossRockerMove (direction) {
+      switch (direction) {
+        case 'up':
+          this.topCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: '-15px',transform: 'translateX(-50%)'}
+          this.topCrossRockerImg = this.imgList[7]
+          console.log('一直在按下十字摇杆up')
+          break
+        case 'right':
+          this.rightCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: '-15px',top: '50%',transform: 'translateY(-50%)'}
+          this.rightCrossRockerImg = this.imgList[8]
+          console.log('一直在按下十字摇杆right')
+          break
+        case 'bottom':
+          this.bottomCrossRockerStyle = {position: 'absolute',width: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px', height: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', bottom: '-15px',transform: 'translateX(-50%)'}
+          this.bottomCrossRockerImg = this.imgList[7]
+          console.log('一直在按下十字摇杆bottom')
+          break
+        case 'left':
+          this.leftCrossRockerStyle = {position: 'absolute',width: 104 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 134 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '-15px',top: '50%',transform: 'translateY(-50%)'}
+          this.leftCrossRockerImg = this.imgList[8]
+          console.log('一直在按下十字摇杆left')
+          break
+      }
+    },
+    crossRockerEnd (direction) {
+      switch (direction) {
+        case 'up':
+          this.topCrossRockerStyle = {position: 'absolute',width: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: 0,transform: 'translateX(-50%)'}
+          this.topCrossRockerImg = this.imgList[5]
+          console.log('松开十字摇杆up')
+          break
+        case 'right':
+          this.rightCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: 0,top: '50%',transform: 'translateY(-50%)'}
+          this.rightCrossRockerImg = this.imgList[6]
+          console.log('松开十字摇杆right')
+          break
+        case 'bottom':
+          this.bottomCrossRockerStyle = {position: 'absolute',width: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px', height: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', bottom: 0,transform: 'translateX(-50%)'}
+          this.bottomCrossRockerImg = this.imgList[5]
+          console.log('松开十字摇杆bottom')
+          break
+        case 'left':
+          this.leftCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: 0,top: '50%',transform: 'translateY(-50%)'}
+          this.leftCrossRockerImg = this.imgList[6]
+          console.log('松开十字摇杆left')
+          break
+      }
     },
     customizeDown(event, item, index) {
       let customizBtn;

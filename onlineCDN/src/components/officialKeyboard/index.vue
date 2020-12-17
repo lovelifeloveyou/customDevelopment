@@ -137,42 +137,60 @@
     </div>
 
     <!-- 游戏手柄摇杆特殊处理 -->
-    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '101px',height: '50px', left: '110px',top: '120px'}"> -->
-        <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '134px',height: '104px',left: '95px', 'top': '100px'}">
-      <!-- <img :src="imgList[5]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" /> -->
-      <img :src="imgList[7]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
-    </div>
-    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '53px',height: '106px',left: '275px',top: '225px'}"> -->
-    <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '104px',height: '134px',left: '240px',top: '215px'}">
-      <!-- <img :src="imgList[6]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" /> -->
-      <img :src="imgList[8]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
-    </div>
-    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '101px',height: '50px', left: '110px',top: '400px'}"> -->
-    <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '134px',height: '104px',left: '95px',top: '360px'}">
-      <!-- <img :src="imgList[5]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" /> -->
-      <img :src="imgList[7]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
-    </div>
-    <!-- <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '53px',height: '106px',left: '0px',top: '235px'}"> -->
-    <div v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105" :style="{position: 'absolute',width: '104px',height: '134px',left: '-20px',top: '220px'}">
-      <!-- <img :src="imgList[6]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" /> -->
-      <img :src="imgList[8]" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
-    </div>
     <div
-      @touchstart.stop.prevent="touchGamepadLeft($event)"
-      @touchmove="touchGamepadLeft($event)"
-      @touchend="touchEndGamepadLeft($event)"
-      class="wheel"
-      :style="{ width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px', left: gamepadLeftHandle[0].keyMarginLeft + 'px', top: gamepadLeftHandle[0].keyMarginTop + 'px' }"
-      ref="direction"
+      :style="{ position: 'absolute',width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px', left: gamepadLeftHandle[0].keyMarginLeft + 'px', top: gamepadLeftHandle[0].keyMarginTop + 'px' }"
       v-if="gamepadLeftHandle.length && Number(gamepadLeftHandle[0].rockerType) == 105"
     >
-      <img :width="gamepadLeftHandle[0].keyWidth" id="imgBox" :src="imgCurrentGamepadLeft" />
+
       <div
-        id="directionBtn"
-        ref="directionBtnGamepadLeft"
-        :style="{ width: gamepadLeftHandle[0].keyWidth + 'px', height: gamepadLeftHandle[0].keyHeight + 'px' }"
+        @touchstart.stop.prevent="crossRockerDown('up')"
+        @touchmove="crossRockerMove('up')"
+        @touchend="crossRockerEnd('up')"
+        :style="topCrossRockerStyle"
       >
-        <img :width="80 / 230 * gamepadLeftHandle[0].keyWidth" :src="imgList[3]" id="son" />
+        <img :src="topCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
+      </div>
+      <div
+        @touchstart.stop.prevent="crossRockerDown('right')"
+        @touchmove="crossRockerMove('right')"
+        @touchend="crossRockerEnd('right')"
+        :style="rightCrossRockerStyle"
+      >
+        <img :src="rightCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
+      </div>
+      <div
+        @touchstart.stop.prevent="crossRockerDown('bottom')"
+        @touchmove="crossRockerMove('bottom')"
+        @touchend="crossRockerEnd('bottom')"
+        :style="bottomCrossRockerStyle"
+      >
+        <img :src="bottomCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
+      </div>
+      <div
+        @touchstart.stop.prevent="crossRockerDown('left')"
+        @touchmove="crossRockerMove('left')"
+        @touchend="crossRockerEnd('left')"
+        :style="leftCrossRockerStyle"
+      >
+        <img :src="leftCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
+      </div>
+
+      <div
+        @touchstart.stop.prevent="touchGamepadLeft($event)"
+        @touchmove="touchGamepadLeft($event)"
+        @touchend="touchEndGamepadLeft($event)"
+        class="wheel"
+        :style="{ position: 'absolute',width: gamepadLeftHandle[0].realKeyWidth + 'px', height: gamepadLeftHandle[0].realKeyWidth + 'px', left: '50%', top: '50%', transform: 'translate(-50%,-50%)' }"
+        ref="direction"
+      >
+        <img :width="gamepadLeftHandle[0].realKeyWidth" id="imgBox" :src="imgCurrentGamepadLeft" />
+        <div
+          id="directionBtn"
+          ref="directionBtnGamepadLeft"
+          :style="{ width: gamepadLeftHandle[0].realKeyWidth + 'px', height: gamepadLeftHandle[0].realKeyWidth + 'px' }"
+        >
+          <img :width="80 / 230 * (gamepadLeftHandle[0].realKeyWidth)" :src="imgList[3]" id="son" />
+        </div>
       </div>
     </div>
     <div
@@ -232,7 +250,7 @@ export default {
       rate:'',
       isShowBtn: true,
       timer: null,
-      rehandleFirstLoad: this.firstLoad,
+      rehandleFirstLoad: this.firstLoad
     };
   },
   props: {
@@ -270,6 +288,9 @@ export default {
       if (this.officialKeyboardFlag) {
           let official=tools.deepClone(this.officialKeyInfo)
           this.keyInfo = official.map((item) => {
+          if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
+            item.realKeyWidth = (item.keyWidth-200) / (1080 / this.screen.videosHeight)
+          }
           item.keyWidth = item.keyWidth / (1080 / this.screen.videosHeight);
           item.keyHeight = item.keyHeight / (1080 / this.screen.videosHeight);
           item.keyMarginLeft = item.keyMarginLeft / (1920 / this.screen.videosWidth);
@@ -285,6 +306,14 @@ export default {
           if (Number(item.rockerType) == 105 && item.keyStyle == '1') {
             this.gamepadLeftHandle.shift()
             this.gamepadLeftHandle.push(item)
+            this.leftCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: 0,top: '50%',transform: 'translateY(-50%)'}
+            this.topCrossRockerStyle = {position: 'absolute',width: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', top: 0,transform: 'translateX(-50%)'}
+            this.rightCrossRockerStyle = {position: 'absolute',width: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',height: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',right: 0,top: '50%',transform: 'translateY(-50%)'}
+            this.bottomCrossRockerStyle = {position: 'absolute',width: 101 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px', height: 50 / this.gamepadLeftHandle[0].keyWidth * this.gamepadLeftHandle[0].realKeyWidth + 'px',left: '50%', bottom: 0,transform: 'translateX(-50%)'}
+            this.leftCrossRockerImg = this.imgList[6]
+            this.topCrossRockerImg = this.imgList[5]
+            this.rightCrossRockerImg = this.imgList[6]
+            this.bottomCrossRockerImg = this.imgList[5]
           }
           if (Number(item.rockerType) == 106 && item.keyStyle == '1') {
             this.gamepadRightHandle.shift()
