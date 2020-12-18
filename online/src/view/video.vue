@@ -102,7 +102,12 @@
       />
       <div
         class="dialog-start"
-        v-if="[1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : (isHorizontalScreen ? false : true)"
+        v-if="needTipRotate === 0 
+          ? true : 
+          (needTipRotate === 1 
+            ? false : 
+            (markNewFlag ? false : 
+              ([1, 3, 4, 5, '5'].includes(initMsg.flag) ? false : (isHorizontalScreen ? false : true))))"
       >
         <div class="pannel">
           <p>请把手机“横向”摆放，若本提示还在，</p>
@@ -350,6 +355,7 @@ export default {
       "mouseMode",
       "saveOfficialKeyboardFlag",
       "fullScreenShow",
+      "gamepadInfo"
     ]),
     highNetworkLatency() {
       return this.roundTripTime > 100 ? true : false;
@@ -469,7 +475,7 @@ export default {
       MinKeyMouseDataSize: 15, // 键鼠数据最短长度
       // MaxPressKeys: 6, // 最多按下键盘按键数目
       // 0: 数据包标识
-      keyMouseFlag: 0x01,
+      keyMouseFlag: 0x01,  // 0x02 手柄
       // 1: 设备标识
       MouseFlag: 0x01, // 低位1标识普通鼠标
       KeyFlag: 0x10, //  高位1标识普通键盘
@@ -683,7 +689,6 @@ export default {
       handleInfomation: {},
       axesLeft: 0,
       axesTop: 0,
-      gamepadInterval: null,
       // 游戏手柄 end
       videoStyle: {},
       errorReport:false,
@@ -698,31 +703,17 @@ export default {
       fireAnglePosition: {
         x: null,
         y: null
-      }
+      },
+      // ios与vue通信提示是否需要旋转
+      needTipRotate: null,
+      markNewFlag: false
     };
   },
   created() {
+    // ios和vue通信  --- 横竖屏提示
+    this.getRotatingState()
     //// 强制横屏test
     this.renderResize();
-    // 游戏手柄相关
-    console.log("游戏手柄");
-    console.log("navigator.getGamepads()", navigator.getGamepads());
-    window.addEventListener("gamepadconnected", function (e) {
-      console.log(
-        "控制器已连接于 %d 位: %s. %d 个按钮, %d 个坐标方向。",
-        e.gamepad.index,
-        e.gamepad.id,
-        e.gamepad.buttons.length,
-        e.gamepad.axes.length
-      );
-    });
-    window.addEventListener('load', this.init)
-    // window.addEventListener("load", this.gamepadInterval = setInterval(this.init, 500));
-    window.sendAxesInfo = this.sendAxesInfo;
-    window.showGamepadName = this.showGamepadName;
-    window.keyPressHandle = this.keyPressHandle;
-    window.liftUpKey = this.liftUpKey;
-    // 游戏手柄相关
     this.startTime = new Date().getTime();
     let localInfo = JSON.parse(localStorage.getItem("vuex"));
     let decodeParamPub = this.decodeStringKey(localStorage.getItem("paramPub"));
@@ -734,9 +725,7 @@ export default {
     console.log("dataMsg", dataMsg, appData);
     // this.isGuide();
     let params = {
-      type:0,
-      uname: localInfo ? localInfo.bbs.userInfo.uname : "",
-      is_archives : dataMsg ? dataMsg.is_archive:'0',
+      is_archive : dataMsg ? dataMsg.is_archive:'0',
       innerip:paramMsg.innerip
     };
     console.log("接口发送信息", params);
@@ -763,10 +752,27 @@ export default {
       appkey: paramArr[1],
       uname: localInfo ? localInfo.bbs.userInfo.uname : "",
     };
-    let game = sessionStorage.getItem("currentProductName");
+    let game = localStorage.getItem("currentProductName");
     // this.gameName = dataMsg ? dataMsg.g_name : "桌面模式";
     this.gameName = game ? game : "桌面模式";
     console.log("初始数据", this.universal, this.gameName, dataMsg);
+    // 游戏手柄相关
+    console.log("游戏手柄");
+    console.log("navigator.getGamepads()", navigator.getGamepads());
+    window.addEventListener("gamepadconnected", function (e) {
+      console.log(
+        "控制器已连接于 %d 位: %s. %d 个按钮, %d 个坐标方向。",
+        e.gamepad.index,
+        e.gamepad.id,
+        e.gamepad.buttons.length,
+        e.gamepad.axes.length
+      );
+    });
+    window.sendAxesInfo = this.sendAxesInfo;
+    window.showGamepadName = this.showGamepadName;
+    window.keyPressHandle = this.keyPressHandle;
+    window.liftUpKey = this.liftUpKey;
+    window.addEventListener("load", this.init);
   },
   watch: {
     // archive() {
@@ -1238,15 +1244,27 @@ export default {
       "setShowTextKeyboard",
       "setMoveItem",
       "setNotifyComponent",
+      "setGamepadInfo"
     ]),
+    // jsBridge 获取ios方法
+    getRotatingState () {
+      this.$bridge.callHandler('getRotationFromObjC', (res) => {
+        if (res) {
+          this.needTipRotate = Number(res.rotation)
+          if (this.needTipRotate === 1) {
+            this.markNewFlag = true
+          }
+          console.log('获取ios响应数据,屏幕旋转状态: ' + JSON.parse(JSON.stringify(res)).rotation)
+        }
+      })
+    },
+    // jsBridge 获取ios方法
     // 游戏手柄 Start
     init() {
-      console.log('游戏手柄初始化')
       var listener = new GamepadListener({}, false);
       listener.on("gamepad:connected", function (e) {
         console.log("connected", e);
         showGamepadName(e);
-        clearInterval(this.gamepadInterval)
       });
 
       listener.on("gamepad:disconnected", function (e) {
@@ -1770,6 +1788,7 @@ export default {
       if (width > height) {
         this.isHorizontalScreen = true;
         this.$set(this,'data',{})
+        this.needTipRotate = null
       } else {
         this.isHorizontalScreen = false;
         this.rotate();
@@ -2382,14 +2401,6 @@ export default {
         console.log("本地");
         let paramMsg = util.decrypt(
           "U2FsdGVkX19zOcVTf3Jg4HaMHvCZrSVXKFohba3QYzE/PvdGf+C+Tl+UtnTxGiWrmScUsG/Zq3Wn+ks53MUeOLliHKPwYkiNutO9T7ri4pgEwLrM8d6FpRMps0HWbHD42WcYGQYkYgTa14bCBoXs8EiLg1FmC5njGjb59PA1OviUjr0kRt+0lnps3yo1lyoR"
-        );
-        let serviceDefault = {
-          serviceId: "标配服务",
-          keyId: 3725425
-        };
-        localStorage.setItem(
-          "openDefaultKeyboard",
-          JSON.stringify(serviceDefault)
         );
         // console.log(paramMsg);
         this.initServer();
@@ -3213,6 +3224,7 @@ export default {
       // this.UIvideoImg.show();
       this.enterPausing();
       this.channelFist = true;
+      this.datachannelLastTime = new Date().getTime();
       if (this.firstenter) {
         if(this.initMsg.flag != 10){
           let shift = Number(localStorage.getItem('pageShift'))
@@ -3231,7 +3243,7 @@ export default {
           this.byteUp();
         }
         this.firstenter = false;
-        let type = sessionStorage.getItem("entryType");
+        let type = localStorage.getItem("entryType");
         let nowEnter = JSON.parse(sessionStorage.getItem("isFirstInto"));
         let eventInfo = {
           $pagename: this.gameName,
@@ -4408,6 +4420,12 @@ export default {
       }
       // 操作数据发送
       this.sendingOperation();
+
+      // 虚拟手柄数据发送
+      if (this.gamepadInfo.flag) {
+        this.sendingGamepadOperation()
+      }
+
       // this.mouseData.curPositionX = this.mouseData.mousePositionX + this.mouseData.mouseMovementX;
       // this.mouseData.curPositionY = this.mouseData.mousePositionY + this.mouseData.mouseMovementY;
       this.mouseData.mouseMovementX = 0;
@@ -4450,6 +4468,41 @@ export default {
         sendingMessage[15 + i] = newKeyArray[i];
       }
       if (this.connChannel) this.connChannel.send(sendingMessage);
+    },
+    // 发送虚拟手柄消息
+    sendingGamepadOperation () {
+      let sendingGamepadMessage = new Uint8Array(15) // 虚拟手柄数据包
+      sendingGamepadMessage[0] = 3
+      sendingGamepadMessage[1] = 1
+      if ([0x01, 0x02, 0x80, 0x40, 0x20, 0x10].includes(this.gamepadInfo.highKeyStatus)) {
+        sendingGamepadMessage[3]= sendingGamepadMessage[3] | this.gamepadInfo.highKeyStatus
+      } else {
+        sendingGamepadMessage[3] = 0
+      }
+      if ([0x10, 0x20, 0x40, 0x80].includes(this.gamepadInfo.lowKeyStatus)) {
+        sendingGamepadMessage[2] = sendingGamepadMessage[2] | this.gamepadInfo.lowKeyStatus
+      } else {
+        sendingGamepadMessage[2] = 0
+      }
+
+      sendingGamepadMessage[4] = this.gamepadInfo.leftTrigger
+      sendingGamepadMessage[5] = this.gamepadInfo.rightTrigger
+
+      sendingGamepadMessage[6] = this.gamepadInfo.leftThumbX & 0xff
+      sendingGamepadMessage[7] = (this.gamepadInfo.leftThumbX >> 8) & 0xff
+
+      sendingGamepadMessage[8] = this.gamepadInfo.leftTriggerY & 0xff
+      sendingGamepadMessage[9] = (this.gamepadInfo.leftTriggerY >> 8) & 0xff
+
+      sendingGamepadMessage[10] = this.gamepadInfo.rightThumbX & 0xff
+      sendingGamepadMessage[11] = (this.gamepadInfo.rightThumbX >> 8) & 0xff
+
+      sendingGamepadMessage[12] = this.gamepadInfo.rightThumbY & 0xff
+      sendingGamepadMessage[13] = (this.gamepadInfo.rightThumbY >> 8) & 0xff
+
+      sendingGamepadMessage[14] = 0
+
+      if (this.connChannel) this.connChannel.send(sendingGamepadMessage)
     },
 
     // 连接

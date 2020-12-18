@@ -11,6 +11,7 @@ import store from './store/index'
 import config from './config'
 import helpers from './directives/helpers.js'
 import loading from './components/loading'
+import Bridge from './utils/jsBridge'
 import {
   Slider,
   Tab,
@@ -40,6 +41,7 @@ Vue.prototype.$config = config
 Vue.prototype.$toast = Toast
 Vue.prototype.$ = $
 Vue.prototype.$loading = loading
+Vue.prototype.$bridge = Bridge
 
 FastClick.prototype.focus = function (targetElement) {
   let length
