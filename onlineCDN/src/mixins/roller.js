@@ -246,7 +246,7 @@ export default {
 
       // 获取方向按钮的半径
       this.gamepadLeftDRadius = d_width / 2; //这个因为是给了个图片，按钮的圆包含在图片里，所以只能取个大概，如果图片本身就是个圆那就更好说了直接d_width / 2
-      this.gamepadLeftDistance = this.gamepadLeftRadius / 2 - this.gamepadLeftDRadius + 1.5
+      this.gamepadLeftDistance = this.gamepadLeftRadius - this.gamepadLeftDRadius + 1.5
       this.gamepadLeftDirectionLeft = this.gamepadLeftZoreX - d_X + 'px'
       this.gamepadLeftDirectionTop = this.gamepadLeftZoreY - d_Y + 'px'
     },
@@ -269,7 +269,7 @@ export default {
 
       // 获取方向按钮的半径
       this.gamepadRightDRadius = d_width / 2; //这个因为是给了个图片，按钮的圆包含在图片里，所以只能取个大概，如果图片本身就是个圆那就更好说了直接d_width / 2
-      this.gamepadRightDistance = this.gamepadRightRadius / 2 - this.gamepadRightDRadius + 1.5
+      this.gamepadRightDistance = this.gamepadRightRadius - this.gamepadRightDRadius + 1.5
       this.gamepadRightDirectionLeft = this.gamepadRightZoreX - d_X + 'px'
       this.gamepadRightDirectionTop = this.gamepadRightZoreY - d_Y + 'px'
     },
@@ -491,6 +491,7 @@ export default {
           leftThumbX: gamepadLeftXPos / this.gamepadLeftDistance * 32767,
           leftThumbY: gamepadLeftYPos / this.gamepadLeftDistance * 32767
         })
+        console.log('leftThumbX', gamepadLeftXPos / this.gamepadLeftDistance * 32767, 'leftThumbY', gamepadLeftYPos / this.gamepadLeftDistance * 32767)
         console.log('中心位置',directionInfo.style.left,directionInfo.style.top)
         return;
       }
@@ -504,6 +505,7 @@ export default {
         leftThumbX: gamepadLeftXPos / this.gamepadLeftDistance * 32767,
         leftThumbY: gamepadLeftYPos / this.gamepadLeftDistance * 32767
       })
+      console.log('leftThumbX', gamepadLeftXPos / this.gamepadLeftDistance * 32767, 'leftThumbY', gamepadLeftYPos / this.gamepadLeftDistance * 32767)
       console.log('中心位置',directionInfo.style.left,directionInfo.style.top)
     },
     circularMotionGamepadLeft(non_dx, non_dy) {
