@@ -8,7 +8,7 @@
       marginTop: screenInfomation.top + 'px',
     }"
     >
-        <button v-if="true" class="floatBall" @touchstart="showMenu">悬浮球</button>
+        <button v-if="false" class="floatBall" @touchstart="showMenu">悬浮球</button>
         <!-- 菜单栏组件 -->
         <slidebar-item
                 ref="slidebar"
@@ -143,8 +143,8 @@
         name: 'cloudComputerCustom',
         data() {
             return {
-                isLocal: true,
-                isSidwbar: false, // 本地开发调试
+                isLocal: false,
+                // isSidwbar: false, // 本地开发调试
                 customize_editBtn_data: {},
                 show_customize_div: false,
                 Showcustomize: 1,
@@ -369,7 +369,7 @@
         },
         props: [
             // 自定义菜单相关
-            // 'isSidwbar', // 本地调试暂时隐藏
+            'isSidwbar', // 本地调试暂时隐藏
             'firstLoad',
             // 网络监测相关
             'roundTripTime',
@@ -1217,19 +1217,19 @@
         async created() {
             this.renderResize()
             // 本地模拟调试虚拟手柄  3615551  3725425
-            let res = await keyboard.getKeyboardInfo({ key_id: 3725425 })
-            if (res.success && res.data) {
-                let keyInfo = JSON.parse(res.data.key_info)
-                const { width, height } = res.data
-                let officialkey = keyInfo.map((item) => {
-                    item.keyMarginTop = item.keyMarginTop == '-1' ? height - item.keyMarginBottom - item.keyHeight : item.keyMarginTop
-                    item.keyMarginLeft = item.keyMarginLeft == '-1' ? width - item.keyMarginRight - item.keyWidth : item.keyMarginLeft
-                    item.keyName = item.keyName.replace(/\\n/g, '\n')
-                    return item
-                })
-                this.setKeyInfo(officialkey)
-                this.keySort(res.data, 0)
-            }
+            // let res = await keyboard.getKeyboardInfo({ key_id: 3725425 })
+            // if (res.success && res.data) {
+            //     let keyInfo = JSON.parse(res.data.key_info)
+            //     const { width, height } = res.data
+            //     let officialkey = keyInfo.map((item) => {
+            //         item.keyMarginTop = item.keyMarginTop == '-1' ? height - item.keyMarginBottom - item.keyHeight : item.keyMarginTop
+            //         item.keyMarginLeft = item.keyMarginLeft == '-1' ? width - item.keyMarginRight - item.keyWidth : item.keyMarginLeft
+            //         item.keyName = item.keyName.replace(/\\n/g, '\n')
+            //         return item
+            //     })
+            //     this.setKeyInfo(officialkey)
+            //     this.keySort(res.data, 0)
+            // }
             // 本地模拟调试虚拟手柄
             if (this.firstOnloadKeyboard) {
                 this.firstOnloadKeyboard = false;
