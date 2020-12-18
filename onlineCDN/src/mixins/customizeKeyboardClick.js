@@ -483,7 +483,7 @@ export default {
             this.setGamepadInfo({leftTrigger: 255})
             break
           case "LB":
-            this.setGamepadInfo({highKeyStatus: 0x40})
+            this.setGamepadInfo({lowKeyStatus: 0x40})
             break
           case "LS":
             this.setGamepadInfo({highKeyStatus: 0x01})
@@ -492,7 +492,7 @@ export default {
             this.setGamepadInfo({rightTrigger: 255})
             break
           case "RB":
-            this.setGamepadInfo({highKeyStatus: 0x80})
+            this.setGamepadInfo({lowKeyStatus: 0x80})
             break
           case "RS":
             this.setGamepadInfo({highKeyStatus: 0x02})
@@ -654,7 +654,7 @@ export default {
             this.setGamepadInfo({leftTrigger: 255})
             break
           case "LB":
-            this.setGamepadInfo({highKeyStatus: 0x40})
+            this.setGamepadInfo({lowKeyStatus: 0x40})
             break
           case "LS":
             this.setGamepadInfo({highKeyStatus: 0x01})
@@ -663,7 +663,7 @@ export default {
             this.setGamepadInfo({rightTrigger: 255})
             break
           case "RB":
-            this.setGamepadInfo({highKeyStatus: 0x80})
+            this.setGamepadInfo({lowKeyStatus: 0x80})
             break
           case "RS":
             this.setGamepadInfo({highKeyStatus: 0x02})
@@ -703,7 +703,7 @@ export default {
             this.setGamepadInfo({leftTrigger: 0})
             break
           case "LB":
-            tthis.setGamepadInfo({highKeyStatus: 0})
+            this.setGamepadInfo({lowKeyStatus: 0})
             break
           case "LS":
             this.setGamepadInfo({highKeyStatus: 0})
@@ -712,7 +712,7 @@ export default {
             this.setGamepadInfo({rightTrigger: 0})
             break
           case "RB":
-            this.setGamepadInfo({highKeyStatus: 0})
+            this.setGamepadInfo({lowKeyStatus: 0})
             break
           case "RS":
             this.setGamepadInfo({highKeyStatus: 0})
