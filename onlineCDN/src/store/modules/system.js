@@ -55,7 +55,7 @@ const state = {
 		rightTrigger: 0,
 		leftThumbX: 0,
 		leftTriggerY: 0,
-		rightThumbY: 0,
+		rightThumbX: 0,
 		rightThumbY: 0
 	}
 }
