@@ -483,19 +483,19 @@ export default {
             this.setGamepadInfo({highKeyStatus: 0x04})
             break
           case "LB":
-            this.setGamepadInfo({leftTrigger: 250})
+            this.setGamepadInfo({highKeyStatus: 0x01})
             break
           case "LS":
-            this.setGamepadInfo({highKeyStatus: 0x01})
+            this.setGamepadInfo({leftTrigger: 255})
             break
           case "RT":
             this.setGamepadInfo({highKeyStatus: 0x08})
             break
           case "RB":
-            this.setGamepadInfo({rightTrigger: 250})
+            this.setGamepadInfo({highKeyStatus: 0x02})
             break
           case "RS":
-            this.setGamepadInfo({highKeyStatus: 0x02})
+            this.setGamepadInfo({rightTrigger: 255})
             break
           case "Y":
             this.setGamepadInfo({highKeyStatus: 0x80})
