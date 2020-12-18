@@ -9,7 +9,7 @@
     <div v-if="canUseStep">
       <div
         @touchstart.stop.prevent="customizeDown($event, keymsg, title)"
-        @touchend="customizeUp($event, keymsg)"
+        @touchend="customizeUp($event, keymsg, index)"
         :class="['btn', {'actived1': isBoo == title}, {'actived1': isLockBtn[title]}]"
         id="btn"
         :style="[dynamicBtnStyle, changeSizeStyle]"

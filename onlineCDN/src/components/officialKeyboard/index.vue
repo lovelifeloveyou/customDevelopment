@@ -4,7 +4,7 @@
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
         @touchmove="customizeMove($event, item, gamepadLeftHandle)"
-        @touchend="customizeUp($event, item, gamepadLeftHandle)"
+        @touchend="customizeUp($event, item, index, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: item.keyWidth / 2 + 'px', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
@@ -19,7 +19,7 @@
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
         @touchmove="customizeMove($event, item, gamepadLeftHandle)"
-        @touchend="customizeUp($event, item, gamepadLeftHandle)"
+        @touchend="customizeUp($event, item, index, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: '2px ' + item.keyWidth / 2 + 'px ' + item.keyWidth / 2 + 'px ' +  '2px',transform: 'rotate(20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
@@ -33,7 +33,7 @@
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
         @touchmove="customizeMove($event, item, gamepadLeftHandle)"
-        @touchend="customizeUp($event, item, gamepadLeftHandle)"
+        @touchend="customizeUp($event, item, index, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: item.keyWidth / 2 + 'px ' + '2px ' + '2px ' + item.keyWidth / 2 + 'px',transform: 'rotate(-20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
@@ -47,7 +47,7 @@
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
         @touchmove="customizeMove($event, item, gamepadLeftHandle)"
-        @touchend="customizeUp($event, item, gamepadLeftHandle)"
+        @touchend="customizeUp($event, item, index, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: item.keyWidth / 2 + 'px ' + '2px ' + '2px ' + item.keyWidth / 2 + 'px',transform: 'rotate(20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
@@ -61,7 +61,7 @@
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
         @touchmove="customizeMove($event, item, gamepadLeftHandle)"
-        @touchend="customizeUp($event, item, gamepadLeftHandle)"
+        @touchend="customizeUp($event, item, index, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth + 'px', height: item.keyHeight + 'px', borderRadius: '2px ' + item.keyWidth / 2 + 'px ' + item.keyWidth / 2 + 'px ' +  '2px',transform: 'rotate(-20deg)', left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
@@ -75,7 +75,7 @@
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
         @touchmove="customizeMove($event, item, gamepadLeftHandle)"
-        @touchend="customizeUp($event, item, gamepadLeftHandle)"
+        @touchend="customizeUp($event, item, index, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth-10 + 'px', height: item.keyWidth-10 + 'px', borderRadius: (item.keyWidth-10) / 2 + 'px ',left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
@@ -90,7 +90,7 @@
       <button
         @touchstart.stop.prevent="customizeDown($event, item, index, gamepadLeftHandle)"
         @touchmove="customizeMove($event, item, gamepadLeftHandle)"
-        @touchend="customizeUp($event, item, gamepadLeftHandle)"
+        @touchend="customizeUp($event, item, index, gamepadLeftHandle)"
         ref="btn"
         :class="[{'actived1': isBoo == index}, {'actived1': isLockBtn[index]}]"
         :style="{ width: item.keyWidth-10 + 'px', height: item.keyWidth-10 + 'px', borderRadius: (item.keyWidth-10) / 2 + 'px ',left: item.keyMarginLeft + 'px', top: item.keyMarginTop + 'px', backgroundImage: 'url(' + item.backgroundImage + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: (officialKeyboardFlag === 'YXKeys' && item.key === '右键' ? sizeA + 'px' + ' ' + sizeB + 'px' : sizeC + 'px' + ' ' + sizeD + 'px')}"
@@ -143,6 +143,7 @@
     >
 
       <div
+        class="handleStyle"
         @touchstart.stop.prevent="crossRockerDown('up')"
         @touchmove="crossRockerMove('up')"
         @touchend="crossRockerEnd('up')"
@@ -151,6 +152,7 @@
         <img :src="topCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
       </div>
       <div
+        class="handleStyle"
         @touchstart.stop.prevent="crossRockerDown('right')"
         @touchmove="crossRockerMove('right')"
         @touchend="crossRockerEnd('right')"
@@ -159,6 +161,7 @@
         <img :src="rightCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;" />
       </div>
       <div
+        class="handleStyle"
         @touchstart.stop.prevent="crossRockerDown('down')"
         @touchmove="crossRockerMove('down')"
         @touchend="crossRockerEnd('down')"
@@ -167,6 +170,7 @@
         <img :src="bottomCrossRockerImg" style="width: auto;height:auto;max-width: 100%;max-height: 100%;transform: rotate(180deg);" />
       </div>
       <div
+        class="handleStyle"
         @touchstart.stop.prevent="crossRockerDown('left')"
         @touchmove="crossRockerMove('left')"
         @touchend="crossRockerEnd('left')"
@@ -417,6 +421,9 @@ export default {
 .officialKeyboard {
   width: 100%;
   height: 100%;
+}
+.handleStyle {
+  z-index: 100 !important;
 }
 button {
   position: absolute;

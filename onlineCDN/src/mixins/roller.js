@@ -197,7 +197,8 @@ export default {
   methods: {
     ...mapMutations([
       'set_BtnEmptyKey',
-      'set_BtnKeyArray'
+      'set_BtnKeyArray',
+      'setGamepadInfo'
     ]),
     initRoller() {
       this.$nextTick(() => {
@@ -450,40 +451,40 @@ export default {
       };
 
       // 获取手指的位置与中心点位置横纵坐标的差值
-      let turnX = this.gamepadLeftMoveX - this.gamepadLeftZoreX;
-      let turnY = this.gamepadLeftMoveY - this.gamepadLeftZoreY;
+      // let turnX = this.gamepadLeftMoveX - this.gamepadLeftZoreX;
+      // let turnY = this.gamepadLeftMoveY - this.gamepadLeftZoreY;
 
-      // 通过判断圆心半径的数值与手指的位置信息的大小来判断是在哪个方位
-      if(this.gamepadLeftRollerInfo.rockerType == 105){
-        if (
-          Math.abs(turnX) < this.gamepadLeftZoreOffset &&
-          Math.abs(turnY) < this.gamepadLeftZoreOffset
-        ) {
-          this.gamepadLeftTurn = 0;  //在中心
-          this.set_BtnEmptyKey()
-        } else if (Math.abs(turnX) < this.gamepadLeftZoreOffset) {
-          this.gamepadLeftTurn = turnY > 0 ? 3 : 7;  // 3：下， 7：上
-          this.gamepadLeftKeyNum = this.gamepadLeftTurn == 3 ? 40 : 38;
-        } else if (Math.abs(turnY) < this.gamepadLeftZoreOffset) {
-          this.gamepadLeftTurn = turnX > 0 ? 1 : 5; // 1：右， 5：左
-          this.gamepadLeftKeyNum = this.gamepadLeftTurn == 1 ? 39 :37;
-        } else {
-          if (turnX > 0) {
-            // 在右边
-            this.gamepadLeftTurn = turnY > 0 ? 2 : 8; // 2：右下， 8：右上
-            this.gamepadLeftKeyNum = this.gamepadLeftTurn == 2 ? [39,40] : [39,38];
-          } else {
-            // 在左边
-            this.gamepadLeftTurn = turnY > 0 ? 4 : 6; // 4：坐下， 6：左上
-            this.gamepadLeftKeyNum = this.gamepadLeftTurn == 4 ? [37,40] : [37,38];
-          }
-        }
-      }
-      this.set_BtnEmptyKey()
-      if(this.gamepadLeftTurn != 0) {
-        console.log(this.gamepadLeftKeyNum)
-        this.set_BtnKeyArray(this.gamepadLeftKeyNum);
-      }
+      // // 通过判断圆心半径的数值与手指的位置信息的大小来判断是在哪个方位
+      // if(this.gamepadLeftRollerInfo.rockerType == 105){
+      //   if (
+      //     Math.abs(turnX) < this.gamepadLeftZoreOffset &&
+      //     Math.abs(turnY) < this.gamepadLeftZoreOffset
+      //   ) {
+      //     this.gamepadLeftTurn = 0;  //在中心
+      //     this.set_BtnEmptyKey()
+      //   } else if (Math.abs(turnX) < this.gamepadLeftZoreOffset) {
+      //     this.gamepadLeftTurn = turnY > 0 ? 3 : 7;  // 3：下， 7：上
+      //     this.gamepadLeftKeyNum = this.gamepadLeftTurn == 3 ? 40 : 38;
+      //   } else if (Math.abs(turnY) < this.gamepadLeftZoreOffset) {
+      //     this.gamepadLeftTurn = turnX > 0 ? 1 : 5; // 1：右， 5：左
+      //     this.gamepadLeftKeyNum = this.gamepadLeftTurn == 1 ? 39 :37;
+      //   } else {
+      //     if (turnX > 0) {
+      //       // 在右边
+      //       this.gamepadLeftTurn = turnY > 0 ? 2 : 8; // 2：右下， 8：右上
+      //       this.gamepadLeftKeyNum = this.gamepadLeftTurn == 2 ? [39,40] : [39,38];
+      //     } else {
+      //       // 在左边
+      //       this.gamepadLeftTurn = turnY > 0 ? 4 : 6; // 4：坐下， 6：左上
+      //       this.gamepadLeftKeyNum = this.gamepadLeftTurn == 4 ? [37,40] : [37,38];
+      //     }
+      //   }
+      // }
+      // this.set_BtnEmptyKey()
+      // if(this.gamepadLeftTurn != 0) {
+      //   console.log(this.gamepadLeftKeyNum)
+      //   this.set_BtnKeyArray(this.gamepadLeftKeyNum);
+      // }
         // 控制移动
       this.moveBtnGamepadLeft(event);
     },
@@ -579,40 +580,40 @@ export default {
       };
 
       // 获取手指的位置与中心点位置横纵坐标的差值
-      let turnX = this.gamepadRightMoveX - this.gamepadRightZoreX;
-      let turnY = this.gamepadRightMoveY - this.gamepadRightZoreY;
+      // let turnX = this.gamepadRightMoveX - this.gamepadRightZoreX;
+      // let turnY = this.gamepadRightMoveY - this.gamepadRightZoreY;
 
-      // 通过判断圆心半径的数值与手指的位置信息的大小来判断是在哪个方位
-      if(this.gamepadRightRollerInfo.rockerType == 106){
-        if (
-          Math.abs(turnX) < this.gamepadRightZoreOffset &&
-          Math.abs(turnY) < this.gamepadRightZoreOffset
-        ) {
-          this.gamepadRightTurn = 0;  //在中心
-          this.set_BtnEmptyKey()
-        } else if (Math.abs(turnX) < this.gamepadRightZoreOffset) {
-          this.gamepadRightTurn = turnY > 0 ? 3 : 7;  // 3：下， 7：上
-          this.gamepadRightKeyNum = this.gamepadRightTurn == 3 ? 40 : 38;
-        } else if (Math.abs(turnY) < this.gamepadRightZoreOffset) {
-          this.gamepadRightTurn = turnX > 0 ? 1 : 5; // 1：右， 5：左
-          this.gamepadRightKeyNum = this.gamepadRightTurn == 1 ? 39 :37;
-        } else {
-          if (turnX > 0) {
-            // 在右边
-            this.gamepadRightTurn = turnY > 0 ? 2 : 8; // 2：右下， 8：右上
-            this.gamepadRightKeyNum = this.gamepadRightTurn == 2 ? [39,40] : [39,38];
-          } else {
-            // 在左边
-            this.gamepadRightTurn = turnY > 0 ? 4 : 6; // 4：坐下， 6：左上
-            this.gamepadRightKeyNum = this.gamepadRightTurn == 4 ? [37,40] : [37,38];
-          }
-        }
-      }
-      this.set_BtnEmptyKey()
-      if(this.gamepadRightTurn != 0) {
-        console.log(this.gamepadRightKeyNum)
-        this.set_BtnKeyArray(this.gamepadRightKeyNum);
-      }
+      // // 通过判断圆心半径的数值与手指的位置信息的大小来判断是在哪个方位
+      // if(this.gamepadRightRollerInfo.rockerType == 106){
+      //   if (
+      //     Math.abs(turnX) < this.gamepadRightZoreOffset &&
+      //     Math.abs(turnY) < this.gamepadRightZoreOffset
+      //   ) {
+      //     this.gamepadRightTurn = 0;  //在中心
+      //     this.set_BtnEmptyKey()
+      //   } else if (Math.abs(turnX) < this.gamepadRightZoreOffset) {
+      //     this.gamepadRightTurn = turnY > 0 ? 3 : 7;  // 3：下， 7：上
+      //     this.gamepadRightKeyNum = this.gamepadRightTurn == 3 ? 40 : 38;
+      //   } else if (Math.abs(turnY) < this.gamepadRightZoreOffset) {
+      //     this.gamepadRightTurn = turnX > 0 ? 1 : 5; // 1：右， 5：左
+      //     this.gamepadRightKeyNum = this.gamepadRightTurn == 1 ? 39 :37;
+      //   } else {
+      //     if (turnX > 0) {
+      //       // 在右边
+      //       this.gamepadRightTurn = turnY > 0 ? 2 : 8; // 2：右下， 8：右上
+      //       this.gamepadRightKeyNum = this.gamepadRightTurn == 2 ? [39,40] : [39,38];
+      //     } else {
+      //       // 在左边
+      //       this.gamepadRightTurn = turnY > 0 ? 4 : 6; // 4：坐下， 6：左上
+      //       this.gamepadRightKeyNum = this.gamepadRightTurn == 4 ? [37,40] : [37,38];
+      //     }
+      //   }
+      // }
+      // this.set_BtnEmptyKey()
+      // if(this.gamepadRightTurn != 0) {
+      //   console.log(this.gamepadRightKeyNum)
+      //   this.set_BtnKeyArray(this.gamepadRightKeyNum);
+      // }
         // 控制移动
       this.moveBtnGamepadRight(event);
     },
