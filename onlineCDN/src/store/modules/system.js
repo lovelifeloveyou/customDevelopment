@@ -293,7 +293,7 @@ const mutations = {
 		state.notifyComponent = data
 	},
 	setGamepadInfo (state, data) {
-		state.gamepadInfo = {...state.gamepadInfo, data}
+		state.gamepadInfo = {...state.gamepadInfo, ...data}
 	}
 }
 
