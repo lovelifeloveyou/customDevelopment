@@ -609,8 +609,8 @@ export default {
         let gamepadRightYPos = this.gamepadRightDotY  - ((this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) ? (this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) : 0)
         // if (Math.abs(gamepadRightXPos) > this.antiShakeRight || Math.abs(gamepadRightYPos) > this.antiShakeRight) {
           this.setGamepadInfo({
-            rightThumbX: gamepadRightXPos / this.gamepadRightDistance * 32767,
-            rightThumbY: -(gamepadRightYPos / this.gamepadRightDistance * 32767)
+            rightThumbX: -(gamepadRightXPos / this.gamepadRightDistance * 32767),
+            rightThumbY: (gamepadRightYPos / this.gamepadRightDistance * 32767)
           })
           console.log('rightThumbX', gamepadRightXPos / this.gamepadRightDistance * 32767, 'rightThumbY', -(gamepadRightYPos / this.gamepadRightDistance * 32767))
         // }
@@ -625,8 +625,8 @@ export default {
       let gamepadRightYPos = y - ((this.gamepadRightRollerInfo.keyHeight || this.gamepadRightRollerInfo.height) ? (this.gamepadRightRollerInfo.keyHeight || this.gamepadRightRollerInfo.height) : 0) / 2  - ((this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) ? (this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) : 0)
       // if (Math.abs(gamepadRightXPos) > this.antiShakeRight || Math.abs(gamepadRightYPos) > this.antiShakeRight) {
         this.setGamepadInfo({
-          rightThumbX: gamepadRightXPos / this.gamepadRightDistance * 32767,
-          rightThumbY: -(gamepadRightYPos / this.gamepadRightDistance * 32767)
+          rightThumbX: -(gamepadRightXPos / this.gamepadRightDistance * 32767),
+          rightThumbY: (gamepadRightYPos / this.gamepadRightDistance * 32767)
         })
         console.log('rightThumbX', gamepadRightXPos / this.gamepadRightDistance * 32767, 'rightThumbY', -(gamepadRightYPos / this.gamepadRightDistance * 32767))
       // }
