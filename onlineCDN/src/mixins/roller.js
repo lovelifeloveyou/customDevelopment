@@ -68,7 +68,9 @@ export default {
       imgCurrentGamepadLeft: "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_非焦点.png",
       imgCurrentGamepadRight: "https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_非焦点.png",
       gamepadLeftDistance: 0,
-      gamepadRightDistance: 0
+      gamepadRightDistance: 0,
+      antiShakeLeft: 0,
+      antiShakeRight: 0
       // 虚拟游戏手柄
     }
   },
@@ -244,9 +246,11 @@ export default {
       const d_X = left + d_width / 2;
       const d_Y = top + d_heigth / 2;
 
+      this.antiShakeLeft = 12 / 53.33 * d_width  // 防抖区
+
       // 获取方向按钮的半径
       this.gamepadLeftDRadius = d_width / 2; //这个因为是给了个图片，按钮的圆包含在图片里，所以只能取个大概，如果图片本身就是个圆那就更好说了直接d_width / 2
-      this.gamepadLeftDistance = this.gamepadLeftRadius - this.gamepadLeftDRadius + 1.5
+      this.gamepadLeftDistance = this.gamepadLeftRadius - this.gamepadLeftDRadius + 0.4
       this.gamepadLeftDirectionLeft = this.gamepadLeftZoreX - d_X + 'px'
       this.gamepadLeftDirectionTop = this.gamepadLeftZoreY - d_Y + 'px'
     },
@@ -267,9 +271,11 @@ export default {
       const d_X = left + d_width / 2;
       const d_Y = top + d_heigth / 2;
 
+      this.antiShakeRight = 12 / 53.33 * d_width  // 防抖区
+
       // 获取方向按钮的半径
       this.gamepadRightDRadius = d_width / 2; //这个因为是给了个图片，按钮的圆包含在图片里，所以只能取个大概，如果图片本身就是个圆那就更好说了直接d_width / 2
-      this.gamepadRightDistance = this.gamepadRightRadius - this.gamepadRightDRadius + 1.5
+      this.gamepadRightDistance = this.gamepadRightRadius - this.gamepadRightDRadius + 0.4
       this.gamepadRightDirectionLeft = this.gamepadRightZoreX - d_X + 'px'
       this.gamepadRightDirectionTop = this.gamepadRightZoreY - d_Y + 'px'
     },
@@ -487,11 +493,13 @@ export default {
         directionInfo.style.top = this.gamepadLeftDotY  - ((this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) ? (this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) : 0) + "px";
         let gamepadLeftXPos = this.gamepadLeftDotX - ((this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left || this.gamepadLeftRollerInfo.keyMarginLeft) ? (this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left || this.gamepadLeftRollerInfo.keyMarginLeft) : 0)
         let gamepadLeftYPos = this.gamepadLeftDotY  - ((this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) ? (this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) : 0)
-        this.setGamepadInfo({
-          leftThumbX: gamepadLeftXPos / this.gamepadLeftDistance * 32767,
-          leftThumbY: gamepadLeftYPos / this.gamepadLeftDistance * 32767
-        })
-        console.log('leftThumbX', gamepadLeftXPos / this.gamepadLeftDistance * 32767, 'leftThumbY', gamepadLeftYPos / this.gamepadLeftDistance * 32767)
+        if (Math.abs(gamepadLeftXPos) > this.antiShakeLeft || Math.abs(gamepadLeftYPos) > this.antiShakeLeft) {
+          this.setGamepadInfo({
+            leftThumbX: gamepadLeftXPos / this.gamepadLeftDistance * 32767,
+            leftThumbY: -(gamepadLeftYPos / this.gamepadLeftDistance * 32767)
+          })
+          console.log('leftThumbX', gamepadLeftXPos / this.gamepadLeftDistance * 32767, 'leftThumbY', -(gamepadLeftYPos / this.gamepadLeftDistance * 32767))
+        }
         console.log('中心位置',directionInfo.style.left,directionInfo.style.top)
         return;
       }
@@ -501,11 +509,13 @@ export default {
       directionInfo.style.top = y - ((this.gamepadLeftRollerInfo.keyHeight || this.gamepadLeftRollerInfo.height) ? (this.gamepadLeftRollerInfo.keyHeight || this.gamepadLeftRollerInfo.height) : 0) / 2  - ((this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) ? (this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) : 0) + "px";
       let gamepadLeftXPos = x - ((this.gamepadLeftRollerInfo.keyWidth || this.gamepadLeftRollerInfo.width) ? (this.gamepadLeftRollerInfo.keyWidth || this.gamepadLeftRollerInfo.width) : 0) / 2  - ((this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left || this.gamepadLeftRollerInfo.keyMarginLeft) ? (this.gamepadLeftRollerInfo.keyLeft || this.gamepadLeftRollerInfo.left || this.gamepadLeftRollerInfo.keyMarginLeft) : 0)
       let gamepadLeftYPos = y - ((this.gamepadLeftRollerInfo.keyHeight || this.gamepadLeftRollerInfo.height) ? (this.gamepadLeftRollerInfo.keyHeight || this.gamepadLeftRollerInfo.height) : 0) / 2  - ((this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) ? (this.gamepadLeftRollerInfo.keyTop || this.gamepadLeftRollerInfo.top || this.gamepadLeftRollerInfo.keyMarginTop) : 0)
-      this.setGamepadInfo({
-        leftThumbX: gamepadLeftXPos / this.gamepadLeftDistance * 32767,
-        leftThumbY: gamepadLeftYPos / this.gamepadLeftDistance * 32767
-      })
-      console.log('leftThumbX', gamepadLeftXPos / this.gamepadLeftDistance * 32767, 'leftThumbY', gamepadLeftYPos / this.gamepadLeftDistance * 32767)
+      if (Math.abs(gamepadLeftXPos) > this.antiShakeLeft || Math.abs(gamepadLeftYPos) > this.antiShakeLeft) {
+        this.setGamepadInfo({
+          leftThumbX: gamepadLeftXPos / this.gamepadLeftDistance * 32767,
+          leftThumbY: -(gamepadLeftYPos / this.gamepadLeftDistance * 32767)
+        })
+        console.log('leftThumbX', gamepadLeftXPos / this.gamepadLeftDistance * 32767, 'leftThumbY', -(gamepadLeftYPos / this.gamepadLeftDistance * 32767))
+      }
       console.log('中心位置',directionInfo.style.left,directionInfo.style.top)
     },
     circularMotionGamepadLeft(non_dx, non_dy) {
@@ -597,10 +607,13 @@ export default {
         directionInfo.style.top = this.gamepadRightDotY  - ((this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) ? (this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) : 0) + "px";
         let gamepadRightXPos = this.gamepadRightDotX - ((this.gamepadRightRollerInfo.keyLeft || this.gamepadRightRollerInfo.left || this.gamepadRightRollerInfo.keyMarginLeft) ? (this.gamepadRightRollerInfo.keyLeft || this.gamepadRightRollerInfo.left || this.gamepadRightRollerInfo.keyMarginLeft) : 0)
         let gamepadRightYPos = this.gamepadRightDotY  - ((this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) ? (this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) : 0)
-        this.setGamepadInfo({
-          rightThumbX: gamepadRightXPos / this.gamepadRightDistance * 32767,
-          rightThumbY: gamepadRightYPos / this.gamepadRightDistance * 32767
-        })
+        if (Math.abs(gamepadRightXPos) > this.antiShakeRight || Math.abs(gamepadRightYPos) > this.antiShakeRight) {
+          this.setGamepadInfo({
+            rightThumbX: gamepadRightXPos / this.gamepadRightDistance * 32767,
+            rightThumbY: -(gamepadRightYPos / this.gamepadRightDistance * 32767)
+          })
+          console.log('rightThumbX', gamepadRightXPos / this.gamepadRightDistance * 32767, 'rightThumbY', -(gamepadRightYPos / this.gamepadRightDistance * 32767))
+        }
         console.log('中心位置',directionInfo.style.left,directionInfo.style.top)
         return;
       }
@@ -610,10 +623,13 @@ export default {
       directionInfo.style.top = y - ((this.gamepadRightRollerInfo.keyHeight || this.gamepadRightRollerInfo.height) ? (this.gamepadRightRollerInfo.keyHeight || this.gamepadRightRollerInfo.height) : 0) / 2  - ((this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) ? (this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) : 0) + "px";
       let gamepadRightXPos = x - ((this.gamepadRightRollerInfo.keyWidth || this.gamepadRightRollerInfo.width) ? (this.gamepadRightRollerInfo.keyWidth || this.gamepadRightRollerInfo.width) : 0) / 2  - ((this.gamepadRightRollerInfo.keyLeft || this.gamepadRightRollerInfo.left || this.gamepadRightRollerInfo.keyMarginLeft) ? (this.gamepadRightRollerInfo.keyLeft || this.gamepadRightRollerInfo.left || this.gamepadRightRollerInfo.keyMarginLeft) : 0)
       let gamepadRightYPos = y - ((this.gamepadRightRollerInfo.keyHeight || this.gamepadRightRollerInfo.height) ? (this.gamepadRightRollerInfo.keyHeight || this.gamepadRightRollerInfo.height) : 0) / 2  - ((this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) ? (this.gamepadRightRollerInfo.keyTop || this.gamepadRightRollerInfo.top || this.gamepadRightRollerInfo.keyMarginTop) : 0)
-      this.setGamepadInfo({
-        rightThumbX: gamepadRightXPos / this.gamepadRightDistance * 32767,
-        rightThumbY: gamepadRightYPos / this.gamepadRightDistance * 32767
-      })
+      if (Math.abs(gamepadRightXPos) > this.antiShakeRight || Math.abs(gamepadRightYPos) > this.antiShakeRight) {
+        this.setGamepadInfo({
+          rightThumbX: gamepadRightXPos / this.gamepadRightDistance * 32767,
+          rightThumbY: -(gamepadRightYPos / this.gamepadRightDistance * 32767)
+        })
+        console.log('rightThumbX', gamepadRightXPos / this.gamepadRightDistance * 32767, 'rightThumbY', -(gamepadRightYPos / this.gamepadRightDistance * 32767))
+      }
       console.log('中心位置',directionInfo.style.left,directionInfo.style.top)
     },
     circularMotionGamepadRight(non_dx, non_dy) {

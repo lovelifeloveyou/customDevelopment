@@ -482,19 +482,19 @@ export default {
           case "LT":
             this.setGamepadInfo({leftTrigger: 255})
             break
-          case "LB":
+          case "LS":
             this.setGamepadInfo({lowKeyStatus: 0x40})
             break
-          case "LS":
+          case "LB":
             this.setGamepadInfo({highKeyStatus: 0x01})
             break
           case "RT":
             this.setGamepadInfo({rightTrigger: 255})
             break
-          case "RB":
+          case "RS":
             this.setGamepadInfo({lowKeyStatus: 0x80})
             break
-          case "RS":
+          case "RB":
             this.setGamepadInfo({highKeyStatus: 0x02})
             break
           case "Y":
@@ -653,19 +653,19 @@ export default {
           case "LT":
             this.setGamepadInfo({leftTrigger: 255})
             break
-          case "LB":
+          case "LS":
             this.setGamepadInfo({lowKeyStatus: 0x40})
             break
-          case "LS":
+          case "LB":
             this.setGamepadInfo({highKeyStatus: 0x01})
             break
           case "RT":
             this.setGamepadInfo({rightTrigger: 255})
             break
-          case "RB":
+          case "RS":
             this.setGamepadInfo({lowKeyStatus: 0x80})
             break
-          case "RS":
+          case "RB":
             this.setGamepadInfo({highKeyStatus: 0x02})
             break
           case "Y":
@@ -702,19 +702,19 @@ export default {
           case "LT":
             this.setGamepadInfo({leftTrigger: 0})
             break
-          case "LB":
+          case "LS":
             this.setGamepadInfo({lowKeyStatus: 0})
             break
-          case "LS":
+          case "LB":
             this.setGamepadInfo({highKeyStatus: 0})
             break
           case "RT":
             this.setGamepadInfo({rightTrigger: 0})
             break
-          case "RB":
+          case "RS":
             this.setGamepadInfo({lowKeyStatus: 0})
             break
-          case "RS":
+          case "RB":
             this.setGamepadInfo({highKeyStatus: 0})
             break
           case "Y":
