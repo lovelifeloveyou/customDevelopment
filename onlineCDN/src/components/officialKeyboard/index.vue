@@ -269,6 +269,10 @@ export default {
     firstLoad: {
       type: Boolean,
       default: false,
+    },
+    isHorizontalScreen: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

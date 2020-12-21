@@ -290,10 +290,10 @@ export default {
             event.stopPropagation();
           }
           //获取到当前手指的位置
-          if((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 1.1) || (this.initMsg.flag == 1) || JSON.parse(localStorage.getItem('isHorizontalScreen'))){
+          if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
             this.moveX = event.targetTouches[0].clientX - this.screen.left;
             this.moveY = event.targetTouches[0].clientY - this.screen.top;
-          }else{
+          } else {
             this.moveX = this.screen.totalWidth * this.screen.rate - event.targetTouches[0].clientY;
             this.moveY = event.targetTouches[0].clientX - this.screen.top;
           }
@@ -448,10 +448,10 @@ export default {
             event.stopPropagation();
           }
           //获取到当前手指的位置
-          if((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 1.1) || (this.initMsg.flag == 1) || JSON.parse(localStorage.getItem('isHorizontalScreen'))){
+          if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
             this.gamepadLeftMoveX = event.targetTouches[0].clientX - this.screen.left;
             this.gamepadLeftMoveY = event.targetTouches[0].clientY - this.screen.top;
-          }else{
+          } else {
             this.gamepadLeftMoveX = this.screen.totalWidth * this.screen.rate - event.targetTouches[0].clientY;
             this.gamepadLeftMoveY = event.targetTouches[0].clientX - this.screen.top;
           }
@@ -562,10 +562,10 @@ export default {
             event.stopPropagation();
           }
           //获取到当前手指的位置
-          if((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 1.1) || (this.initMsg.flag == 1) || JSON.parse(localStorage.getItem('isHorizontalScreen'))){
+          if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
             this.gamepadRightMoveX = event.targetTouches[0].clientX - this.screen.left;
             this.gamepadRightMoveY = event.targetTouches[0].clientY - this.screen.top;
-          }else{
+          } else {
             this.gamepadRightMoveX = this.screen.totalWidth * this.screen.rate - event.targetTouches[0].clientY;
             this.gamepadRightMoveY = event.targetTouches[0].clientX - this.screen.top;
           }
