@@ -257,194 +257,240 @@
         transform: translateX(-50%);
     }
 
-    #keys {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        /*height: 401.4px;*/
-        background: rgba(23, 29, 51, 0.7);
-        z-index: 11; // 问题31
-        padding: 38.3px 1.5vw 28.3px 1.5vw;
-        box-sizing: border-box;
 
-        #allKey {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: space-between;
 
-            button {
-                /*height: 6.4vw;*/
-                /*width: 6.4vw;*/
-                text-align: center;
-                /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
-                /*background-size: contain;*/
-                border: none;
-                margin-right: 0.5vw;
-                margin-bottom: 6px;
-                font-weight: bold;
-                position: relative;
+    /*css[竖向定义样式]*/
+    @media screen and (orientation:portrait) {
+        #keys {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /*height: 401.4px;*/
+            background: rgba(23, 29, 51, 0.7);
+            z-index: 11; // 问题31
+            padding: 38.3px 1.5vh 28.3px 1.5vh;
+            box-sizing: border-box;
 
-                span {
-                    font-size: 18.7px;
-                }
-                .english{
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                }
-                i {
-                    font-style: normal;
-                }
-            }
-
-            .space_active {
-                background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/space_hover.png') no-repeat !important;
-                background-size: contain !important;
-            }
-
-            .letter {
-                /*width: 78%;*/
-                /*width:918px;*/
+            #allKey {
                 display: flex;
                 flex-direction: row;
-                flex-wrap: wrap;
-                /*position: absolute;*/
-                /*left: 0px;*/
+                flex-wrap: nowrap;
+                justify-content: space-between;
 
-                button:nth-child(1),
-                button:nth-child(12),
-                button:nth-child(22),
-                button:nth-child(23),
-                button:nth-child(24),
-                button:nth-child(33),
-                button:nth-child(34),
-                button:nth-child(36),
-                button:nth-child(37) {
-                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
-                    background-size: contain;
-                }
-
-                button:nth-child(11) {
-                    margin-right: 0;
-                }
-
-                button:nth-child(22) {
-                    margin-right: 0;
+                button {
+                    /*height: 6.4vw;*/
+                    /*width: 6.4vw;*/
+                    text-align: center;
+                    /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
+                    /*background-size: contain;*/
+                    border: none;
+                    margin-right: 0.5vh;
+                    margin-bottom: 6px;
+                    font-weight: bold;
+                    position: relative;
 
                     span {
-                        opacity: 0;
+                        font-size: 18.7px;
+                    }
+                    .english{
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    i {
+                        font-style: normal;
                     }
                 }
 
-                button:nth-child(32) {
-                    /*width: 13.3vw;*/
-                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat;
-                    background-size: contain;
-                    margin-right:0;
+                .space_active {
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/space_hover.png') no-repeat !important;
+                    background-size: contain !important;
                 }
 
-                button:nth-child(35) {
-                    /*width: 47.8vw;*/
-                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/space.png') no-repeat;
-                    background-size: contain;
+                .letter {
+                    /*width: 78%;*/
+                    /*width:918px;*/
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    /*position: absolute;*/
+                    /*left: 0px;*/
+
+                    button:nth-child(1),
+                    button:nth-child(12),
+                    button:nth-child(22),
+                    button:nth-child(23),
+                    button:nth-child(24),
+                    button:nth-child(33),
+                    button:nth-child(34),
+                    button:nth-child(36),
+                    button:nth-child(37) {
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
+                        background-size: contain;
+                    }
+
+                    button:nth-child(11) {
+                        margin-right: 0;
+                    }
+
+                    button:nth-child(22) {
+                        margin-right: 0;
+
+                        span {
+                            opacity: 0;
+                        }
+                    }
+
+                    button:nth-child(32) {
+                        /*width: 13.3vw;*/
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat;
+                        background-size: contain;
+                        margin-right:0;
+                    }
+
+                    button:nth-child(35) {
+                        /*width: 47.8vw;*/
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/space.png') no-repeat;
+                        background-size: contain;
+                    }
+                    button:nth-child(23),
+                    button:nth-child(24),
+                    button:nth-child(33),
+                    button:nth-child(34){
+                        span{
+                            font-size: 16px;
+                        }
+                    }
                 }
-                button:nth-child(23),
-                button:nth-child(24),
-                button:nth-child(33),
-                button:nth-child(34){
-                    span{
-                        font-size: 16px;
+
+                .number {
+                    /*width: 22%;*/
+                    /*display:flex;*/
+                    /*flex-direction: row;*/
+                    /*flex-wrap: wrap;*/
+                    /*justify-content: flex-end;*/
+                    /*position: absolute;*/
+                    /*right: 0px;*/
+                    text-align:right;
+
+                    button:nth-child(3n) {
+                        margin-right: 0;
+                    }
+
+                    button:nth-child(10),
+                    button:nth-child(12) {
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
+                        background-size: contain;
                     }
                 }
             }
 
-            .number {
-                /*width: 22%;*/
-                /*display:flex;*/
-                /*flex-direction: row;*/
-                /*flex-wrap: wrap;*/
-                /*justify-content: flex-end;*/
-                /*position: absolute;*/
-                /*right: 0px;*/
-                text-align:right;
+            #sign {
+                button {
+                    /*height: 78px;*/
+                    /*width: 12%;*/
+                    text-align: center;
+                    /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
+                    /*background-size: contain;*/
+                    border: none;
+                    margin-right: 0.5vh;
+                    margin-bottom: 6px;
+                    font-weight: bold;
+                    position: relative;
+                    background-color: transparent;
 
-                button:nth-child(3n) {
-                    margin-right: 0;
+                    span {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    i {
+                        font-style: normal;
+                    }
                 }
-
-                button:nth-child(10),
-                button:nth-child(12) {
+                button:nth-child(1){
                     background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
                     background-size: contain;
                 }
             }
+
+            #speCtrl {
+                button {
+                    /*height: 78px;*/
+                    /*width: 10.6%;*/
+                    text-align: center;
+                    /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
+                    /*background-size: contain;*/
+                    border: none;
+                    margin-right: 0.5vh;
+                    margin-bottom: 6px;
+                    font-weight: bold;
+                    position: relative;
+                    background-color: transparent;
+
+                    span {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    i {
+                        font-style: normal;
+                    }
+                }
+                button:nth-child(1),
+                button:nth-child(11),
+                button:nth-child(21),
+                button:nth-child(32){
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
+                    background-size: contain;
+                }
+                button:nth-child(8),
+                button:nth-child(9),
+                button:nth-child(10),
+                button:nth-child(18),
+                button:nth-child(19),
+                button:nth-child(20),
+                button:nth-child(22),
+                button:nth-child(27),
+                button:nth-child(28),
+                button:nth-child(29),
+                button:nth-child(30),
+                button:nth-child(31),
+                button:nth-child(33),
+                button:nth-child(34),
+                button:nth-child(35),
+                button:nth-child(36){
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat;
+                    background-size: contain;
+                }
+            }
         }
-
-        #sign {
-            button {
-                /*height: 78px;*/
-                /*width: 12%;*/
-                text-align: center;
-                /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
-                /*background-size: contain;*/
-                border: none;
-                margin-right: 0.5vw;
-                margin-bottom: 6px;
-                font-weight: bold;
-                position: relative;
-                background-color: transparent;
-
-                span {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                }
-
-                i {
-                    font-style: normal;
-                }
+    }
+    @media only screen and (orientation:portrait) and (max-height: 800px ) {
+        button{
+            width:6.4vh;
+            height:6.4vh;
+        }
+        #allKey{
+            button:nth-child(32) {
+                width: 13.3vh;
             }
-            button:nth-child(1){
-                background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
-                background-size: contain;
+
+            button:nth-child(35) {
+                width: 47.8vh;
+            }
+            img {
+                width: 2.4vh;
+                height: 2.4vh;
             }
         }
-
-        #speCtrl {
-            button {
-                /*height: 78px;*/
-                /*width: 10.6%;*/
-                text-align: center;
-                /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
-                /*background-size: contain;*/
-                border: none;
-                margin-right: 0.5vw;
-                margin-bottom: 6px;
-                font-weight: bold;
-                position: relative;
-                background-color: transparent;
-
-                span {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                }
-
-                i {
-                    font-style: normal;
-                }
-            }
-            button:nth-child(1),
-            button:nth-child(11),
-            button:nth-child(21),
-            button:nth-child(32){
-                background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
-                background-size: contain;
-            }
+        #speCtrl{
+            padding:0 2vh;
             button:nth-child(8),
             button:nth-child(9),
             button:nth-child(10),
@@ -461,14 +507,335 @@
             button:nth-child(34),
             button:nth-child(35),
             button:nth-child(36){
-                background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat;
-                background-size: contain;
+                width: 13.3vh;
+            }
+        }
+        #sign{
+            padding:0 10vh;
+            button:last-child{
+                width: 13.3vh;
+                background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat !important;
+                background-size: contain !important;
+                margin-right:0!important;
+            }
+        }
+
+    }
+    @media only screen and (orientation:portrait) and (min-height: 800px ) {
+        .noFullScreen{
+            button{
+                width:5.2vh;
+                height:5.2vh;
+            }
+            #allKey{
+                button:nth-child(32) {
+                    width: 10.9vh;
+                }
+
+                button:nth-child(35) {
+                    width: 39vh;
+                }
+                img {
+                    width: 2vh;
+                    height: 2vh;
+                }
+            }
+            #speCtrl{
+                padding:0 2vh;
+                button:nth-child(8),
+                button:nth-child(9),
+                button:nth-child(10),
+                button:nth-child(18),
+                button:nth-child(19),
+                button:nth-child(20),
+                button:nth-child(22),
+                button:nth-child(27),
+                button:nth-child(28),
+                button:nth-child(29),
+                button:nth-child(30),
+                button:nth-child(31),
+                button:nth-child(33),
+                button:nth-child(34),
+                button:nth-child(35),
+                button:nth-child(36){
+                    width: 10.9vh;
+                }
+            }
+
+            #sign{
+                padding:0 7vh;
+                button:last-child{
+                    width: 10.9vh;
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat !important;
+                    background-size: contain !important;
+                    margin-right:0!important;
+                }
+            }
+        }
+        .fullScreen{
+            button{
+                width:5.7vh;
+                height:5.7vh;
+            }
+            #allKey{
+                button:nth-child(32) {
+                    width: 11.9vh;
+                }
+
+                button:nth-child(35) {
+                    width: 42.9vh;
+                }
+                img {
+                    width: 2vh;
+                    height: 2vh;
+                }
+            }
+            #speCtrl{
+                padding:0 2vh;
+                button:nth-child(8),
+                button:nth-child(9),
+                button:nth-child(10),
+                button:nth-child(18),
+                button:nth-child(19),
+                button:nth-child(20),
+                button:nth-child(22),
+                button:nth-child(27),
+                button:nth-child(28),
+                button:nth-child(29),
+                button:nth-child(30),
+                button:nth-child(31),
+                button:nth-child(33),
+                button:nth-child(34),
+                button:nth-child(35),
+                button:nth-child(36){
+                    width: 11.9vh;
+                }
+            }
+            #sign{
+                padding:0 10vh;
+                button:last-child{
+                    width: 11.9vh;
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat !important;
+                    background-size: contain !important;
+                    margin-right:0!important;
+                }
             }
         }
     }
 
+    /*css[横向定义样式]*/
+    @media screen and (orientation:landscape) {
+        #keys {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /*height: 401.4px;*/
+            background: rgba(23, 29, 51, 0.7);
+            z-index: 11; // 问题31
+            padding: 38.3px 1.5vw 28.3px 1.5vw;
+            box-sizing: border-box;
 
-    @media only screen and (max-width: 800px ) {
+            #allKey {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+
+                button {
+                    /*height: 6.4vw;*/
+                    /*width: 6.4vw;*/
+                    text-align: center;
+                    /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
+                    /*background-size: contain;*/
+                    border: none;
+                    margin-right: 0.5vw;
+                    margin-bottom: 6px;
+                    font-weight: bold;
+                    position: relative;
+
+                    span {
+                        font-size: 18.7px;
+                    }
+                    .english{
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    i {
+                        font-style: normal;
+                    }
+                }
+
+                .space_active {
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/space_hover.png') no-repeat !important;
+                    background-size: contain !important;
+                }
+
+                .letter {
+                    /*width: 78%;*/
+                    /*width:918px;*/
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    /*position: absolute;*/
+                    /*left: 0px;*/
+
+                    button:nth-child(1),
+                    button:nth-child(12),
+                    button:nth-child(22),
+                    button:nth-child(23),
+                    button:nth-child(24),
+                    button:nth-child(33),
+                    button:nth-child(34),
+                    button:nth-child(36),
+                    button:nth-child(37) {
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
+                        background-size: contain;
+                    }
+
+                    button:nth-child(11) {
+                        margin-right: 0;
+                    }
+
+                    button:nth-child(22) {
+                        margin-right: 0;
+
+                        span {
+                            opacity: 0;
+                        }
+                    }
+
+                    button:nth-child(32) {
+                        /*width: 13.3vw;*/
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat;
+                        background-size: contain;
+                        margin-right:0;
+                    }
+
+                    button:nth-child(35) {
+                        /*width: 47.8vw;*/
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/space.png') no-repeat;
+                        background-size: contain;
+                    }
+                    button:nth-child(23),
+                    button:nth-child(24),
+                    button:nth-child(33),
+                    button:nth-child(34){
+                        span{
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .number {
+                    /*width: 22%;*/
+                    /*display:flex;*/
+                    /*flex-direction: row;*/
+                    /*flex-wrap: wrap;*/
+                    /*justify-content: flex-end;*/
+                    /*position: absolute;*/
+                    /*right: 0px;*/
+                    text-align:right;
+
+                    button:nth-child(3n) {
+                        margin-right: 0;
+                    }
+
+                    button:nth-child(10),
+                    button:nth-child(12) {
+                        background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
+                        background-size: contain;
+                    }
+                }
+            }
+
+            #sign {
+                button {
+                    /*height: 78px;*/
+                    /*width: 12%;*/
+                    text-align: center;
+                    /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
+                    /*background-size: contain;*/
+                    border: none;
+                    margin-right: 0.5vw;
+                    margin-bottom: 6px;
+                    font-weight: bold;
+                    position: relative;
+                    background-color: transparent;
+
+                    span {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    i {
+                        font-style: normal;
+                    }
+                }
+                button:nth-child(1){
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
+                    background-size: contain;
+                }
+            }
+
+            #speCtrl {
+                button {
+                    /*height: 78px;*/
+                    /*width: 10.6%;*/
+                    text-align: center;
+                    /*background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/basic.png') no-repeat;*/
+                    /*background-size: contain;*/
+                    border: none;
+                    margin-right: 0.5vw;
+                    margin-bottom: 6px;
+                    font-weight: bold;
+                    position: relative;
+                    background-color: transparent;
+
+                    span {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    i {
+                        font-style: normal;
+                    }
+                }
+                button:nth-child(1),
+                button:nth-child(11),
+                button:nth-child(21),
+                button:nth-child(32){
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/special.png') no-repeat;
+                    background-size: contain;
+                }
+                button:nth-child(8),
+                button:nth-child(9),
+                button:nth-child(10),
+                button:nth-child(18),
+                button:nth-child(19),
+                button:nth-child(20),
+                button:nth-child(22),
+                button:nth-child(27),
+                button:nth-child(28),
+                button:nth-child(29),
+                button:nth-child(30),
+                button:nth-child(31),
+                button:nth-child(33),
+                button:nth-child(34),
+                button:nth-child(35),
+                button:nth-child(36){
+                    background: url('https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/confirm.png') no-repeat;
+                    background-size: contain;
+                }
+            }
+        }
+    }
+    @media only screen and (orientation:landscape) and (max-width: 800px ) {
         button{
             width:6.4vw;
             height:6.4vw;
@@ -518,7 +885,7 @@
         }
 
     }
-    @media only screen and (min-width: 800px ) {
+    @media only screen and (orientation:landscape) and (min-width: 800px ) {
         .noFullScreen{
             button{
                 width:5.2vw;
