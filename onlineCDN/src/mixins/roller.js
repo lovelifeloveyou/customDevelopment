@@ -371,7 +371,7 @@ export default {
       let x;
       let y;
       // console.log('topl',event)
-      if ((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 1.1) || (this.initMsg.flag == 1) || JSON.parse(localStorage.getItem('isHorizontalScreen'))){
+      if ([0, 2, 1.1, 1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
         x = event.targetTouches[0].clientX - this.screen.left;
         y = event.targetTouches[0].clientY - this.screen.top;
       } else {
@@ -467,7 +467,7 @@ export default {
       // 获取手指的位置
       let x;
       let y;
-      if ((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 1.1) || (this.initMsg.flag == 1) || JSON.parse(localStorage.getItem('isHorizontalScreen'))){
+      if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
         x = event.targetTouches[0].clientX - this.screen.left;
         y = event.targetTouches[0].clientY - this.screen.top;
       } else {
@@ -581,7 +581,7 @@ export default {
       // 获取手指的位置
       let x;
       let y;
-      if ((this.initMsg.flag == 0) || (this.initMsg.flag == 2) || (this.initMsg.flag == 1.1) || (this.initMsg.flag == 1) || JSON.parse(localStorage.getItem('isHorizontalScreen'))){
+      if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
         x = event.targetTouches[0].clientX - this.screen.left;
         y = event.targetTouches[0].clientY - this.screen.top;
       } else {
