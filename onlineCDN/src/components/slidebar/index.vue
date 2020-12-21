@@ -711,6 +711,7 @@ p {
           display: flex;
           height: calc(100% - 190px);
           flex-direction: column;
+          z-index: 2;
           /*align-items: center;*/
           /*overflow-y: scroll;*/
 

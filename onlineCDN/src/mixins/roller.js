@@ -290,7 +290,7 @@ export default {
             event.stopPropagation();
           }
           //获取到当前手指的位置
-          if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
+          if (this.isHorizontalScreen) {
             this.moveX = event.targetTouches[0].clientX - this.screen.left;
             this.moveY = event.targetTouches[0].clientY - this.screen.top;
           } else {
@@ -371,7 +371,7 @@ export default {
       let x;
       let y;
       // console.log('topl',event)
-      if ([0, 2, 1.1, 1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
+      if (this.isHorizontalScreen) {
         x = event.targetTouches[0].clientX - this.screen.left;
         y = event.targetTouches[0].clientY - this.screen.top;
       } else {
@@ -448,7 +448,7 @@ export default {
             event.stopPropagation();
           }
           //获取到当前手指的位置
-          if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
+          if (this.isHorizontalScreen) {
             this.gamepadLeftMoveX = event.targetTouches[0].clientX - this.screen.left;
             this.gamepadLeftMoveY = event.targetTouches[0].clientY - this.screen.top;
           } else {
@@ -467,7 +467,7 @@ export default {
       // 获取手指的位置
       let x;
       let y;
-      if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
+      if (this.isHorizontalScreen) {
         x = event.targetTouches[0].clientX - this.screen.left;
         y = event.targetTouches[0].clientY - this.screen.top;
       } else {
@@ -562,7 +562,7 @@ export default {
             event.stopPropagation();
           }
           //获取到当前手指的位置
-          if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
+          if (this.isHorizontalScreen) {
             this.gamepadRightMoveX = event.targetTouches[0].clientX - this.screen.left;
             this.gamepadRightMoveY = event.targetTouches[0].clientY - this.screen.top;
           } else {
@@ -581,7 +581,7 @@ export default {
       // 获取手指的位置
       let x;
       let y;
-      if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
+      if (this.isHorizontalScreen) {
         x = event.targetTouches[0].clientX - this.screen.left;
         y = event.targetTouches[0].clientY - this.screen.top;
       } else {

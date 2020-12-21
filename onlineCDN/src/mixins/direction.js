@@ -158,7 +158,7 @@ export default {
             event.stopPropagation();
           }
           console.log('滚轮的方向键:');
-          if ([0, 2, 1, 1.1].includes(this.initMsg.flag) || this.isHorizontalScreen) {
+          if (this.isHorizontalScreen) {
             this.direction_moveX = event.targetTouches[0].clientX - this.screen.left;
             this.direction_moveY = event.targetTouches[0].clientY - this.screen.top;
           } else {
