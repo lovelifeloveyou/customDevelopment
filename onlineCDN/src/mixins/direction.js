@@ -126,11 +126,10 @@ export default {
     ]),
     cartView () {
       console.log('direction screen init')
-      const left = (this.directionrollerInfo.keyLeft || this.directionrollerInfo.left || this.directionrollerInfo.keyMarginLeft) ? (this.directionrollerInfo.keyLeft || this.directionrollerInfo.left || this.directionrollerInfo.keyMarginLeft) : 0;
-      const top = (this.directionrollerInfo.keyTop || this.directionrollerInfo.top || this.directionrollerInfo.keyMarginTop) ? (this.directionrollerInfo.keyTop || this.directionrollerInfo.top || this.directionrollerInfo.keyMarginTop) : 0;
-
-      const width = (this.directionrollerInfo.keyWidth || this.directionrollerInfo.width) ? (this.directionrollerInfo.keyWidth || this.directionrollerInfo.width) : 0;
-      const height = (this.directionrollerInfo.keyHeight || this.directionrollerInfo.height) ? (this.directionrollerInfo.keyHeight || this.directionrollerInfo.height) : 0;
+      const left = this.directionrollerInfo.keyLeft ?? this.directionrollerInfo.left ?? this.directionrollerInfo.keyMarginLeft ?? 0;
+      const top = this.directionrollerInfo.keyTop ?? this.directionrollerInfo.top ?? this.directionrollerInfo.keyMarginTop ?? 0;
+      const width = this.directionrollerInfo.keyWidth ?? this.directionrollerInfo.width ?? 0;
+      const height = this.directionrollerInfo.keyHeight ?? this.directionrollerInfo.height ?? 0;
 
       this.direction_zoreOffset = width / 8;
       this.direction_zoreX = left + width / 2;
