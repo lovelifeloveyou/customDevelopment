@@ -151,7 +151,8 @@ export default {
     "isSidwbar",
     "showFullScreenSwitch",
     "firstLoad",
-    "pageShift"
+    "pageShift",
+    "isHorizontalScreen"
   ],
   data() {
     return {

@@ -425,7 +425,10 @@
                 this.rotate();
                 if (this.itemList.length) {
                     this.setItemList([]);
-                    const {item, index} = this.saveCustomKeyboard;
+                    let serviceDefault = JSON.parse(localStorage.getItem('openDefaultKeyboard')) || {}
+                    const {serviceId} = serviceDefault
+                    let realCustomKeyboardInfo = JSON.parse(localStorage.getItem('saveUserBehavior'))
+                    const {item, index} = (realCustomKeyboardInfo || []).find(item => item.serviceId === serviceId)
                     this.btnSelf(item, index);
                 }
             },

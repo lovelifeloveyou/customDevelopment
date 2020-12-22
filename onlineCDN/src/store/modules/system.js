@@ -207,8 +207,6 @@ const mutations = {
 		state.lastBtnMsg.lastBtnY = y;
 	},
 	setItemList (state, data) {
-		state.itemList = []
-		console.log(data, 111)
 		state.itemList = data
 	},
 	addItemList (state, data) {
