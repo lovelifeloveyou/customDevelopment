@@ -84,7 +84,7 @@
         </div>
       </div>
     </van-dialog>
-    <van-dialog id="vertical" v-model="verticalPreserve" title="保存配置">
+    <!-- <van-dialog id="vertical" v-model="verticalPreserve" title="保存配置">
       <div class="preserve_content" style="display: block;pointer-events: initial;">
         <img
           class="exitImg_pres"
@@ -93,7 +93,6 @@
           height="30"
           width="30"
         />
-        <!-- 键盘列表 -->
         <div class="config" style="border-radius:0px;   ">
           <p>我的配置</p>
           <van-list
@@ -118,7 +117,7 @@
           </div>
         </div>
       </div>
-    </van-dialog>
+    </van-dialog> -->
   </div>
 </template>
 
@@ -350,11 +349,11 @@ export default {
       this.setEmptyCustomizeBtnLists([])
       this.getCustomizeKeyboardLists()
       this.actived = "";
-      if (this.isHorizontalScreen) {
+      // if (this.isHorizontalScreen) {
         this.showPreserve = true;
-      } else {
-        this.verticalPreserve = true;
-      }
+      // } else {
+      //   this.verticalPreserve = true;
+      // }
       if (this.editKeyboard && this.clickEditKeyboard) {
         this.name_keyName = this.customize_editBtn_data.key_name;
       } else if (this.saveAfterEdit.saveFlag) {

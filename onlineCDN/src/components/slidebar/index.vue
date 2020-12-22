@@ -15,7 +15,7 @@
             <p></p>
           </div>
 <!--          <div class="bars_absolute" :class="isHelp ? 'bars_width76': 'bars_width44'">-->
-          <div class="bars_absolute">
+          <div class="bars_absolute" :style="isHorizontalScreen ?'width: 100vw;':'width: 100vh;'">
             <div class="ul_wrap">
               <ul class="ul">
                 <li
@@ -706,7 +706,6 @@ p {
           position: absolute;
           top: 183.3px;
           /*pointer-events: auto;*/
-          width: 100vw;
           /*background-color: #fff;*/
           display: flex;
           height: calc(100% - 190px);

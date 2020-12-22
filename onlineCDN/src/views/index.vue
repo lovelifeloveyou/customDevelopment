@@ -17,6 +17,7 @@
                 :firstLoad="firstLoad"
                 :showFullScreenSwitch="showFullScreenSwitch"
                 :pageShift="pageShift"
+                :isHorizontalScreen='isHorizontalScreen'
                 @showKey="showKey"
                 @away="away"
                 @reset="reset"

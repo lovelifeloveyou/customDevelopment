@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 @import "assets/reset.css";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
