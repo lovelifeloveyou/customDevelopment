@@ -141,7 +141,7 @@
 <script>
 import keyboard from "../../api/keyboard";
 // import keyboardList from "../keyboard/keyboardList";
-import keyboardList from "../keyboard/keyboardList111";
+import keyboardList from "../keyboard/keyboardList333";
 import util from "../../common/libs/util.crypto";
 import tools from "@/utils/tools"
 import { mapGetters } from "vuex";

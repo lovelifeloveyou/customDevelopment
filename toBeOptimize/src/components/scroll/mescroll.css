@@ -14,6 +14,7 @@ body {
   width: 100%;
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /*启用硬件加速:使动画渲染流畅,解决部分手机闪白屏问题,在下拉刷新和上拉加载触发时启用,结束后移除,避免滥用导致其他兼容性问题*/
@@ -52,7 +53,8 @@ body {
 /*上拉加载区域*/
 .mescroll-upwarp {
   min-height: 30px;
-  padding: 15px 0;
+  line-height: 30px;
+  font-size: 30px;
   text-align: center;
   visibility: hidden;/*代替display: none,列表快速滑动到底部能及时显示上拉加载的区域*/
 }
@@ -62,9 +64,10 @@ body {
 .mescroll-upwarp .upwarp-tip,
 .mescroll-upwarp .upwarp-nodata {
   display: inline-block;
-  font-size: 12px;
+  font-size: 22px;
   color: gray;
   vertical-align: middle;
+  margin-left: -10%;
 }
 .mescroll-downwarp .downwarp-tip,
 .mescroll-upwarp .upwarp-tip{
@@ -212,8 +215,10 @@ body {
 
 /*滚动条游标 (默认在PC端设置)*/
 .mescroll-bar::-webkit-scrollbar-thumb {
-  border-radius: 6px;
-  background-color: #ccc;
+  background-color: #304bb5;
+  width: 10px !important;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px #304bb5;
 }
 
 /*滚动条游标鼠标经过的颜色变化 (默认在PC端设置)*/

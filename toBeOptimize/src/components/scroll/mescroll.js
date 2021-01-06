@@ -173,8 +173,8 @@
       hardwareClass: 'mescroll-hardware', // 硬件加速样式,使上拉动画流畅
       warpId: null, // 可配置上拉加载的布局添加到指定id的div;默认不配置,默认添加到mescrollId
       warpClass: 'mescroll-upwarp', // 上拉加载的布局容器样式
-      htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>', // 上拉加载中的布局
-      htmlNodata: '<p class="upwarp-nodata">-- END --</p>', // 无数据的布局
+      htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">努力加载中 (>ω<*)</p>', // 上拉加载中的布局
+      htmlNodata: '<p class="upwarp-nodata">人家是有底线的 (｡･ω･｡)</p>', // 无数据的布局
       inited: function (mescroll, upwarp) {
         // 初始化完毕的回调,可缓存dom 比如 mescroll.upProgressDom = upwarp.getElementsByClassName("upwarp-progress")[0];
       },

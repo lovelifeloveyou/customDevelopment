@@ -6,14 +6,14 @@
       <p :class="getActiveCls(2)" @click="changeTab(2)">图书</p>
     </div>
     <MeScrollVue ref="mescroll" :up="mescrollUp" @init="mescrollInit" :down="mescrollDown">
-      <ul id="dataList" class="data-list">
-        <li v-for="pd in dataList" :key="pd.id">
+      <div id="dataList" class="data-list">
+        <div v-for="pd in dataList" :key="pd.id">
           <img class="pd-img" :imgurl="pd.pdImg" src="/static/mock/img/loading.png"/>
           <p class="pd-name">{{pd.pdName}}</p>
           <p class="pd-price">{{pd.pdPrice}} 元</p>
           <p class="pd-sold">已售{{pd.pdSold}}件</p>
-        </li>
-      </ul>
+        </div>
+      </div>
     </MeScrollVue>
   </div>
 </template>
