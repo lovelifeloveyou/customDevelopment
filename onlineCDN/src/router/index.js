@@ -9,6 +9,11 @@ const routes = [
         path: '/',
         name: 'home',
         component: () => import('@/views/index.vue')
+    },
+    {
+        path: '/scroll',
+        name: 'scroll',
+        component: () => import('@/views/scroll.vue')
     }
 ]
 
@@ -16,6 +21,7 @@ let router
 
 if (config.directTest) {
     router = new VueRouter({
+        mode: 'history',
         routes
     })
 } else {

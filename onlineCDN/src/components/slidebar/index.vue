@@ -127,19 +127,21 @@
     </div>
     <keyboardList
       :firstLoad='firstLoad'
-      v-show="keyboardListShow"
+      :screen="screen"
       :keyboardListShow="keyboardListShow"
       @goBack="goBack"
       @createClick="createClick"
       @sendDataBuriedPoint="sendDataBuriedPoint"
       @changeIndex="changeIndex"
+      v-show="keyboardListShow"
     />
   </div>
 </template>
 
 <script>
 import keyboard from "../../api/keyboard";
-import keyboardList from "../keyboard/keyboardList";
+// import keyboardList from "../keyboard/keyboardList";
+import keyboardList from "../keyboard/keyboardList111";
 import util from "../../common/libs/util.crypto";
 import tools from "@/utils/tools"
 import { mapGetters } from "vuex";
