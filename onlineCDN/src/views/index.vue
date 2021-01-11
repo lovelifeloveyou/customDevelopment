@@ -8,7 +8,7 @@
       marginTop: screenInfomation.top + 'px',
     }"
     >
-        <button v-if="false" class="floatBall" @touchstart="showMenu">悬浮球</button>
+        <button v-if="true" class="floatBall" @touchstart="showMenu">悬浮球</button>
         <!-- 菜单栏组件 -->
         <slidebar-item
                 ref="slidebar"
@@ -145,8 +145,8 @@
         name: 'cloudComputerCustom',
         data() {
             return {
-                isLocal: false,
-                // isSidwbar: false, // 本地开发调试
+                isLocal: true,
+                isSidwbar: false, // 本地开发调试
                 customize_editBtn_data: {},
                 show_customize_div: false,
                 Showcustomize: 1,
@@ -371,7 +371,7 @@
         },
         props: [
             // 自定义菜单相关
-            'isSidwbar', // 本地调试暂时隐藏
+            // 'isSidwbar', // 本地调试暂时隐藏
             'firstLoad',
             // 网络监测相关
             'roundTripTime',

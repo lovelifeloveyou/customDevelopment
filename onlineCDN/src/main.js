@@ -10,6 +10,7 @@ import config from './config/index'
 import loading from './components/loading'
 import { VueHammer } from './directives/hammerTouch/touchvue.js'
 import FastClick from 'fastclick'
+import './registerComp'
 
 import {
   Slider,

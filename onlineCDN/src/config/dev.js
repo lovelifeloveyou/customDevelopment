@@ -1,6 +1,6 @@
-// let server = 'https://vsryunesstest.dalongyun.com'
+let server = 'https://vsryunesstest.dalongyun.com'
 // let server = 'http://vsryunessdev.dalongyun.com'
-let server = 'https://vsryunesspre.dalongyun.com'
+// let server = 'https://vsryunesspre.dalongyun.com'
 
 // 掌上网咖接口
 // let zswkServer = 'https://gwesstest.dalongyun.com'
