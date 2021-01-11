@@ -1,0 +1,52 @@
+###
+GET https://vcssignal2.dalongyun.com/211.159.196.171:58008/api/sdp.evt?hashKey=ae4843a6851cca627f5c3fba7f7a8cf2&sdp={"type":"answer","sdp":"v=0\r\no=- 1160540049739952969 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE 0 1 2\r\na=msid-semantic: WMS\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 110 112 113 126\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:egrs\r\na=ice-pwd:7Yh4trxYOTCI3u3qSivpvQq4\r\na=ice-options:trickle\r\na=fingerprint:sha-256 EE:43:DF:E5:AD:24:B1:70:EA:A7:CE:4F:2F:14:44:BF:9E:74:49:4C:42:0F:55:EB:72:C6:A2:6E:63:0D:8E:92\r\na=setup:active\r\na=mid:0\r\na=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\na=extmap:2 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap:3 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=extmap:4 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id\r\na=extmap:5 urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id\r\na=recvonly\r\na=rtcp-mux\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=fmtp:111 minptime=10;useinbandfec=1\r\na=rtpmap:103 ISAC/16000\r\na=rtpmap:104 ISAC/32000\r\na=rtpmap:9 G722/8000\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:106 CN/32000\r\na=rtpmap:105 CN/16000\r\na=rtpmap:13 CN/8000\r\na=rtpmap:110 telephone-event/48000\r\na=rtpmap:112 telephone-event/32000\r\na=rtpmap:113 telephone-event/16000\r\na=rtpmap:126 telephone-event/8000\r\nm=video 9 UDP/TLS/RTP/SAVPF 96 97 98 99 100 101 127 123 125 122 124 107 108\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:egrs\r\na=ice-pwd:7Yh4trxYOTCI3u3qSivpvQq4\r\na=ice-options:trickle\r\na=fingerprint:sha-256 EE:43:DF:E5:AD:24:B1:70:EA:A7:CE:4F:2F:14:44:BF:9E:74:49:4C:42:0F:55:EB:72:C6:A2:6E:63:0D:8E:92\r\na=setup:active\r\na=mid:1\r\na=extmap:14 urn:ietf:params:rtp-hdrext:toffset\r\na=extmap:13 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:12 urn:3gpp:video-orientation\r\na=extmap:2 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap:11 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay\r\na=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/video-content-type\r\na=extmap:7 http://www.webrtc.org/experiments/rtp-hdrext/video-timing\r\na=extmap:8 http://tools.ietf.org/html/draft-ietf-avtext-framemarking-07\r\na=extmap:9 http://www.webrtc.org/experiments/rtp-hdrext/color-space\r\na=extmap:3 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=extmap:4 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id\r\na=extmap:5 urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id\r\na=recvonly\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:96 H264/90000\r\na=rtcp-fb:96 goog-remb\r\na=rtcp-fb:96 transport-cc\r\na=rtcp-fb:96 ccm fir\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=fmtp:96 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42001f\r\na=rtpmap:97 rtx/90000\r\na=fmtp:97 apt=96\r\na=rtpmap:98 H264/90000\r\na=rtcp-fb:98 goog-remb\r\na=rtcp-fb:98 transport-cc\r\na=rtcp-fb:98 ccm fir\r\na=rtcp-fb:98 nack\r\na=rtcp-fb:98 nack pli\r\na=fmtp:98 level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42001f\r\na=rtpmap:99 rtx/90000\r\na=fmtp:99 apt=98\r\na=rtpmap:100 H264/90000\r\na=rtcp-fb:100 goog-remb\r\na=rtcp-fb:100 transport-cc\r\na=rtcp-fb:100 ccm fir\r\na=rtcp-fb:100 nack\r\na=rtcp-fb:100 nack pli\r\na=fmtp:100 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\na=rtpmap:101 rtx/90000\r\na=fmtp:101 apt=100\r\na=rtpmap:127 H264/90000\r\na=rtcp-fb:127 goog-remb\r\na=rtcp-fb:127 transport-cc\r\na=rtcp-fb:127 ccm fir\r\na=rtcp-fb:127 nack\r\na=rtcp-fb:127 nack pli\r\na=fmtp:127 level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42e01f\r\na=rtpmap:123 rtx/90000\r\na=fmtp:123 apt=127\r\na=rtpmap:125 VP8/90000\r\na=rtcp-fb:125 goog-remb\r\na=rtcp-fb:125 transport-cc\r\na=rtcp-fb:125 ccm fir\r\na=rtcp-fb:125 nack\r\na=rtcp-fb:125 nack pli\r\na=rtpmap:122 rtx/90000\r\na=fmtp:122 apt=125\r\na=rtpmap:124 red/90000\r\na=rtpmap:107 rtx/90000\r\na=fmtp:107 apt=124\r\na=rtpmap:108 ulpfec/90000\r\nm=application 9 UDP/DTLS/SCTP webrtc-datachannel\r\nc=IN IP4 0.0.0.0\r\nb=AS:30\r\na=ice-ufrag:egrs\r\na=ice-pwd:7Yh4trxYOTCI3u3qSivpvQq4\r\na=ice-options:trickle\r\na=fingerprint:sha-256 EE:43:DF:E5:AD:24:B1:70:EA:A7:CE:4F:2F:14:44:BF:9E:74:49:4C:42:0F:55:EB:72:C6:A2:6E:63:0D:8E:92\r\na=setup:active\r\na=mid:2\r\na=sctp-port:5000\r\na=max-message-size:262144\r\n"}&type=answer
+Content-Type: text/plain
+
+###
+GET https://vcssignal2.dalongyun.com/211.159.196.171:58008/api/sdp.evt?hashKey=b2fbf17fc8ff0b0f9762a787a12730e1&candidate=candidate:3166221257 1 udp 2113937151 192.168.50.166 45498 typ host generation 0 ufrag t9FJ network-cost 999&sdpMLineIndex=0&sdpMid=0
+Content-Type: text/plain
+
+###
+POST https://vsryuness.dalongyun.com/v1/rtc/addKeyboard?token=pc:1693abd5309820c4f37f4feaf109e6c513febb9c
+content-type: application/json;charset=UTF-8
+
+{"cateName":"其他类游戏","width":667,"height":375,"keyName":"55","keyInfo":[{"id":0,"keyPressMode":"1","keyName":"左键","keyRealName":"","keyStyle":0,"rockerType":"-1","keySize":5,"keyHeight":52,"keyWidth":52,"keyLeft":417.3333282470703,"keyTop":263.3333435058594,"keyBottom":""},{"id":1,"keyPressMode":"1","keyName":"拖动上下左右","keyStyle":1,"rockerType":102,"keyHeight":130,"keyWidth":130,"keyLeft":71.66666412353516,"keyTop":226.66668701171875,"isDirection":true,"type":"move","keySize":5,"keyBottom":""}],"lineInfo":[],"isShare":0,"keyId":0,"authorname":"","event":"keyboard","method":"addKeyboard","operation":"add"}
+
+###
+POST https://vsryuness.dalongyun.com/v1/rtc/myKeyboard?token=pc:1693abd5309820c4f37f4feaf109e6c513febb9c
+content-type: application/json; charset=utf-8
+
+{
+  "event": "keyboard",
+  "method": "myKeyboard",
+  "page": null
+}
+
+###
+GET https://vsryunesspre.dalongyun.com/v1/rtc/keyboard_info?key_id=3615551
+token: pc:14303a3b0d69a17da9ae0e0c39f1eee72b25eacd
+content-type: application/json; charset=utf-8
+
+###
+GET https://vsryunesstest.dalongyun.com/v1/rtc/keyboard_info?key_id=0
+token: h5:5b5eb097d6bb2d9f4b5756c524332050ec43c975
+content-type: application/json; charset=utf-8
+
+###
+GET https://vsryunesstest.dalongyun.com/v1/rtc/keyboard_info?key_id=3615551
+token: pc:20b8fc011a02d53fa626f60de6f1b9c12f1f5bf3
+content-type: application/json; charset=utf-8
+
+
+###
+POST https://vsryunesstest.dalongyun.com/v1/dlsite/services/archive-by-h5
+token: h5:e504c60f6f9bf7112b5a54dd725374730428d397
+content-type: application/x-www-form-urlencoded
+
+
+{
+  type: 0,
+  uname: dlof0d657fc06c2,
+  is_archives: 0,
+  innerip: 10.212.11.5
+}
