@@ -127,21 +127,19 @@
     </div>
     <keyboardList
       :firstLoad='firstLoad'
-      :screen="screen"
+      v-show="keyboardListShow"
       :keyboardListShow="keyboardListShow"
       @goBack="goBack"
       @createClick="createClick"
       @sendDataBuriedPoint="sendDataBuriedPoint"
       @changeIndex="changeIndex"
-      v-show="keyboardListShow"
     />
   </div>
 </template>
 
 <script>
 import keyboard from "../../api/keyboard";
-// import keyboardList from "../keyboard/keyboardList";
-import keyboardList from "../keyboard/keyboardList333";
+import keyboardList from "../keyboard/keyboardList";
 import util from "../../common/libs/util.crypto";
 import tools from "@/utils/tools"
 import { mapGetters } from "vuex";
@@ -168,11 +166,7 @@ export default {
         {
           name: "网络监测",
           tip: "开启或关闭延迟，解码，丢包等信息的监控窗口。",
-        },
-        {
-          name: "全屏显示",
-          tip: "开启或关闭画面比例约束，开启后可能会导致画面变形。",
-        },
+        }
       ],
       i: -1,
       isHelp: false,
@@ -209,16 +203,22 @@ export default {
         clearInterval(this.timer);
         this.getUseInfo();
         if (this.fullScreenShow) {
-          this.i = 7
+          // this.i = 7
         }
       }
     },
-    showFullScreenSwitch() {
-      if (!this.showFullScreenSwitch) {
-        console.log("判断是否为16：9  。。。。。。。。。。。。");
-        let arr = this.bars.filter((item) => item.name !== "全屏显示");
-        this.$set(this, "bars", arr);
-      }
+    showFullScreenSwitch: {
+      handler (newVal, oldVal) {
+        if (newVal) {
+          let showFullScreen = {
+            name: "全屏显示",
+            tip: "开启或关闭画面比例约束，开启后可能会导致画面变形。",
+          }
+          this.bars = [...this.bars, showFullScreen]
+        }
+      },
+      immediate: true,
+      deep: true
     },
     pageShift(){
       console.log(this.pageShift, 'this.pageShift')
@@ -248,9 +248,6 @@ export default {
       this.q = 0
     } else {
       this.q = pageShift + 1
-    }
-    if (!this.showFullScreenSwitch) {
-      this.bars = this.bars.filter((item) => item.name !== "全屏显示");
     }
   },
   mounted() {

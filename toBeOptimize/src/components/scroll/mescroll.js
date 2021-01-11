@@ -12,7 +12,6 @@
 })('MeScroll', function () {
   var MeScroll = function (mescrollId, options) {
     var me = this;
-    me.version = '1.4.2'; // mescroll版本号
     me.isScrollBody = (!mescrollId || mescrollId === 'body'); // 滑动区域是否为body
     me.scrollDom = me.isScrollBody ? document.body : me.getDomById(mescrollId); // MeScroll的滑动区域
     if (!me.scrollDom) return;
@@ -124,7 +123,7 @@
   /* 配置参数:上拉加载 */
   MeScroll.prototype.extendUpScroll = function (optUp) {
     // 是否为PC端,如果是scrollbar端,默认自定义滚动条
-    var isPC = this.os.pc;
+    var isPC = this.os.pc || this.os.ios;
     // 上拉加载的配置
     MeScroll.extend(optUp, {
       use: true, // 是否启用上拉加载; 默认true
@@ -237,9 +236,7 @@
       me.isKeepTop = scrollTop === 0; // 标记滚动条起点为0
       if (me.os.pc && scrollTop <= 0) {
         // 在顶部给PC端添加move事件
-        me.scrollDom.addEventListener('mousemove', me.touchmoveEvent, {
-          passive: false
-        });
+        me.scrollDom.addEventListener('mousemove', me.touchmoveEvent);
         document.ondragstart = function () { // 在顶部禁止PC端拖拽图片,避免与下拉刷新冲突
           return false;
         }
@@ -347,9 +344,7 @@
     }
 
     // 移动端手指的滑动事件
-    me.scrollDom.addEventListener('touchmove', me.touchmoveEvent, {
-      passive: false
-    });
+    me.scrollDom.addEventListener('touchmove', me.touchmoveEvent);
 
     // 鼠标或手指的离开事件
     me.touchendEvent = function () {
@@ -560,9 +555,7 @@
     if (this.isScrollBody || !this.os.ios) return; // 不支持body为滚动区域和非ios设备
     if (isBounce === false) {
       this.optUp.isBounce = false; // 禁止
-      window.addEventListener('touchmove', this.bounceTouchmove, {
-        passive: false
-      });
+      window.addEventListener('touchmove', this.bounceTouchmove);
     } else {
       this.optUp.isBounce = true; // 允许
       window.removeEventListener('touchmove', this.bounceTouchmove);

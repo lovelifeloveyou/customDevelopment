@@ -371,7 +371,11 @@ export default {
       this.$emit("showDragBall", data);
     },
     clk(num) {
-      this.comp_actived = num;
+      if (this.comp_actived === num) {
+        this.comp_actived = 0
+      } else {
+        this.comp_actived = num;
+      }
     },
     onblur() {
       $("#save").removeClass("spin");
@@ -509,7 +513,7 @@ export default {
         lineInfo: [],
         isShare: 0,
         keyId:
-          (this.editKeyboard && this.clickEditKeyboard) ||
+          this.actived ? this.actived : (this.editKeyboard && this.clickEditKeyboard) ||
           this.saveAfterEdit.saveFlag
             ? (this.saveAfterEdit.itemList &&
                 this.saveAfterEdit.itemList.key_id) ||
@@ -520,11 +524,10 @@ export default {
         method: "addKeyboard",
         operation:
           (this.editKeyboard && this.clickEditKeyboard) ||
-          this.saveAfterEdit.saveFlag
+          this.saveAfterEdit.saveFlag || this.actived
             ? "edit"
             : "add"
       };
-
       connectApi
         .preserveKeyboard(params)
         .then(res => {
@@ -552,6 +555,7 @@ export default {
                 this.setJustSave(true);
                 this.setShowNavBar(false);
                 this.setCreateClick(false);
+                this.actived = "";
               }, 2000);
               setTimeout(() => {
                 this.setSaveAfterEdit({
@@ -671,12 +675,12 @@ export default {
         e.srcElement.className == "bar_parent" ||
         e.srcElement.className == "mouse_Comp" ||
         e.srcElement.className == "line_comp"
-      ) {               
+      ) {
         this.isNavShow = false;
         this.isIconShow = true;
         this.comp_actived = 0;
       }
-      this.$emit("clk_cus_close_sidebar", 0); // addd
+      this.$emit("clk_cus_close_sidebar", false);
     },
     closeCustomizePanel() {
       this.isOpen = false;
@@ -700,7 +704,8 @@ export default {
           itemList: ""
         });
       } else {
-        this.setItemList([]);
+        console.log('退出')
+        // this.setItemList([]);
         this.$emit("initCustomizeShow", 0);
         this.setClickEditKeyboard(false);
         this.setEditKeyboard(false);
@@ -766,7 +771,7 @@ p {
   height: 16%;
   background-color: #161f1999;
   border: 3.3px solid #0e4a55;
-  border-radius: 16.7px;  
+  border-radius: 16.7px;
   pointer-events: initial;
 }
 .nav {
@@ -827,10 +832,10 @@ p {
   position: fixed;
   top: 5%;
   left: 46%;
-  width: 550px;   
-  height: 543.3px;   
+  width: 550px;
+  height: 543.3px;
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 0px;   
+  border-radius: 0px;
 }
 .color {
   color: #00fdc6;
@@ -839,7 +844,7 @@ p {
 /deep/ .van-dialog {
   overflow: inherit;
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 26.7px;   
+  border-radius: 26.7px;
   .van-dialog__footer {
     display: none;
   }
@@ -850,8 +855,8 @@ p {
 
 .drag_content {
   display: flex;
-  height: 333.3px;   
-  width: 533.3px;   
+  height: 333.3px;
+  width: 533.3px;
   // background-color: rgba(0, 0, 0, 0.7);
   .btnStyle {
     display: flex;
@@ -906,7 +911,7 @@ p {
   }
   .exitImg {
     position: absolute;
-    right: 0px;   
+    right: 0px;
     transform: translate(40%, -40%);
   }
   .funcBtn {
@@ -921,7 +926,7 @@ p {
       height: 50px;
       line-height: 50px;
       width: 216.7px;
-      border-radius: 25px; 
+      border-radius: 25px;
       background-color: #a01614;
     }
     .confirm {
@@ -930,7 +935,7 @@ p {
       height: 50px;
       line-height: 50px;
       width: 100px;
-      border-radius: 25px; 
+      border-radius: 25px;
       background-color: #181818;
     }
   }
@@ -951,7 +956,7 @@ p {
   color: white;
   overflow: inherit;
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 26.7px;   
+  border-radius: 26.7px;
 
   .van-dialog__header {
     font-size: 30px;
@@ -973,8 +978,8 @@ p {
   pointer-events: initial;
   .exitImg_pres {
     position: absolute;
-    top: 0px;   
-    right: 0px;   
+    top: 0px;
+    right: 0px;
     transform: translate(40%, -40%);
   }
   .config {
@@ -985,13 +990,13 @@ p {
       list-style: none;
       color: #fff;
       height: 250px;
-      padding: 0 33.3px; 
+      padding: 0 33.3px;
       overflow: auto;
       text-align: center;
       li {
         position: relative;
         height: 50px;
-        line-height: 50px;  
+        line-height: 50px;
         &:nth-child(2n-1) {
           background: linear-gradient(
             to right,

@@ -28,26 +28,19 @@
         >{{tab}}</p>
       </div>
       <div class="list">
-        <van-list
-          v-model="loading"
-          :finished="finished"
-          finished-text="没有更多了"
-          @load="onLoad"
-          offset="1"
-          class="keyboard_wrap"
-          id="keyboard_wrap"
-          :style="ipadKeyboardWrapStyle"
-        >
-          <div
-            class="keyboard_item"
-            v-for="(item, index) in keyboards"
-            :key="index"
-            @click="chooseKeyboards(index, item)"
-            :class="j === index ? 'active' : 'noactive'"
-          >
-            <p style="margin:0;">{{item.key_name}}</p>
+        <MeScrollVue class="customScroll" ref="mescroll" :up="mescrollUp" @init="mescrollInit" :down="mescrollDown">
+          <div id="dataList" class="keyboard_wrap">
+            <div
+              class="keyboard_item"
+              v-for="(item, index) in keyboards"
+              :key="item.id"
+              @click="chooseKeyboards(index, item)"
+              :class="j === index ? 'active' : 'noactive'"
+            >
+              <p>{{ item.key_name}}</p>
+            </div>
           </div>
-        </van-list>
+        </MeScrollVue>
         <div class="right" :style="ipadRightStyle">
           <div class="bg_key">
             <div
@@ -304,15 +297,51 @@ import keyboard from "../../api/keyboard";
 import tools from "../../utils/tools";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import course from "@c/course/index";
+import MeScrollVue from '@c/scroll/index'
+import MescrollMixins from '../../mixins/dalongScrollMixins'
 
 export default {
   name: "keyboardList",
+  mixins: [MescrollMixins],
   components: {
     "course-item": course,
+    MeScrollVue
   },
   props: ["firstLoad", "keyboardListShow"],
   data() {
     return {
+      mescrollDown: {
+        use: false
+      },
+      mescrollUp: {
+        callback: this.upCallback, // 上拉回调,此处可简写; 相当于 callback: function (page, mescroll) { getListData(page); }
+        page: {
+          num: 0, // 当前页码,默认0,回调之前会加1,即callback(page)会从1开始
+          size: 8 // 每页数据的数量
+        },
+        noMoreSize: 5, // 如果列表已无数据,可设置列表的总数量要大于等于5条才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+        // toTop: {
+        //   src: '' // 回到顶部按钮的图片路径,支持网络图
+        // },
+        empty: {
+          // 列表第一页无任何数据时,显示的空提示布局; 需配置warpId才生效;
+          warpId: 'dataList', // 父布局的id;
+          icon: '', // 图标,支持网络图
+          tip: '客官，这里空空如也~', // 提示
+          // btntext: '创建键盘 >', // 按钮,默认""
+          // btnClick () { // 点击按钮的回调,默认null
+          //   this.btnC
+          //   console.log('点击了按钮,具体逻辑自行实现')
+          // }
+        },
+        lazyLoad: {
+          use: true // 是否开启懒加载,默认false
+        },
+        isBounce: false
+      },
+      chooseTabIndex: 0,
+      chooseKeyboardIndex: -1,
+      dataList: [],
       keyboardListPics: [
         'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/direction/middle.png',
         'https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/roller/摇杆底_非焦点.png',
@@ -421,6 +450,7 @@ export default {
         this.full.height = screen.videosHeight + "px";
         this.scale.width = screen.videosWidth + 1 + "px";
         this.scale.height = screen.videosHeight + "px";
+        // this.mescroll.resetUpScroll()
       }
     }
   },
@@ -429,6 +459,59 @@ export default {
     ...mapMutations(["setHasDelCustomizeBtn"]),
     changeCusor(status) {
       this.cusorShow = status;
+    },
+    mescrollInit (mescroll) {
+      this.mescroll = mescroll
+    },
+    getListDataFromNet (pdType, pageNum, pageSize, successCallback, errorCallback) {
+      let listData = []
+      if (pdType === 0) {
+        let params = {
+          page: pageNum,
+          keyboard_type: 2, // 1:普通 2：普通+手柄
+          key_name: this.searchKeyName
+        }
+        keyboard.getOfficeKeyboardList(params).then(res => {
+          if (res.success && res.status === 10000) {
+            if(this.searchKeyName && this.page === 1 && res.data.length === 0) {
+              console.log('未搜索到对应官方键盘')
+              return
+            }
+            if (res.data.length) {
+              listData = listData.concat(res.data);
+              console.log('查询出来的官方键盘的数据', listData)
+            }
+          }
+        })
+      } else if (pdType === 1) {
+        let params = {
+          event: 'keyboard',
+          method: 'myKeyboard',
+          page: pageNum
+        }
+        keyboard.getMyKeyboard(params).then(res => {
+          if (res.success && res.status === 10000) {
+            if (res.data.length) {
+              listData = listData.concat(res.data);
+              console.log('查询出来的自定义键盘的数据', listData)
+            }
+          }
+        })
+      }
+      setTimeout(() => {
+        successCallback(listData)
+      }, 500)
+    }, 
+    upCallback (page, mescroll) {
+      this.getListDataFromNet(this.chooseTabIndex, page.num, page.size, (arr) => {
+        if (page.num === 1) this.keyboards = []
+        this.keyboards = this.keyboards.concat(arr)
+        this.$nextTick(() => {
+          mescroll.endSuccess(arr.length)
+        })
+      }, () => {
+        mescroll.endErr()
+      })
     },
     deleteBtn() {
       this.$dialog
@@ -515,34 +598,38 @@ export default {
       }
     },
     changeTab(index) {
-      this.i = index;
-      this.j = -1;
-      this.editDelShow = false;
-      this.keyboards = [];
-      this.keyInfos = [];
-      this.keyInfo = [];
-      this.page = 1;
-      this.finished = false;
-      this.mykey = "";
-      this.mykeyindex = "";
-      this.searchKeyName = ''
-      if (index === 0) {
-        this.mytab = 0;
-        //  this.keyboards=this.keyLists;
-        this.getOfficeKeyboardList();
-      } else {
-        this.mytab = 1;
-        this.getCustomizeKeyboardLists();
-        // this.getCustomizeKey();
+      if (this.chooseTabIndex !== index) {
+        this.chooseTabIndex = index
+        this.dataList = []
+        this.i = index;
+        this.j = -1
+        this.editDelShow = false;
+        this.keyboards = [];
+        this.keyInfos = [];
+        this.keyInfo = [];
+        this.page = 1;
+        this.finished = false;
+        this.mykey = "";
+        this.mykeyindex = "";
+        this.searchKeyName = ''
+        if (index === 0) {
+          this.mytab = 0;
+        } else {
+          this.mytab = 1;
+        }
+        this.mescroll.resetUpScroll() 
       }
     },
     chooseKeyboards(index, item) {
-      this.mykey = item;
-      this.mykeyindex = index;
-      this.editDelShow = true;
-      this.j = index;
-      this.choosedKeyId = item.key_id;
-      this.getKeyboardInfo(this.j, item);
+      if (this.j !== index) {
+        this.chooseKeyboardIndex = index
+        this.mykey = item;
+        this.mykeyindex = index;
+        this.editDelShow = true;
+        this.j = index;
+        this.choosedKeyId = item.key_id;
+        this.getKeyboardInfo(this.j, item);
+      }
     },
     goBack() {
       // this.$router.replace({
@@ -840,6 +927,7 @@ export default {
       display: flex;
       flex-direction: row;
       align-items: center;
+      margin-bottom: 33.3px;
 
       p:nth-child(1) {
         margin-right: 83.3px;
@@ -853,7 +941,6 @@ export default {
 
       p.active:after {
         content: "";
-        display: block;
         width: 53.3px;
         height: 6.7px;
         background: rgba(61, 160, 254, 1);
@@ -869,8 +956,6 @@ export default {
     .list {
       display: flex;
       flex-direction: row;
-      margin-top: 33.3px;
-      // padding-bottom: 20px;
       height: calc(100% - 100px);
 
       ::-webkit-scrollbar {
@@ -879,20 +964,22 @@ export default {
       }
       ::-webkit-scrollbar-thumb {
         border-radius: 1.7px;
-        -webkit-box-shadow: inset 0 0 8.3px #304bb5;
-        background: #304bb5;
+        -webkit-box-shadow: inset 0 0 8.3px #304bb5 !important;
+        background: #304bb5 !important;
       }
 
       .keyboard_wrap {
         height: 100%;
+        width: 100% !important;
         overflow-y: scroll;
         width: calc(100% - 643.3px);
         text-align: left;
         padding: 0 2%;
         position: relative;
+        display: flex;
+        flex-direction: column;
 
         .keyboard_item {
-          display: block;
           font-size: 23.3px;
           color: #fff;
           width: 90%;
@@ -910,7 +997,6 @@ export default {
 
         .keyboard_item:before {
           content: "";
-          display: block;
           width: 20px;
           height: 20px;
           border-radius: 13.3px;
@@ -931,6 +1017,8 @@ export default {
           overflow: hidden;
           word-break: break-all;
           text-align: left;
+          display: flex;
+          margin: 0;
           // animation: 15s wordsLoop linear infinite normal;
         }
         .active {
@@ -949,15 +1037,13 @@ export default {
             white-space: nowrap;
             overflow: hidden;
             text-align: left;
+            display: flex;
+            margin: 0;
           }
         }
 
         .active:before {
           background: rgba(247, 203, 70, 1);
-        }
-
-        .van-list__finished-text {
-          width: 100%;
         }
       }
 

@@ -220,12 +220,19 @@
     <div class="handle_btn_wrap">
       <div v-show="isShowBtn" class="show_wrap">
         <div class="exitBtn" style="margin-right:10px;" @click="changeKeyboard">切换</div>
-        <div class="exitBtn" @click="exitKey">退出</div>
+        <div class="exitBtn" @click="exitKey">隐藏</div>
       </div>
       <div v-show="!isShowBtn" class="hide_btn" @click="showBtn">
         <img src="https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/hide_bg.png" alt="" @click="showBtn">
         <img src="https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/hide_row.png" alt="" id="pic">
       </div>
+    </div>
+    <!--    官方键盘教导-->
+    <div class="guide" v-if="firstLoad">
+      <img src="https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/course/guide1.jpg" class="guide_img" alt="" v-show="i === 1">
+      <img src="https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/course/guide2.jpg" class="guide_img" alt="" v-show="i === 2">
+      <img src="https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/course/guide3.jpg" class="guide_img" alt="" v-show="i === 3" @click="next">
+      <img src="https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/course/next.png" class="next" alt="" @click="next" v-show="i < 3">
     </div>
   </div>
 </template>
@@ -254,7 +261,8 @@ export default {
       rate:'',
       isShowBtn: true,
       timer: null,
-      rehandleFirstLoad: this.firstLoad
+      rehandleFirstLoad: this.firstLoad,
+      i: 1,
     };
   },
   props: {
@@ -384,6 +392,9 @@ export default {
       this.timer = setTimeout(() => {
         this.isShowBtn = false
       }, 3000)
+    },
+    next(){
+      this.i++
     }
   },
   mounted() {
@@ -553,6 +564,24 @@ img {
         top:24px;
       }
     }
+  }
+}
+.guide{
+  width:100%;
+  position:absolute;
+  left:50%;
+  top:0;
+  transform: translateX(-50%);
+  z-index:999;
+  .guide_img{
+    width:100%;
+  }
+  .next{
+    width:310px;
+    position:absolute;
+    left:50%;
+    bottom:60px;
+    transform:translate(-50%, -50%);
   }
 }
 

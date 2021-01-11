@@ -97,7 +97,7 @@
     <van-dialog v-model="show_dialog">
       <div class="drag_content">
         <div class="btnStyle">
-          <div class="btnExample"><span class="btnDisplayName" :style="{'top': keymsg.keyName === '拖动上下左右' ? '30px' : '35px'}">{{keymsg.keyStyle == 0 ? '滚轮键盘' : keymsg.keyName}}</span></div>
+          <div class="btnExample"><span class="btnDisplayName" :style="{'top': keymsg.keyName === '拖动上下左右' ? '30px' : '35px'}">{{keymsg.keyStyle == 0 ? keymsg.keyName : '滚轮键盘'}}</span></div>
         </div>
         <div class="btnFunc">
           <div class="changeSize">
@@ -231,7 +231,6 @@ export default {
   watch: {
     keymsg: {
       handler: function () {
-        console.log('uuuuu')
         if (this.keymsg.virtual) {
           this.virtualStyle = { visibility: "hidden" };
         }

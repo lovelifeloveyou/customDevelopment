@@ -1,14 +1,17 @@
 <template>
+    <!-- <div :style="componentMainStyle"> -->
+
+    <!-- 上线时把上面那个div替换成这个 -->
     <div
-            :style="{
-      position: 'relative',
-      width: screenInfomation.videosWidth + 'px',
-      height: screenInfomation.videosHeight + 'px',
-      marginLeft: screenInfomation.left + 'px',
-      marginTop: screenInfomation.top + 'px',
-    }"
+        :style="{
+            position: 'relative',
+            width: screenInfomation.videosWidth + 'px',
+            height: screenInfomation.videosHeight + 'px',
+            marginLeft: screenInfomation.left + 'px',
+            marginTop: screenInfomation.top + 'px',
+        }"
     >
-        <button v-if="true" class="floatBall" @touchstart="showMenu">悬浮球</button>
+        <button v-if="false" class="floatBall" @touchstart="showMenu">悬浮球</button>
         <!-- 菜单栏组件 -->
         <slidebar-item
                 ref="slidebar"
@@ -104,7 +107,7 @@
             <div style="display:flex;" v-show="isShowBtn">
                 <div class="exitBtn_cus changeBtn" ref="exitBtn_cus" @click="goKeyboardList">切换</div>
                 <div class="exitBtn_cus editBtn" ref="exitBtn_cus" @click="cus_editFn">编辑</div>
-                <div class="exitBtn_cus" ref="exitBtn_cus" @touchstart="cus_exitFn">退出</div>
+                <div class="exitBtn_cus" ref="exitBtn_cus" @touchstart="cus_exitFn">隐藏</div>
             </div>
             <div v-show="!isShowBtn" class="hide_btn" @click="showBtn">
                 <img src="https://reso.dalongyun.com/yun/dalongyun_page/webRtc/cloudComputerComponent/floatBall/keyboard/hide_bg.png" alt="" @click="showBtn">
@@ -127,6 +130,9 @@
                 @fireUp="fireUp"
                 :isHorizontalScreen="isHorizontalScreen"
         ></officialKeyboard>
+
+        <!-- 新手鼠标操作说明 -->
+        <newUserTips v-if="firstLoad"/>
     </div>
 </template>
 
@@ -139,14 +145,15 @@
     import customize from '@c/customize/index'
     import tools from "@/utils/tools"
     import keyboard from '@/api/keyboard'
+    import newUserTips from '@c/course/tips'
     import {mapGetters, mapMutations, mapActions} from 'vuex'
 
     export default {
         name: 'cloudComputerCustom',
         data() {
             return {
-                isLocal: true,
-                isSidwbar: false, // 本地开发调试
+                isLocal: false,
+                // isSidwbar: false, // 本地开发调试
                 customize_editBtn_data: {},
                 show_customize_div: false,
                 Showcustomize: 1,
@@ -367,11 +374,12 @@
             textKeyboard,
             'dragBox-item': dragBox,
             'customize-item': customize,
-            officialKeyboard
+            officialKeyboard,
+            newUserTips
         },
         props: [
             // 自定义菜单相关
-            // 'isSidwbar', // 本地调试暂时隐藏
+            'isSidwbar', // 本地调试暂时隐藏
             'firstLoad',
             // 网络监测相关
             'roundTripTime',
@@ -435,6 +443,8 @@
             judgeTouchStart() {
                 if (this.judgeTouchStart) {
                     if (!this.isSidwbar && this.panel) {
+                        this.$emit('callUpConflict', false)
+                        this.setShowTextKeyboard(false)
                         this.panel = false;
                         this.allKey = false;
                         this.signKey = false;
@@ -473,11 +483,14 @@
             panel() {
                 this.setJudgeTouchStart(false)
             },
-            showTextKeyboard() {
-                if (this.showTextKeyboard) {
-                    this.showKey()
-                }
-                this.setShowTextKeyboard(false)
+            showTextKeyboard: {
+                handler (newVal, oldVal) {
+                    if (newVal !== oldVal && newVal) {
+                        this.showKey()
+                    }
+                },
+                immediate: true,
+                deep: true
             },
             async notifyComponent() {
                 if (this.notifyComponent) {
@@ -662,6 +675,8 @@
                     itemList: "",
                 });
                 this.setCreateClick(true);
+                this.$emit('callUpConflict', false)
+                this.setShowTextKeyboard(false)
                 this.panel = false;
                 this.allKey = false;
                 this.signKey = false;
@@ -686,7 +701,11 @@
                 this.$emit('sendDataBuriedPoint', 'virturl_keyboard_event', eventInfo)
             },
             changeNet(data) {
-                this.isNetshow = data
+                if (this.isNetshow) {
+                    this.isNetshow = false
+                } else {
+                    this.isNetshow = true
+                }
             },
             showSidebar() {
                 if (this.isLocal) {
@@ -710,6 +729,8 @@
                     this.allKeys = this.CapsallKeys
                     this.CapsallKeys = newList
                 } else if (which.key === '隐藏') {
+                    this.$emit('callUpConflict', false)
+                    this.setShowTextKeyboard(false)
                     this.panel = false
                     this.allKey = false
                     this.signKey = false
@@ -857,9 +878,15 @@
                 this.needIconShow = false;
             },
             Showcustomize_son(data, opacity) {
+                // if (opacity) {
+                //     this.Showcustomize = opacity;
+                // }
+                // if (data) {
+                //     this.btnSelf(data);
+                // }
                 this.Showcustomize = opacity;
-                this.show_customize_div = true;
                 this.btnSelf(data);
+                this.show_customize_div = true;
             },
             clk_cus_close_sidebar(data) {
                 this.$emit('clk_cus_close_sidebar', data)
@@ -954,6 +981,8 @@
                             : keyInfo
                     );
                 }, 100);
+                this.$emit('callUpConflict', false)
+                this.setShowTextKeyboard(false)
                 // 打开自定义键盘,关闭文字键盘
                 this.panel = false;
                 this.allKey = false;
@@ -1000,6 +1029,8 @@
 
                 // 问题 22
                 // if (this.panel || this.allKey) {
+                this.$emit('callUpConflict', false)
+                this.setShowTextKeyboard(false)
                 this.panel = false;
                 this.allKey = false;
                 // }
@@ -1013,14 +1044,26 @@
                 };
                 this.$emit('sendDataBuriedPoint', 'virturl_keyboard_list_selection', eventInfo)
             },
-            renderResize() {
-                // 判断横竖屏
-                let width = document.documentElement.clientWidth;
-                let height = document.documentElement.clientHeight;
-                if (width > height) {
-                    this.isHorizontalScreen = true;
+            updateOrientation () {
+                var supportOrientation = (typeof window.orientation === 'number' && typeof window.onorientationchange === 'object')
+                if (supportOrientation) {
+                    var orientation = window.orientation
+                    switch (orientation) {
+                        case 90:
+                        case -90:
+                            console.log('横屏状态')
+                            this.isHorizontalScreen = true;
+                            break
+                        default:
+                            console.log('竖屏状态')
+                            this.isHorizontalScreen = false;
+                    }
                 } else {
-                    this.isHorizontalScreen = false;
+                    if (window.innerWidth > window.innerHeight) {
+                        this.isHorizontalScreen = true;
+                    } else {
+                        this.isHorizontalScreen = false;
+                    }
                 }
                 this.rotate()
             },
@@ -1190,6 +1233,9 @@
                 this.$refs.slidebar.goKeyboardList()
             },
             showBtn() { // 导航栏隐藏显示切换
+                if (this.isSidwbar) {
+                    this.$emit('changeSideBarShow', false)
+                }
                 this.isShowBtn = true;
                 clearTimeout(this.timer);
                 this.timer = setTimeout(() => {
@@ -1200,6 +1246,8 @@
                 this.$emit('byteRateChange', type, true)
             },
             hideKeyboard(){
+                this.$emit('callUpConflict', false)
+                this.setShowTextKeyboard(false)
                 this.panel = false
             },
             changeIndex(state){
@@ -1217,10 +1265,18 @@
         },
         mounted() {
             // 监听屏幕事件
-            window.addEventListener("resize", this.renderResize, false);
+            this.$nextTick(() => {
+                this.updateOrientation()
+                var supportOrientation = (typeof window.orientation === 'number' && typeof window.onorientationchange === 'object');
+                if (supportOrientation) {
+                    window.addEventListener('orientationchange', this.updateOrientation, false);
+                } else {
+                    //监听resize事件
+                    window.addEventListener('resize', this.updateOrientation, false);
+                }
+            })
         },
         async created() {
-            this.renderResize()
             if (this.firstOnloadKeyboard) {
                 this.firstOnloadKeyboard = false;
                 this.setEmptyCustomizeBtnLists([])

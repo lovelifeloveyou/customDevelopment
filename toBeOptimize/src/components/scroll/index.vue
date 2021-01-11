@@ -23,7 +23,7 @@ export default {
     up: Object,
     down: Object
   },
-  mounted: function () {
+  mounted () {
     this.mescroll = new MeScroll(this.$refs.mescroll, {
       up: this.up,
       down: this.down
