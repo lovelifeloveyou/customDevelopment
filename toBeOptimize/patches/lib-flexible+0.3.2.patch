@@ -1,0 +1,42 @@
+diff --git a/node_modules/lib-flexible/flexible.js b/node_modules/lib-flexible/flexible.js
+index c748ed9..06bc7e8 100644
+--- a/node_modules/lib-flexible/flexible.js
++++ b/node_modules/lib-flexible/flexible.js
+@@ -67,11 +67,33 @@
+     }
+ 
+     function refreshRem(){
+-        var width = docEl.getBoundingClientRect().width;
+-        if (width / dpr > 540) {
+-            width = 540 * dpr;
++        var width = document.documentElement.clientWidth
++        var height = document.documentElement.clientHeight
++        var ua = navigator.userAgent.toLowerCase()
++        if (ua.match(/iPad/i) == 'ipad') {
++            if (width / dpr > 1024) {
++                if (width / dpr > 2048) {
++                    width = 2048 * dpr
++                } else {
++                    width = 1024 * dpr
++                }
++            }
++            if (height / dpr > 1024) {
++                if (height / dpr > 2048) {
++                    height = 2048 * dpr
++                } else {
++                    height = 1024 * dpr
++                }
++            }
++        } else {
++            if (width / dpr > 540) {
++                width = 540 * dpr;
++            }
++            if (height / dpr > 540) {
++                height = 540 * dpr
++            }
+         }
+-        var rem = width / 10;
++        var rem = width > height ? width / 10 : height / 10;
+         docEl.style.fontSize = rem + 'px';
+         flexible.rem = win.rem = rem;
+     }

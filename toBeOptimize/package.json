@@ -13,7 +13,8 @@
     "build-pre-package": "vue-cli-service build --mode pre --target lib --name cloud-computer-custom ./src/index.js",
     "build-production-package": "vue-cli-service build --mode production --target lib --name cloud-computer-custom ./src/index.js",
     "lint": "vue-cli-service lint",
-    "report": "vue-cli-service build --report"
+    "report": "vue-cli-service build --report",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@antv/f2": "^3.7.3",
@@ -38,6 +39,7 @@
     "crypto-js": "^3.1.9-1",
     "image-webpack-loader": "^7.0.1",
     "node-sass": "^4.14.1",
+    "patch-package": "^6.2.2",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [
